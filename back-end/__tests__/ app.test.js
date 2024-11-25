@@ -12,13 +12,13 @@ beforeEach(() => {
     return seed(data);
 });
 
-describe("errors", () => {
+describe("Not an Endpoint", () => {
     test("GET:404 Should return an error when an invalid path is requested", () => {
         return request(app)
             .get("/api/not_an_endpoint")
             .expect(404)
             .then(({ body: { msg } }) => {
-                expect(msg).toBe("Not Found");
+                expect(msg).toBe("Endpoint Not Found");
             });
     });
 });
@@ -44,6 +44,47 @@ describe("/api/events", () => {
                     expect(typeof event.event_description_short).toBe("string");
                     expect(typeof event.event_description_long).toBe("string");
                 });
+            });
+    });
+});
+describe("/api/events/event_id", () => {
+    test("GET:200 Should return the event object with the specified event_id", () => {
+        return request(app)
+            .get("/api/events/2")
+            .expect(200)
+            .then(({ body: { event } }) => {
+                expect(event).toEqual({
+                    event_id: 2,
+                    event_created_by: 1,
+                    event_title: "Magical Gathering",
+                    event_start: "2025-01-15T14:00:00.000Z",
+                    event_end: "2025-01-15T16:00:00.000Z",
+                    event_location: "The Leaky Cauldron",
+                    event_thumbnail: "https://example.com/magic-thumbnail.jpg",
+                    event_thumbnail_alt: "The Leaky Cauldron pub",
+                    event_image: "https://example.com/magic-event.jpg",
+                    event_image_alt: "Wizards enjoying a drink",
+                    event_description_short:
+                        "A magical gathering of wizards and witches",
+                    event_description_long:
+                        "Join us for a magical gathering where wizards and witches come together at The Leaky Cauldron.",
+                });
+            });
+    });
+    test("GET:400 Should return an error when given an invalid event_id", () => {
+        return request(app)
+            .get("/api/events/bad_id")
+            .expect(400)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Invalid Request");
+            });
+    });
+    test("GET:404 Should return an error when given an event_id which doesn't exist", () => {
+        return request(app)
+            .get("/api/events/10")
+            .expect(404)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Resource Not Found");
             });
     });
 });
