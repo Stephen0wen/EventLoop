@@ -1,0 +1,21 @@
+{
+    "name": "back-end",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "jest",
+        "dev": "nodemon listen.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.7"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.21.1"
+    }
+}
