@@ -1,0 +1,58 @@
+[
+    {
+        "event_id": 1,
+        "event_created_by": 2,
+        "event_title": "Hello Event World",
+        "event_start": "2024-12-25T09:30:00Z",
+        "event_end": "2024-12-25T11:30:00Z",
+        "event_location": "4 Privet Drive",
+        "event_thumbnail": "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+        "event_thumbnail_alt": "A wizards childhood home",
+        "event_image": "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+        "event_image_alt": "A wizards aunt stood infront of his childhood home",
+        "event_description_short": "Lets say hello to the magical world of events",
+        "event_description_long": "A longer description of an event at Mr Potter's house"
+    },
+    {
+        "event_id": 2,
+        "event_created_by": 1,
+        "event_title": "Magical Gathering",
+        "event_start": "2025-01-15T14:00:00Z",
+        "event_end": "2025-01-15T16:00:00Z",
+        "event_location": "The Leaky Cauldron",
+        "event_thumbnail": "https://example.com/magic-thumbnail.jpg",
+        "event_thumbnail_alt": "The Leaky Cauldron pub",
+        "event_image": "https://example.com/magic-event.jpg",
+        "event_image_alt": "Wizards enjoying a drink",
+        "event_description_short": "A magical gathering of wizards and witches",
+        "event_description_long": "Join us for a magical gathering where wizards and witches come together at The Leaky Cauldron."
+    },
+    {
+        "event_id": 3,
+        "event_created_by": 1,
+        "event_title": "Wizarding World Tour",
+        "event_start": "2025-02-01T10:00:00Z",
+        "event_end": "2025-02-01T17:00:00Z",
+        "event_location": "Hogwarts Castle",
+        "event_thumbnail": "https://example.com/hogwarts-thumbnail.jpg",
+        "event_thumbnail_alt": "Hogwarts Castle at dusk",
+        "event_image": "https://example.com/hogwarts-tour.jpg",
+        "event_image_alt": "Tour group inside Hogwarts",
+        "event_description_short": "A full-day tour through the iconic Hogwarts Castle",
+        "event_description_long": "Explore the famous Hogwarts Castle on this immersive tour, with stops at key locations like the Great Hall and Gryffindor Tower."
+    },
+    {
+        "event_id": 4,
+        "event_created_by": 1,
+        "event_title": "Quidditch World Cup Finals",
+        "event_start": "2025-03-10T15:00:00Z",
+        "event_end": "2025-03-10T18:00:00Z",
+        "event_location": "Quidditch Stadium",
+        "event_thumbnail": "https://example.com/quidditch-thumbnail.jpg",
+        "event_thumbnail_alt": "Quidditch match in progress",
+        "event_image": "https://example.com/quidditch-finals.jpg",
+        "event_image_alt": "Teams competing in the Quidditch World Cup",
+        "event_description_short": "The final match of the Quidditch World Cup",
+        "event_description_long": "Witness the thrilling final of the Quidditch World Cup, where the best teams from around the world compete for glory."
+    }
+]
