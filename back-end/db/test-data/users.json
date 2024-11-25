@@ -1,0 +1,32 @@
+[
+    {
+        "user_firebase_id": "WE1Lj37oKjY9GVJkJlBiodgCRYn1",
+        "user_email": "staff@test.com",
+        "user_is_staff": true
+    },
+    {
+        "user_firebase_id": "HTHuLsubUPZPPcZBH8TQDo8xpny1",
+        "user_email": "staff2@test.com",
+        "user_is_staff": true
+    },
+    {
+        "user_firebase_id": "xj4XDZXP6KVYDEqaAMFsjzeFsdb2",
+        "user_email": "staff3@test.com",
+        "user_is_staff": true
+    },
+    {
+        "user_firebase_id": "uLtxL0Q9IsSxYz9rERInd35Vs5N2",
+        "user_email": "public@test.com",
+        "user_is_staff": false
+    },
+    {
+        "user_firebase_id": "szrrPehNwZQINdQ7wa0bfcSswqE3",
+        "user_email": "public2@test.com",
+        "user_is_staff": false
+    },
+    {
+        "user_firebase_id": "5MKBQp7WmgNnYFaxTdpueJVRBdC2",
+        "user_email": "public3@test.com",
+        "user_is_staff": false
+    }
+]
