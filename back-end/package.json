@@ -15,7 +15,8 @@
     "devDependencies": {
         "jest": "^29.7.0",
         "nodemon": "^3.1.7",
-        "pg-format": "^1.0.4"
+        "pg-format": "^1.0.4",
+        "supertest": "^7.0.0"
     },
     "dependencies": {
         "cors": "^2.8.5",
