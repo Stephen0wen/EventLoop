@@ -4,6 +4,7 @@ const db = require("../db/connection");
 const seed = require("../db/seeds/seeds");
 const data = require("../db/test-data/index");
 const endpoints = require("../endpoints.json");
+const { getToken } = require("../utils/getToken");
 
 afterAll(() => {
     return db.end();
@@ -56,7 +57,7 @@ describe("/api/events", () => {
             });
     });
 });
-describe("/api/events/event_id", () => {
+describe("/api/events/:event_id", () => {
     test("GET:200 Should return the event object with the specified event_id", () => {
         return request(app)
             .get("/api/events/2")
@@ -95,5 +96,62 @@ describe("/api/events/event_id", () => {
             .then(({ body: { msg } }) => {
                 expect(msg).toBe("Resource Not Found");
             });
+    });
+});
+describe("/api/user/:user_id/events", () => {
+    test("GET:200 Should return an array of events associated with the user", () => {
+        return getToken(4)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/4/events")
+                    .set({ auth: idToken })
+                    .expect(200);
+            })
+            .then(({ body: { events } }) => {
+                expect(events.length).toBe(2);
+                events.forEach((event) => {
+                    expect(Object.keys(event).length).toBe(12);
+                    expect(typeof event.event_id).toBe("number");
+                    expect(typeof event.event_created_by).toBe("number");
+                    expect(typeof event.event_title).toBe("string");
+                    expect(typeof event.event_start).toBe("string");
+                    expect(typeof event.event_end).toBe("string");
+                    expect(typeof event.event_location).toBe("string");
+                    expect(typeof event.event_thumbnail).toBe("string");
+                    expect(typeof event.event_thumbnail_alt).toBe("string");
+                    expect(typeof event.event_image).toBe("string");
+                    expect(typeof event.event_image_alt).toBe("string");
+                    expect(typeof event.event_description_short).toBe("string");
+                    expect(typeof event.event_description_long).toBe("string");
+                });
+            });
+    });
+    test("GET:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .get("/api/user/4/events")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("GET:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .get("/api/user/4/events")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(5).then((idToken) => {
+            return request(app)
+                .get("/api/user/4/events")
+                .set({ auth: idToken })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
+                });
+        });
     });
 });
