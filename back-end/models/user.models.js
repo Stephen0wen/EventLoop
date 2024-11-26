@@ -46,3 +46,20 @@ exports.fetchUserEvents = (user_id) => {
             return rows;
         });
 };
+
+exports.insertAttendance = (user_id, event_id) => {
+    return db
+        .query(
+            `
+    INSERT INTO attendance
+      (user_id, event_id)
+    VALUES
+      ($1, $2)
+    RETURNING *
+      `,
+            [user_id, event_id]
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};

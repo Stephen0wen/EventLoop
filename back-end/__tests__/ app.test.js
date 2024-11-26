@@ -155,3 +155,70 @@ describe("/api/user/:user_id/events", () => {
         });
     });
 });
+describe("/api/user/:user_id/events/:event_id", () => {
+    test("POST:201 Should register the attendance of the user to the event and return the new attendance object", () => {
+        return getToken(6).then((idToken) => {
+            return request(app)
+                .post("/api/user/6/events/1")
+                .set({ auth: idToken })
+                .expect(201)
+                .then(({ body: { attendance } }) => {
+                    expect(attendance).toEqual({
+                        attendance_id: 9,
+                        event_id: 1,
+                        user_id: 6,
+                    });
+                });
+        });
+    });
+    test("POST:400 Should return an error when given an invalid event_id", () => {
+        return getToken(4).then((idToken) => {
+            return request(app)
+                .post("/api/user/4/events/bad_id")
+                .set({ auth: idToken })
+                .expect(400)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Invalid Request");
+                });
+        });
+    });
+    test("POST:404 Should return an error when given an event_id which doesn't exist", () => {
+        return getToken(4).then((idToken) => {
+            return request(app)
+                .post("/api/user/4/events/999")
+                .set({ auth: idToken })
+                .expect(404)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Resource Not Found");
+                });
+        });
+    });
+    test("POST:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .post("/api/user/4/events/1")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("POST:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .post("/api/user/4/events/1")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("POST:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(5).then((idToken) => {
+            return request(app)
+                .post("/api/user/4/events/1")
+                .set({ auth: idToken })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
+                });
+        });
+    });
+});
