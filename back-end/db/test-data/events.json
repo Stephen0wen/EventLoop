@@ -1,6 +1,5 @@
 [
     {
-        "event_id": 1,
         "event_created_by": 2,
         "event_title": "Hello Event World",
         "event_start": "2024-12-25T09:30:00Z",
@@ -14,7 +13,6 @@
         "event_description_long": "A longer description of an event at Mr Potter's house"
     },
     {
-        "event_id": 2,
         "event_created_by": 1,
         "event_title": "Magical Gathering",
         "event_start": "2025-01-15T14:00:00Z",
@@ -28,7 +26,6 @@
         "event_description_long": "Join us for a magical gathering where wizards and witches come together at The Leaky Cauldron."
     },
     {
-        "event_id": 3,
         "event_created_by": 1,
         "event_title": "Wizarding World Tour",
         "event_start": "2025-02-01T10:00:00Z",
@@ -42,7 +39,6 @@
         "event_description_long": "Explore the famous Hogwarts Castle on this immersive tour, with stops at key locations like the Great Hall and Gryffindor Tower."
     },
     {
-        "event_id": 4,
         "event_created_by": 1,
         "event_title": "Quidditch World Cup Finals",
         "event_start": "2025-03-10T15:00:00Z",

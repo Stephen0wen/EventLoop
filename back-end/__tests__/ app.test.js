@@ -3,6 +3,7 @@ const request = require("supertest");
 const db = require("../db/connection");
 const seed = require("../db/seeds/seeds");
 const data = require("../db/test-data/index");
+const endpoints = require("../endpoints.json");
 
 afterAll(() => {
     return db.end();
@@ -12,7 +13,15 @@ beforeEach(() => {
     return seed(data);
 });
 
-describe("Not an Endpoint", () => {
+describe("/api", () => {
+    test("GET:200 Should return the endpoints.json file", () => {
+        return request(app)
+            .get("/api")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body).toEqual(endpoints);
+            });
+    });
     test("GET:404 Should return an error when an invalid path is requested", () => {
         return request(app)
             .get("/api/not_an_endpoint")

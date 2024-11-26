@@ -1,7 +1,8 @@
 const { fetchEvents, fetchEvent } = require("../models/public.models");
+const endpoints = require("../endpoints.json");
 
 exports.getEndpoints = (req, res, next) => {
-    res.status(200).send("Welcome to the EventLoop api!");
+    res.status(200).send(endpoints);
 };
 
 exports.getEvents = (req, res, next) => {
