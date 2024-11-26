@@ -293,3 +293,51 @@ describe("/api/staff/:user_id/events", () => {
         });
     });
 });
+describe.only("/api/staff/:user_id/events/:event_id", () => {
+    test("PATCH:200 Should update the event and return the new event object", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/2/events/1")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(200)
+                .then(({ body: { event } }) => {
+                    expect(event).toEqual({
+                        event_id: 1,
+                        event_created_by: 2,
+                        event_title: "A whole New Event Name",
+                        event_start: "2024-12-25T10:30:00.000Z",
+                        event_end: "2024-12-25T12:30:00.000Z",
+                        event_location: "42 Privet Drive",
+                        event_thumbnail:
+                            "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                        event_thumbnail_alt: "A wizards childhood home",
+                        event_image:
+                            "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                        event_image_alt:
+                            "A wizards aunt stood infront of his childhood home",
+                        event_description_short:
+                            "Lets say hello to the magical world of events",
+                        event_description_long:
+                            "A longer description of an event at Mr Potter's house",
+                    });
+                });
+        });
+    });
+});

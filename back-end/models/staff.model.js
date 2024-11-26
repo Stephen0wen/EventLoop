@@ -44,3 +44,39 @@ exports.fetchStaffEvents = (user_id) => {
             return rows;
         });
 };
+
+exports.updateEvent = (user_id, event_id, requestBody) => {
+    return db
+        .query(
+            `
+    UPDATE events
+    SET event_title = $1,
+      event_start = $2,
+      event_end = $3,
+      event_location = $4,
+      event_thumbnail = $5,
+      event_thumbnail_alt = $6,
+      event_image = $7,
+      event_image_alt = $8,
+      event_description_short = $9,
+      event_description_long = $10
+    WHERE event_id = $11
+    RETURNING *`,
+            [
+                requestBody.event_title,
+                requestBody.event_start,
+                requestBody.event_end,
+                requestBody.event_location,
+                requestBody.event_thumbnail,
+                requestBody.event_thumbnail_alt,
+                requestBody.event_image,
+                requestBody.event_image_alt,
+                requestBody.event_description_short,
+                requestBody.event_description_long,
+                event_id,
+            ]
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};
