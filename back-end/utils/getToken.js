@@ -20,5 +20,8 @@ exports.getToken = (user_id) => {
         )
         .then(({ data: { idToken } }) => {
             return idToken;
+        })
+        .catch((error) => {
+            console.log(error.response.data.error);
         });
 };
