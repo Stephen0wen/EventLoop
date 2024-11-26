@@ -91,5 +91,92 @@
                 }
             }
         }
+    },
+    {
+        "GET /api/users/:user_id/events": {
+            "description": "Serves an array of event objects the user is registered to attend",
+            "queries": [],
+            "exampleResponse": {
+                "events": [
+                    {
+                        "event_id": 3,
+                        "event_created_by": 1,
+                        "event_title": "Wizarding World Tour",
+                        "event_start": "2025-02-01T10:00:00Z",
+                        "event_end": "2025-02-01T17:00:00Z",
+                        "event_location": "Hogwarts Castle",
+                        "event_thumbnail": "https://example.com/hogwarts-thumbnail.jpg",
+                        "event_thumbnail_alt": "Hogwarts Castle at dusk",
+                        "event_image": "https://example.com/hogwarts-tour.jpg",
+                        "event_image_alt": "Tour group inside Hogwarts",
+                        "event_description_short": "A full-day tour through the iconic Hogwarts Castle",
+                        "event_description_long": "Explore the famous Hogwarts Castle on this immersive tour, with stops at key locations like the Great Hall and Gryffindor Tower."
+                    },
+                    {
+                        "event_id": 4,
+                        "event_created_by": 3,
+                        "event_title": "Quidditch World Cup Finals",
+                        "event_start": "2025-03-10T15:00:00Z",
+                        "event_end": "2025-03-10T18:00:00Z",
+                        "event_location": "Quidditch Stadium",
+                        "event_thumbnail": "https://example.com/quidditch-thumbnail.jpg",
+                        "event_thumbnail_alt": "Quidditch match in progress",
+                        "event_image": "https://example.com/quidditch-finals.jpg",
+                        "event_image_alt": "Teams competing in the Quidditch World Cup",
+                        "event_description_short": "The final match of the Quidditch World Cup",
+                        "event_description_long": "Witness the thrilling final of the Quidditch World Cup, where the best teams from around the world compete for glory."
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "POST /api/users/:user_id/events/:event_id": {
+            "description": "Registers the users attendance at the event and returns the attendance object",
+            "queries": [],
+            "exampleResponse": {
+                "attendance_id": 9,
+                "event_id": 4,
+                "user_id": 5
+            }
+        }
+    },
+    {
+        "GET /api/staff/:user_id/events": {
+            "description": "Serves an array of event objects created by the user",
+            "queries": [],
+            "exampleResponse": {
+                "events": [
+                    {
+                        "event_id": 3,
+                        "event_created_by": 1,
+                        "event_title": "Wizarding World Tour",
+                        "event_start": "2025-02-01T10:00:00Z",
+                        "event_end": "2025-02-01T17:00:00Z",
+                        "event_location": "Hogwarts Castle",
+                        "event_thumbnail": "https://example.com/hogwarts-thumbnail.jpg",
+                        "event_thumbnail_alt": "Hogwarts Castle at dusk",
+                        "event_image": "https://example.com/hogwarts-tour.jpg",
+                        "event_image_alt": "Tour group inside Hogwarts",
+                        "event_description_short": "A full-day tour through the iconic Hogwarts Castle",
+                        "event_description_long": "Explore the famous Hogwarts Castle on this immersive tour, with stops at key locations like the Great Hall and Gryffindor Tower."
+                    },
+                    {
+                        "event_id": 4,
+                        "event_created_by": 1,
+                        "event_title": "Quidditch World Cup Finals",
+                        "event_start": "2025-03-10T15:00:00Z",
+                        "event_end": "2025-03-10T18:00:00Z",
+                        "event_location": "Quidditch Stadium",
+                        "event_thumbnail": "https://example.com/quidditch-thumbnail.jpg",
+                        "event_thumbnail_alt": "Quidditch match in progress",
+                        "event_image": "https://example.com/quidditch-finals.jpg",
+                        "event_image_alt": "Teams competing in the Quidditch World Cup",
+                        "event_description_short": "The final match of the Quidditch World Cup",
+                        "event_description_long": "Witness the thrilling final of the Quidditch World Cup, where the best teams from around the world compete for glory."
+                    }
+                ]
+            }
+        }
     }
 ]
