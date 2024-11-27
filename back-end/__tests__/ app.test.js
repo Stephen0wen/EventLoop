@@ -32,6 +32,7 @@ describe("/api", () => {
             });
     });
 });
+
 describe("/api/events", () => {
     test("GET:200 Should return an array of event objects", () => {
         return request(app)
@@ -57,6 +58,7 @@ describe("/api/events", () => {
             });
     });
 });
+
 describe("/api/events/:event_id", () => {
     test("GET:200 Should return the event object with the specified event_id", () => {
         return request(app)
@@ -98,6 +100,7 @@ describe("/api/events/:event_id", () => {
             });
     });
 });
+
 describe("/api/user/:user_id/events", () => {
     test("GET:200 Should return an array of events associated with the user", () => {
         return getToken(4)
@@ -156,6 +159,7 @@ describe("/api/user/:user_id/events", () => {
             });
     });
 });
+
 describe("/api/user/:user_id/events/:event_id", () => {
     test("POST:201 Should register the attendance of the user to the event and return the new attendance object", () => {
         return getToken(6)
@@ -227,6 +231,7 @@ describe("/api/user/:user_id/events/:event_id", () => {
             });
     });
 });
+
 describe("/api/staff/:user_id/events", () => {
     test("GET:200 Should return an array of events created by the user", () => {
         return getToken(1)
@@ -296,6 +301,7 @@ describe("/api/staff/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
+
     test("POST:201 Should create an event and return the new event object", () => {
         return getToken(2)
             .then((idToken) => {
@@ -484,6 +490,7 @@ describe("/api/staff/:user_id/events", () => {
             });
     });
 });
+
 describe("/api/staff/:user_id/events/:event_id", () => {
     test("PATCH:200 Should update the event and return the new event object", () => {
         return getToken(2)
@@ -745,6 +752,7 @@ describe("/api/staff/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
+
     test("DELETE:204 Should delete the event along with all associated attendence data an empty object", () => {
         return getToken(2)
             .then((idToken) => {
