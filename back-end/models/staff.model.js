@@ -24,7 +24,45 @@ exports.fetchStaffEvents = (user_id) => {
     return db
         .query(
             `
-    SELECT event_id,
+  SELECT event_id,
+    event_created_by,
+    event_title,
+    event_start,
+    event_end,
+    event_location,
+    event_thumbnail,
+    event_thumbnail_alt,
+    event_image,
+    event_image_alt,
+    event_description_short,
+    event_description_long 
+  FROM events
+  WHERE event_created_by=$1`,
+            [user_id]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+exports.insertEvent = (user_id, requestBody) => {
+    const {
+        event_title,
+        event_start,
+        event_end,
+        event_location,
+        event_thumbnail,
+        event_thumbnail_alt,
+        event_image,
+        event_image_alt,
+        event_description_short,
+        event_description_long,
+    } = requestBody;
+
+    return db
+        .query(
+            `
+    INSERT INTO events (
       event_created_by,
       event_title,
       event_start,
@@ -35,13 +73,25 @@ exports.fetchStaffEvents = (user_id) => {
       event_image,
       event_image_alt,
       event_description_short,
-      event_description_long 
-    FROM events
-    WHERE event_created_by=$1`,
-            [user_id]
+      event_description_long)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    RETURNING *`,
+            [
+                user_id,
+                event_title,
+                event_start,
+                event_end,
+                event_location,
+                event_thumbnail,
+                event_thumbnail_alt,
+                event_image,
+                event_image_alt,
+                event_description_short,
+                event_description_long,
+            ]
         )
         .then(({ rows }) => {
-            return rows;
+            return rows[0];
         });
 };
 

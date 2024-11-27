@@ -292,6 +292,182 @@ describe("/api/staff/:user_id/events", () => {
                 });
         });
     });
+    test("POST:201 Should create an event and return the new event object", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .post("/api/staff/2/events")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "Potion Brewing Workshop",
+                    event_start: "2025-04-12T10:00:00Z",
+                    event_end: "2025-04-12T13:00:00Z",
+                    event_location: "Snape's Dungeon",
+                    event_thumbnail:
+                        "https://example.com/potions-thumbnail.jpg",
+                    event_thumbnail_alt: "Potions bottles and cauldrons",
+                    event_image: "https://example.com/potions-workshop.jpg",
+                    event_image_alt:
+                        "Students brewing potions in a dark dungeon",
+                    event_description_short: "Learn the art of potion brewing",
+                    event_description_long:
+                        "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+                })
+                .expect(201)
+                .then(({ body: { event } }) => {
+                    expect(event).toEqual({
+                        event_id: 5,
+                        event_created_by: 2,
+                        event_title: "Potion Brewing Workshop",
+                        event_start: "2025-04-12T09:00:00.000Z",
+                        event_end: "2025-04-12T12:00:00.000Z",
+                        event_location: "Snape's Dungeon",
+                        event_thumbnail:
+                            "https://example.com/potions-thumbnail.jpg",
+                        event_thumbnail_alt: "Potions bottles and cauldrons",
+                        event_image: "https://example.com/potions-workshop.jpg",
+                        event_image_alt:
+                            "Students brewing potions in a dark dungeon",
+                        event_description_short:
+                            "Learn the art of potion brewing",
+                        event_description_long:
+                            "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+                    });
+                });
+        });
+    });
+    test("POST:400 Should return an error when given an incomplete request body", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .post("/api/staff/2/events")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "Potion Brewing Workshop",
+                    event_start: "2025-04-12T10:00:00Z",
+                    event_end: "2025-04-12T13:00:00Z",
+                })
+                .expect(400)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toEqual("Invalid Request Body");
+                });
+        });
+    });
+    test("POST:400 Should return an error when given a complete request with invalid data", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .post("/api/staff/2/events")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "Potion Brewing Workshop",
+                    event_start: "not a datetime",
+                    event_end: "not a datetime",
+                    event_location: "Snape's Dungeon",
+                    event_thumbnail:
+                        "https://example.com/potions-thumbnail.jpg",
+                    event_thumbnail_alt: "Potions bottles and cauldrons",
+                    event_image: "https://example.com/potions-workshop.jpg",
+                    event_image_alt:
+                        "Students brewing potions in a dark dungeon",
+                    event_description_short: "Learn the art of potion brewing",
+                    event_description_long:
+                        "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+                });
+        });
+    });
+    test("POST:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .post("/api/staff/1/events")
+            .send({
+                event_title: "Potion Brewing Workshop",
+                event_start: "2025-04-12T10:00:00Z",
+                event_end: "2025-04-12T13:00:00Z",
+                event_location: "Snape's Dungeon",
+                event_thumbnail: "https://example.com/potions-thumbnail.jpg",
+                event_thumbnail_alt: "Potions bottles and cauldrons",
+                event_image: "https://example.com/potions-workshop.jpg",
+                event_image_alt: "Students brewing potions in a dark dungeon",
+                event_description_short: "Learn the art of potion brewing",
+                event_description_long:
+                    "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+            })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("POST:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .post("/api/staff/1/events")
+            .set({ auth: "not a token" })
+            .send({
+                event_title: "Potion Brewing Workshop",
+                event_start: "2025-04-12T10:00:00Z",
+                event_end: "2025-04-12T13:00:00Z",
+                event_location: "Snape's Dungeon",
+                event_thumbnail: "https://example.com/potions-thumbnail.jpg",
+                event_thumbnail_alt: "Potions bottles and cauldrons",
+                event_image: "https://example.com/potions-workshop.jpg",
+                event_image_alt: "Students brewing potions in a dark dungeon",
+                event_description_short: "Learn the art of potion brewing",
+                event_description_long:
+                    "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+            })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("POST:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .post("/api/staff/1/events")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "Potion Brewing Workshop",
+                    event_start: "2025-04-12T10:00:00Z",
+                    event_end: "2025-04-12T13:00:00Z",
+                    event_location: "Snape's Dungeon",
+                    event_thumbnail:
+                        "https://example.com/potions-thumbnail.jpg",
+                    event_thumbnail_alt: "Potions bottles and cauldrons",
+                    event_image: "https://example.com/potions-workshop.jpg",
+                    event_image_alt:
+                        "Students brewing potions in a dark dungeon",
+                    event_description_short: "Learn the art of potion brewing",
+                    event_description_long:
+                        "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+                })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
+                });
+        });
+    });
+    test("POST:403 Should return an authentication if user_is_staff is false", () => {
+        return getToken(4).then((idToken) => {
+            return request(app)
+                .post("/api/staff/4/events")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "Potion Brewing Workshop",
+                    event_start: "2025-04-12T10:00:00Z",
+                    event_end: "2025-04-12T13:00:00Z",
+                    event_location: "Snape's Dungeon",
+                    event_thumbnail:
+                        "https://example.com/potions-thumbnail.jpg",
+                    event_thumbnail_alt: "Potions bottles and cauldrons",
+                    event_image: "https://example.com/potions-workshop.jpg",
+                    event_image_alt:
+                        "Students brewing potions in a dark dungeon",
+                    event_description_short: "Learn the art of potion brewing",
+                    event_description_long:
+                        "Join a hands-on workshop to master the delicate craft of potion brewing, guided by a potions expert.",
+                })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
+                });
+        });
+    });
 });
 describe("/api/staff/:user_id/events/:event_id", () => {
     test("PATCH:200 Should update the event and return the new event object", () => {
