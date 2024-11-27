@@ -136,3 +136,31 @@ exports.updateEvent = (event_id, requestBody) => {
             return rows[0];
         });
 };
+
+exports.dropEvent = (event_id) => {
+    return db
+        .query(
+            `
+    DELETE FROM attendance
+    WHERE event_id = $1`,
+            [event_id]
+        )
+        .then(() => {
+            return db.query(
+                `
+    DELETE FROM events
+    WHERE event_id = $1
+    RETURNING *
+`,
+                [event_id]
+            );
+        })
+        .then(({ rows }) => {
+            if (!rows.length) {
+                return Promise.reject({
+                    status: 404,
+                    msg: "Resource Not Found",
+                });
+            }
+        });
+};

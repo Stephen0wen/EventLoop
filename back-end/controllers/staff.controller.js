@@ -4,6 +4,7 @@ const {
     fetchStaffEvents,
     insertEvent,
     updateEvent,
+    dropEvent,
 } = require("../models/staff.model");
 
 exports.getStaffEvents = (req, res, next) => {
@@ -47,6 +48,21 @@ exports.patchEvent = (req, res, next) => {
         })
         .then((event) => {
             res.status(200).send({ event });
+        })
+        .catch(next);
+};
+
+exports.deleteEvent = (req, res, next) => {
+    const { user_id, event_id } = req.params;
+    return authenticate(req)
+        .then((firebase_id) => {
+            return varifyStaff(user_id, firebase_id);
+        })
+        .then(() => {
+            return dropEvent(event_id);
+        })
+        .then((event) => {
+            res.status(204).send(event);
         })
         .catch(next);
 };
