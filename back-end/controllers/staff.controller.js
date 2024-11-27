@@ -27,7 +27,7 @@ exports.patchEvent = (req, res, next) => {
             return varifyStaff(user_id, firebase_id);
         })
         .then(() => {
-            return updateEvent(user_id, event_id, req.body);
+            return updateEvent(event_id, req.body);
         })
         .then((event) => {
             res.status(200).send({ event });

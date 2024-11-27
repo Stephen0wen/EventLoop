@@ -45,7 +45,7 @@ exports.fetchStaffEvents = (user_id) => {
         });
 };
 
-exports.updateEvent = (user_id, event_id, requestBody) => {
+exports.updateEvent = (event_id, requestBody) => {
     return db
         .query(
             `
@@ -77,6 +77,12 @@ exports.updateEvent = (user_id, event_id, requestBody) => {
             ]
         )
         .then(({ rows }) => {
+            if (!rows.length) {
+                return Promise.reject({
+                    status: 404,
+                    msg: "Resource Not Found",
+                });
+            }
             return rows[0];
         });
 };

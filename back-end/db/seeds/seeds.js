@@ -25,15 +25,15 @@ const seed = ({ userData, eventData, attendanceData }) => {
         event_id SERIAL PRIMARY KEY,
         event_created_by INT REFERENCES users(user_id) NOT NULL,
         event_title VARCHAR(40) NOT NULL,
-        event_start TIMESTAMP,
-        event_end TIMESTAMP,
-        event_location VARCHAR,
-        event_thumbnail VARCHAR,
-        event_thumbnail_alt VARCHAR,
-        event_image VARCHAR,
-        event_image_alt VARCHAR,
-        event_description_short VARCHAR(120),
-        event_description_long TEXT
+        event_start TIMESTAMP NOT NULL,
+        event_end TIMESTAMP NOT NULL,
+        event_location VARCHAR NOT NULL,
+        event_thumbnail VARCHAR NOT NULL,
+        event_thumbnail_alt VARCHAR NOT NULL,
+        event_image VARCHAR NOT NULL,
+        event_image_alt VARCHAR NOT NULL,
+        event_description_short VARCHAR(120) NOT NULL,
+        event_description_long TEXT NOT NULL
       );`);
         })
         .then(() => {

@@ -293,7 +293,7 @@ describe("/api/staff/:user_id/events", () => {
         });
     });
 });
-describe.only("/api/staff/:user_id/events/:event_id", () => {
+describe("/api/staff/:user_id/events/:event_id", () => {
     test("PATCH:200 Should update the event and return the new event object", () => {
         return getToken(2).then((idToken) => {
             return request(app)
@@ -337,6 +337,213 @@ describe.only("/api/staff/:user_id/events/:event_id", () => {
                         event_description_long:
                             "A longer description of an event at Mr Potter's house",
                     });
+                });
+        });
+    });
+    test("PATCH:400 Should return an error when given an incomplete request body", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/2/events/1")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                })
+                .expect(400)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toEqual("Invalid Request Body");
+                });
+        });
+    });
+    test("PATCH:400 Should return an error when given a complete request with invalid data", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/2/events/1")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "not a datetime",
+                    event_end: "not a datetime",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(400)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toEqual("Invalid Request Body");
+                });
+        });
+    });
+    test("PATCH:400 Should return an error when given an invalid event_id", () => {
+        return getToken(1).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/1/events/bad_id")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(400)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Invalid Request");
+                });
+        });
+    });
+    test("PATCH:404 Should return an error when given an event_id which doesn't exist", () => {
+        return getToken(1).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/1/events/999")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(404)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Resource Not Found");
+                });
+        });
+    });
+    test("PATCH:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .patch("/api/staff/1/events/1")
+            .send({
+                event_title: "A whole New Event Name",
+                event_start: "2024-12-25T10:30:00.000Z",
+                event_end: "2024-12-25T12:30:00.000Z",
+                event_location: "42 Privet Drive",
+                event_thumbnail:
+                    "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                event_thumbnail_alt: "A wizards childhood home",
+                event_image:
+                    "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                event_image_alt:
+                    "A wizards aunt stood infront of his childhood home",
+                event_description_short:
+                    "Lets say hello to the magical world of events",
+                event_description_long:
+                    "A longer description of an event at Mr Potter's house",
+            })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("PATCH:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .patch("/api/staff/1/events/1")
+            .set({ auth: "not a token" })
+            .send({
+                event_title: "A whole New Event Name",
+                event_start: "2024-12-25T10:30:00.000Z",
+                event_end: "2024-12-25T12:30:00.000Z",
+                event_location: "42 Privet Drive",
+                event_thumbnail:
+                    "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                event_thumbnail_alt: "A wizards childhood home",
+                event_image:
+                    "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                event_image_alt:
+                    "A wizards aunt stood infront of his childhood home",
+                event_description_short:
+                    "Lets say hello to the magical world of events",
+                event_description_long:
+                    "A longer description of an event at Mr Potter's house",
+            })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("PATCH:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(2).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/1/events/1")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
+                });
+        });
+    });
+    test("PATCH:403 Should return an authentication if user_is_staff is false", () => {
+        return getToken(4).then((idToken) => {
+            return request(app)
+                .patch("/api/staff/4/events/1")
+                .set({ auth: idToken })
+                .send({
+                    event_title: "A whole New Event Name",
+                    event_start: "2024-12-25T10:30:00.000Z",
+                    event_end: "2024-12-25T12:30:00.000Z",
+                    event_location: "42 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toBe("Authentication Failed");
                 });
         });
     });
