@@ -1,7 +1,7 @@
 const userRouter = require("express").Router();
 const {
-    getUserEvents,
-    postAttendance,
+    getUserEvents: getUserEvents,
+    postAttendance: postAttendance,
 } = require("../controllers/user.controller");
 
 userRouter.get("/:user_id/events", getUserEvents);
