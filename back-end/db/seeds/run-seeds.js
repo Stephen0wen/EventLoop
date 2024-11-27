@@ -1,9 +1,9 @@
-const testData = require("../test-data/index.js");
+const devData = require("../development-data/index.js");
 const seed = require("./seeds.js");
 const db = require("../connection.js");
 
 const runSeed = () => {
-    return seed(testData).then(() => db.end());
+    return seed(devData).then(() => db.end());
 };
 
 runSeed();
