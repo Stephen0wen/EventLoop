@@ -1,37 +1,62 @@
 :root {
+    --background-colour: #101210;
+    --primary-colour: rgb(10, 180, 10);
+    --on-primary-colour: #ffffdf;
+    --secondary-colour: #777;
+    --danger-colour: rgb(255, 40, 40);
+    --accent-colour: #99ff80;
+    --on-accent-colour: #006600;
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: var(--primary-colour);
+    background-color: var(--background-colour);
+
+    font-size: clamp(16px, min(2vw, 2vh), 20px);
+}
+
+*,
+::before,
+::after {
+    padding: 0;
+    margin: 0;
+}
+
+#root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding-top: 3.5rem;
+    padding-bottom: 3rem;
 }
 
 button {
     border-radius: 8px;
     border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     font-family: inherit;
-    background-color: #1a1a1a;
+    color: var(--on-accent-colour);
+    background-color: var(--accent-colour);
     cursor: pointer;
     transition: border-color 0.25s;
 }
 button:hover {
-    border-color: #646cff;
+    border-color: var(--on-accent-colour);
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        color: #213547;
-        background-color: #ffffff;
+        --background-colour: #ffe;
+        --secondary-colour: #999;
+        --danger-colour: rgb(255, 0, 0);
     }
     a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
+        color: #005;
     }
 }
