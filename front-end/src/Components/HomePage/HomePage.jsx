@@ -27,9 +27,14 @@ function HomePage() {
     }
 
     return (
-        <section id="events" className="page">
-            <EventGrid events={events} />
-        </section>
+        <>
+            <section id="welcome" className="page">
+                <h2>Welcome to EventLoop!</h2>
+            </section>
+            <section id="events" className="page">
+                <EventGrid events={events} />
+            </section>
+        </>
     );
 }
 
