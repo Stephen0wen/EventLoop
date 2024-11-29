@@ -7,3 +7,11 @@ export function getEvents() {
         return events;
     });
 }
+
+export function getEvent(event_id) {
+    return axios
+        .get(`${baseURL}/api/events/${event_id}`)
+        .then(({ data: { event } }) => {
+            return event;
+        });
+}
