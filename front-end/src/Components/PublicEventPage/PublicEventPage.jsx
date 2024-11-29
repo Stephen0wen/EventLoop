@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { getEvent } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
+import { useNavigate } from "react-router-dom";
 
 function PublicEventPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const { event_id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLoading(true);
@@ -22,12 +24,22 @@ function PublicEventPage() {
     }, []);
 
     if (isLoading) {
-        return <LoadMsg msg="Loading Event.." />;
+        return <LoadMsg message="Loading Event.." />;
     }
 
     return (
         <section id="public-event-page" className="page">
             <EventDetails event={event} />
+            <div id="button-container">
+                <button
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                >
+                    {"<-- Back <--"}
+                </button>
+                <button>Log In</button>
+            </div>
         </section>
     );
 }
