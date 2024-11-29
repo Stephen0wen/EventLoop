@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { getEvents } from "../../apiRequests";
+import EventGrid from "../EventGrid/EventGrid";
 
 function HomePage() {
     const [events, setEvents] = useState([]);
@@ -30,12 +31,7 @@ function HomePage() {
 
     return (
         <section id="events" className="page">
-            <div>
-                {events.map((event) => {
-                    console.dir(event);
-                    return <h2 key={event.event_id}>{event.event_title}</h2>;
-                })}
-            </div>
+            <EventGrid events={events} />
         </section>
     );
 }
