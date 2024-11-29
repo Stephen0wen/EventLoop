@@ -161,9 +161,9 @@
         "event_start": "2025-04-01T13:00:00Z",
         "event_end": "2025-04-01T15:00:00Z",
         "event_location": "TechLab North",
-        "event_thumbnail": "https://example.com/serverless-thumbnail.jpg",
+        "event_thumbnail": "https://systango-website.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/04/serverless-architecture.png",
         "event_thumbnail_alt": "Serverless computing diagram",
-        "event_image": "https://example.com/serverless-event.jpg",
+        "event_image": "https://systango-website.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/04/serverless-architecture.png",
         "event_image_alt": "Instructor discussing serverless solutions",
         "event_description_short": "Understand serverless architecture and its benefits.",
         "event_description_long": "This session covers serverless platforms like AWS Lambda and Firebase, highlighting their use cases and how to build scalable apps without managing servers."

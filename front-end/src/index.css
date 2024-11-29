@@ -1,5 +1,6 @@
 :root {
     --background-colour: #101210;
+    --on-background-colour: #fff;
     --primary-colour: rgb(10, 180, 10);
     --on-primary-colour: #ffffdf;
     --secondary-colour: #333;
@@ -59,6 +60,7 @@ button:hover {
 @media (prefers-color-scheme: light) {
     :root {
         --background-colour: #ffe;
+        --on-background-colour: #000;
         --secondary-colour: #ded;
         --on-secondary-colour: #232;
         --danger-colour: rgb(255, 0, 0);

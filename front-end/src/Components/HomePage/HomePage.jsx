@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./HomePage.css";
 import { getEvents } from "../../apiRequests";
 import EventGrid from "../EventGrid/EventGrid";
+import LoadMsg from "../LoadMsg/LoadMsg";
 
 function HomePage() {
     const [events, setEvents] = useState([]);
@@ -22,11 +23,7 @@ function HomePage() {
     }, []);
 
     if (isLoading) {
-        return (
-            <section id="events" className="page">
-                <h2>Loading...</h2>
-            </section>
-        );
+        return <LoadMsg message="Loading Events..." />;
     }
 
     return (
