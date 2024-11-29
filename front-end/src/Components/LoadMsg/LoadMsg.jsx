@@ -7,7 +7,7 @@ function LoadMsg({ message }) {
             <div id="indicator" />
             <p id="load-message-small">
                 This may take up to a minute if no API requests have been made
-                for a while it is hosted for free...
+                for a while as it is hosted for free...
             </p>
         </section>
     );

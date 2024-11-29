@@ -37,7 +37,9 @@
 }
 
 .page {
+    margin: auto;
     margin-top: var(--header-gap);
+    max-width: 1000px;
 }
 
 button {
