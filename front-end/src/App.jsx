@@ -1,10 +1,11 @@
-import { useState } from "react";
-import "./App.css";
+import Header from "./Components/Header/Header";
+import HomePage from "./Components/HomePage/HomePage";
 
 function App() {
     return (
         <>
-            <h1>Event Loop</h1>
+            <Header />
+            <HomePage />
         </>
     );
 }

@@ -1,0 +1,35 @@
+.event-tile-square {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 15rem;
+    height: 15rem;
+    padding: 0.5rem;
+    background-color: var(--secondary-colour);
+    border-radius: 0.5rem;
+    border: 1px solid var(--primary-colour);
+    box-shadow: 0 0 0.5rem -0.1rem black;
+}
+
+.event-tile-square > h2 {
+    font-size: 1.2rem;
+    line-height: 1.1rem;
+    text-align: center;
+    color: var(--on-secondary-colour);
+}
+
+.event-tile-square > img {
+    width: 15rem;
+    max-height: 10rem;
+    margin: 0.2rem;
+    border-radius: 0.5rem;
+    object-fit: contain;
+}
+
+.event-tile-square > p {
+    font-size: 0.9rem;
+    line-height: 1rem;
+    text-align: center;
+    color: var(--on-secondary-colour);
+}
