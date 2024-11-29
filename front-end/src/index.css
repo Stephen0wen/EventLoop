@@ -6,6 +6,7 @@
     --danger-colour: rgb(255, 40, 40);
     --accent-colour: #99ff80;
     --on-accent-colour: #006600;
+    --header-gap: 2rem;
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -32,6 +33,10 @@
     width: 100vw;
     padding-top: 3.5rem;
     padding-bottom: 3rem;
+}
+
+.page {
+    margin-top: var(--header-gap);
 }
 
 button {
