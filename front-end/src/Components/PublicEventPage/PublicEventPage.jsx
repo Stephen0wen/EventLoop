@@ -38,7 +38,13 @@ function PublicEventPage() {
                 >
                     {"<-- Back <--"}
                 </button>
-                <button>Log In</button>
+                <button
+                    onClick={() => {
+                        navigate("/login");
+                    }}
+                >
+                    Log In
+                </button>
             </div>
         </section>
     );
