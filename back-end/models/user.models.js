@@ -19,6 +19,26 @@ exports.varifyUser = (user_id, firebase_id) => {
         });
 };
 
+exports.fetchUser = (firebase_id) => {
+    return db
+        .query(
+            `
+    SELECT user_id FROM users
+    WHERE user_firebase_id = $1    
+        `,
+            [firebase_id]
+        )
+        .then(({ rows }) => {
+            if (!rows.length) {
+                return Promise.reject({
+                    status: 404,
+                    msg: "Resource Not Found",
+                });
+            }
+            return rows[0];
+        });
+};
+
 exports.fetchUserEvents = (user_id) => {
     return db
         .query(

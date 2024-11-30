@@ -101,6 +101,50 @@ describe("/api/events/:event_id", () => {
     });
 });
 
+describe("/api/user", () => {
+    test("GET:200 Should return the user_id associated with the auth token provided", () => {
+        return getToken(3)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user")
+                    .set({ auth: idToken })
+                    .expect(200);
+            })
+            .then(({ body: { user_id } }) => {
+                expect(user_id).toBe(3);
+            });
+    });
+    test("GET:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .get("/api/user")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("GET:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .get("/api/user")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:404 Should return an error when given a token with no corresponding user_id", () => {
+        return getToken(7)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user")
+                    .set({ auth: idToken })
+                    .expect(404);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Resource Not Found");
+            });
+    });
+});
+
 describe("/api/user/:user_id/events", () => {
     test("GET:200 Should return an array of events associated with the user", () => {
         return getToken(4)

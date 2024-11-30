@@ -3,8 +3,20 @@ const {
     varifyUser,
     fetchUserEvents,
     insertAttendance,
+    fetchUser,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
+
+exports.getUser = (req, res, next) => {
+    authenticate(req)
+        .then((firebase_id) => {
+            return fetchUser(firebase_id);
+        })
+        .then(({ user_id }) => {
+            res.status(200).send({ user_id });
+        })
+        .catch(next);
+};
 
 exports.getUserEvents = (req, res, next) => {
     const { user_id } = req.params;
