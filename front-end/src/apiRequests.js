@@ -15,3 +15,11 @@ export function getEvent(event_id) {
             return event;
         });
 }
+
+export function getUserId(token) {
+    return axios(`${baseURL}/api/user`, {
+        headers: { auth: token },
+    }).then(({ data: { user_id } }) => {
+        return user_id;
+    });
+}

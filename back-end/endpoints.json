@@ -93,6 +93,13 @@
         }
     },
     {
+        "GET /api/users": {
+            "description": "Serves the user_id associated with the JWT provided",
+            "queries": [],
+            "exampleResponse": { "user_id": 5 }
+        }
+    },
+    {
         "GET /api/users/:user_id/events": {
             "description": "Serves an array of event objects the user is registered to attend",
             "queries": [],

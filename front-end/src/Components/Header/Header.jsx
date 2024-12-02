@@ -1,8 +1,35 @@
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 function Header() {
     const navigate = useNavigate();
+    const { user, isLoggedIn } = useContext(UserContext);
+
+    const loginButton = (
+        <button
+            onClick={() => {
+                navigate("/login");
+            }}
+        >
+            Log In
+        </button>
+    );
+
+    const avatar = (
+        <img
+            id="avatar"
+            onClick={() => {
+                navigate("/account");
+            }}
+            src={
+                user.photoURL ||
+                "https://www.svgrepo.com/show/343494/profile-user-account.svg"
+            }
+        />
+    );
+
     return (
         <header id="header">
             <h1
@@ -13,13 +40,7 @@ function Header() {
             >
                 EventLoop
             </h1>
-            <button
-                onClick={() => {
-                    navigate("/login");
-                }}
-            >
-                Log In
-            </button>
+            {isLoggedIn ? avatar : loginButton}
         </header>
     );
 }

@@ -9,8 +9,18 @@
     background-color: var(--secondary-colour);
     border-radius: 0.5rem;
     border: 1px solid var(--primary-colour);
-    box-shadow: 0 0 0.5rem -0.1rem black;
+    box-shadow: 0 0 0.5rem -0.1rem var(--on-secondary-colour);
     text-decoration: none;
+    transition: 0.2s;
+}
+
+.event-tile-square:hover {
+    transform: scale(1.02, 1.02);
+}
+
+.event-tile-square:active {
+    transform: scale(1.01, 1.01);
+    transition: 0.05s;
 }
 
 .event-tile-square > h2 {

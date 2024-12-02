@@ -1,11 +1,12 @@
 :root {
     --background-colour: #101210;
-    --on-background-colour: #fff;
+    --on-background-colour: #efe;
     --primary-colour: rgb(10, 180, 10);
     --on-primary-colour: #ffffdf;
     --secondary-colour: #333;
     --on-secondary-colour: #efe;
-    --danger-colour: rgb(255, 40, 40);
+    --danger-colour: rgb(150, 0, 0);
+    --on-danger-colour: rgb(255, 180, 180);
     --accent-colour: #99ff80;
     --on-accent-colour: #006600;
     --header-gap: 2rem;
@@ -42,6 +43,11 @@
     max-width: 1000px;
 }
 
+.danger {
+    background-color: var(--danger-colour);
+    color: var(--on-danger-colour);
+}
+
 button {
     border-radius: 8px;
     border: 1px solid transparent;
@@ -60,7 +66,8 @@ button:hover {
 
 @media (prefers-color-scheme: light) {
     :root {
-        --background-colour: #ffe;
+        --on-primary-colour: #fff;
+        --background-colour: #fff;
         --on-background-colour: #000;
         --secondary-colour: #ded;
         --on-secondary-colour: #232;
