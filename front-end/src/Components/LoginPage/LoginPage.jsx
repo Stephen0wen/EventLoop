@@ -32,23 +32,6 @@ function LoginPage() {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                return firebase.auth().currentUser.getIdToken();
-            })
-            .then((apiToken) => {
-                setToken(apiToken);
-                return getUserId(apiToken);
-            })
-            .then((apiUser_id) => {
-                setUser_id(apiUser_id);
-                setWarnings({
-                    email: "",
-                    password: "",
-                });
-                return firebase.auth().currentUser;
-            })
-            .then((apiUser) => {
-                setUser(apiUser);
-                setIsLoggedIn(true);
                 navigate("/");
             })
             .catch((error) => {
