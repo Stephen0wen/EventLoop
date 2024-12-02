@@ -1,10 +1,12 @@
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import HeaderNav from "../HeaderNav/HeaderNav";
 
 function Header() {
     const navigate = useNavigate();
+
     const { user, isLoggedIn } = useContext(UserContext);
 
     const loginButton = (
@@ -40,7 +42,7 @@ function Header() {
             >
                 EventLoop
             </h1>
-            {isLoggedIn ? avatar : loginButton}
+            <HeaderNav>{isLoggedIn ? avatar : loginButton}</HeaderNav>
         </header>
     );
 }
