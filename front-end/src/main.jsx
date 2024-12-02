@@ -4,11 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import "./Config/firebase-config.js";
+import { UserProvider } from "./Contexts/UserContext.jsx";
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
-        <StrictMode>
-            <App />
-        </StrictMode>
+        <UserProvider>
+            <StrictMode>
+                <App />
+            </StrictMode>
+        </UserProvider>
     </BrowserRouter>
 );

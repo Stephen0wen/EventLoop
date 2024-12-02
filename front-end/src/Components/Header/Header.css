@@ -24,3 +24,12 @@
 #header button {
     margin: 0.5rem;
 }
+
+#avatar {
+    height: 3rem;
+    width: 3rem;
+    margin: 0.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 5px grey;
+    background-color: var(--on-primary-colour);
+}

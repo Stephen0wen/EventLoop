@@ -2,6 +2,9 @@ import "./LoginPage.css";
 import { useState, useContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { getUserId } from "../../apiRequests";
+import { UserContext } from "../../Contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -10,6 +13,11 @@ function LoginPage() {
         email: "",
         password: "",
     });
+
+    const navigate = useNavigate();
+
+    const { setIsLoggedIn, setToken, setUser, setUser_id } =
+        useContext(UserContext);
 
     const updateEmail = (event) => {
         setEmail(event.target.value);
@@ -26,12 +34,22 @@ function LoginPage() {
             .then(() => {
                 return firebase.auth().currentUser.getIdToken();
             })
-            .then((token) => {
+            .then((apiToken) => {
+                setToken(apiToken);
+                return getUserId(apiToken);
+            })
+            .then((apiUser_id) => {
+                setUser_id(apiUser_id);
                 setWarnings({
                     email: "",
                     password: "",
                 });
-                console.dir(token);
+                return firebase.auth().currentUser;
+            })
+            .then((apiUser) => {
+                setUser(apiUser);
+                setIsLoggedIn(true);
+                navigate("/");
             })
             .catch((error) => {
                 handleError(error);
