@@ -4,6 +4,8 @@
     justify-content: space-between;
     align-items: center;
     position: fixed;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
     top: 0;
     left: 0;
     width: 100%;
@@ -29,7 +31,6 @@
 #avatar {
     height: 3rem;
     width: 3rem;
-    margin: 0.5rem;
     border-radius: 3rem;
     border: 1px solid var(--primary-colour);
     background-color: var(--on-primary-colour);

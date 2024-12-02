@@ -9,10 +9,16 @@ import "firebase/compat/auth";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
 import { getUserId } from "./apiRequests";
+import FooterNav from "./Components/FooterNav/FooterNav";
+import { DisplayContext } from "./Contexts/DisplayContext";
+import useWindowSize from "./Hooks/useWindowSize";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken } =
         useContext(UserContext);
+
+    const { setIsWide } = useContext(DisplayContext);
+    const windowSize = useWindowSize();
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
@@ -38,9 +44,16 @@ function App() {
         });
     }, []);
 
+    useEffect(() => {
+        if (windowSize.width > 750) {
+            setIsWide(true);
+        } else setIsWide(false);
+    }, [windowSize]);
+
     return (
         <>
             <Header />
+            <FooterNav />
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />

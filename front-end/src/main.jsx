@@ -5,13 +5,16 @@ import "./index.css";
 import App from "./App.jsx";
 import "./Config/firebase-config.js";
 import { UserProvider } from "./Contexts/UserContext.jsx";
+import { DisplayProvider } from "./Contexts/DisplayContext.jsx";
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
-        <UserProvider>
-            <StrictMode>
-                <App />
-            </StrictMode>
-        </UserProvider>
+        <DisplayProvider>
+            <UserProvider>
+                <StrictMode>
+                    <App />
+                </StrictMode>
+            </UserProvider>
+        </DisplayProvider>
     </BrowserRouter>
 );
