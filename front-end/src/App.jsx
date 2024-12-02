@@ -1,3 +1,4 @@
+import AccountPage from "./Components/AccountPage/AccountPage";
 import Header from "./Components/Header/Header";
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/events/:event_id" element={<PublicEventPage />} />
+                <Route path="/account" element={<AccountPage />} />
             </Routes>
         </>
     );

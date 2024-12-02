@@ -20,6 +20,9 @@ function Header() {
     const avatar = (
         <img
             id="avatar"
+            onClick={() => {
+                navigate("/account");
+            }}
             src={
                 user.photoURL ||
                 "https://www.svgrepo.com/show/343494/profile-user-account.svg"
