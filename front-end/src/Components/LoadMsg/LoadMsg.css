@@ -11,7 +11,7 @@
     text-align: center;
 }
 
-#load-message-small {
+#load-message p {
     text-align: center;
     opacity: 0.6;
     max-width: 28rem;

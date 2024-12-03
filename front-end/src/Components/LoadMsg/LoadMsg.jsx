@@ -1,6 +1,6 @@
 import "./LoadMsg.css";
 
-function LoadMsg({ message }) {
+function LoadMsg({ children, message }) {
     return (
         <section id="load-message-container">
             <h2 id="load-message">{message}</h2>
@@ -9,6 +9,7 @@ function LoadMsg({ message }) {
                 This may take up to a minute if no API requests have been made
                 for a while as it is hosted for free...
             </p>
+            {children}
         </section>
     );
 }

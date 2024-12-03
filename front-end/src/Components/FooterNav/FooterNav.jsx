@@ -19,7 +19,13 @@ function FooterNav() {
                 >
                     Home
                 </button>
-                <button>Plans</button>
+                <button
+                    onClick={() => {
+                        navigate("/plans");
+                    }}
+                >
+                    Plans
+                </button>
                 <button>Manage</button>
             </nav>
         );

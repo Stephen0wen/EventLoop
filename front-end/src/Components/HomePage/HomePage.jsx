@@ -31,7 +31,7 @@ function HomePage() {
             <section id="welcome" aria-label="Welcome Message" className="page">
                 <h2>Welcome to EventLoop!</h2>
             </section>
-            <section id="events" aria-label="Event Section" className="page">
+            <section id="events" aria-label="Events Section" className="page">
                 <EventGrid events={events} />
             </section>
         </>

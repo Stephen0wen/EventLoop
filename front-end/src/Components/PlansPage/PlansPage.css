@@ -1,0 +1,12 @@
+#plans {
+    margin-bottom: 3rem;
+}
+
+#plans-title {
+    text-align: left;
+}
+
+#plans-title h2 {
+    color: var(--on-background-colour);
+    width: 90%;
+}

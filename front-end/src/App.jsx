@@ -12,6 +12,7 @@ import { getUserId } from "./apiRequests";
 import FooterNav from "./Components/FooterNav/FooterNav";
 import { DisplayContext } from "./Contexts/DisplayContext";
 import useWindowSize from "./Hooks/useWindowSize";
+import PlansPage from "./Components/PlansPage/PlansPage";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken } =
@@ -56,8 +57,10 @@ function App() {
             <FooterNav />
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/events" element={<HomePage />} />
                 <Route path="/events/:event_id" element={<PublicEventPage />} />
+                <Route path="/plans" element={<PlansPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
             </Routes>
         </>
