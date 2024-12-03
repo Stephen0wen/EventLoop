@@ -1,8 +1,8 @@
 :root {
     --background-colour: #101210;
     --on-background-colour: #efe;
-    --primary-colour: rgb(10, 180, 10);
-    --on-primary-colour: #ffffdf;
+    --primary-colour: rgb(10, 160, 10);
+    --on-primary-colour: #ffffef;
     --secondary-colour: #333;
     --on-secondary-colour: #efe;
     --danger-colour: rgb(150, 0, 0);
