@@ -28,9 +28,9 @@ function PublicEventPage() {
     }
 
     return (
-        <section id="public-event-page" className="page">
+        <main id="public-event-page" className="page">
             <EventDetails event={event} />
-            <div id="button-container">
+            <section aria-label="Event Options" id="button-container">
                 <button
                     onClick={() => {
                         navigate("/");
@@ -45,8 +45,8 @@ function PublicEventPage() {
                 >
                     Log In
                 </button>
-            </div>
-        </section>
+            </section>
+        </main>
     );
 }
 

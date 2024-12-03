@@ -1,5 +1,5 @@
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import HeaderNav from "../HeaderNav/HeaderNav";
@@ -20,17 +20,16 @@ function Header() {
     );
 
     const avatar = (
-        <img
-            id="avatar"
-            onClick={() => {
-                navigate("/account");
-            }}
-            src={
-                user.photoURL ||
-                "https://www.svgrepo.com/show/343494/profile-user-account.svg"
-            }
-            alt="Account Settings Icon"
-        />
+        <Link to={"/account"}>
+            <img
+                id="avatar"
+                src={
+                    user.photoURL ||
+                    "https://www.svgrepo.com/show/343494/profile-user-account.svg"
+                }
+                alt="Account Settings Icon"
+            />
+        </Link>
     );
 
     return (
