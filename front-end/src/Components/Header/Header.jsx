@@ -29,6 +29,7 @@ function Header() {
                 user.photoURL ||
                 "https://www.svgrepo.com/show/343494/profile-user-account.svg"
             }
+            alt="Account Settings Icon"
         />
     );
 
