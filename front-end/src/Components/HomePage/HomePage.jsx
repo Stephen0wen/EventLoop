@@ -28,10 +28,10 @@ function HomePage() {
 
     return (
         <>
-            <section id="welcome" className="page">
+            <section id="welcome" aria-label="Welcome Message" className="page">
                 <h2>Welcome to EventLoop!</h2>
             </section>
-            <section id="events" className="page">
+            <section id="events" aria-label="Event Section" className="page">
                 <EventGrid events={events} />
             </section>
         </>

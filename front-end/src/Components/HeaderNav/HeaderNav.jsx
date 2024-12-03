@@ -26,7 +26,7 @@ function HeaderNav({ children }) {
         );
     }
 
-    return <nav>{children}</nav>;
+    return <>{children}</>;
 }
 
 export default HeaderNav;
