@@ -23,3 +23,14 @@ export function getUserId(token) {
         return user_id;
     });
 }
+
+export function getPlans(token, user_id) {
+    if (token && user_id) {
+        return axios(`${baseURL}/api/user/${user_id}/events`, {
+            headers: { auth: token },
+        }).then(({ data: { events } }) => {
+            return events;
+        });
+    }
+    return Promise.reject("No token or user_id");
+}
