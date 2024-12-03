@@ -3,12 +3,12 @@ import { useEffect, useState, useContext } from "react";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import { UserContext } from "../../Contexts/UserContext";
 import { getPlans } from "../../apiRequests";
-import EventGrid from "../EventGrid/EventGrid";
+import EventList from "../EventList/EventList";
 
 function PlansPage() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { token, user_id } = useContext(UserContext);
+    const { user, token, user_id } = useContext(UserContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -29,9 +29,14 @@ function PlansPage() {
     }
 
     return (
-        <section id="plans" aria-label="Plans Section" className="page">
-            <EventGrid events={events} />
-        </section>
+        <>
+            <section id="plans-title" className="page">
+                <h2>Your Current Plans:</h2>
+            </section>
+            <section id="plans" aria-label="Plans Section" className="page">
+                <EventList events={events} />
+            </section>
+        </>
     );
 }
 
