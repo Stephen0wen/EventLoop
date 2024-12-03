@@ -2,7 +2,6 @@ import "./LoginPage.css";
 import { useState, useContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { getUserId } from "../../apiRequests";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 

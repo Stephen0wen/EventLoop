@@ -25,13 +25,13 @@ function AccountPage() {
     };
 
     return (
-        <section id="account-page" className="page">
-            <div id="account-container">
+        <main id="account-page" className="page">
+            <section aria-label="Account Settings" id="account-container">
                 <h2 id="greeting">Hello {user.displayName || user.email}</h2>
                 <button onClick={handleSignOut}>Log Out</button>
                 <button className="danger">Delete Account</button>
-            </div>
-        </section>
+            </section>
+        </main>
     );
 }
 
