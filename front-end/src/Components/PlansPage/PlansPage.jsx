@@ -8,7 +8,7 @@ import EventList from "../EventList/EventList";
 function PlansPage() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { user, token, user_id } = useContext(UserContext);
+    const { token, user_id } = useContext(UserContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -25,7 +25,11 @@ function PlansPage() {
     }, [token, user_id]);
 
     if (isLoading) {
-        return <LoadMsg message="Loading Plans..." />;
+        return (
+            <LoadMsg message="Loading Plans...">
+                <p>Please ensure you are logged in...</p>
+            </LoadMsg>
+        );
     }
 
     return (
