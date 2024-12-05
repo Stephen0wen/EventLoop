@@ -124,7 +124,8 @@ exports.dropAttendance = (user_id, event_id) => {
     WHERE user_id=$1
     AND event_id=$2
     RETURNING *    
-        `
+        `,
+            [user_id, event_id]
         )
         .then(({ rows }) => {
             if (!rows.length) {
