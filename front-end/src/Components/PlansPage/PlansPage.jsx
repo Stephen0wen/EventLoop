@@ -33,14 +33,14 @@ function PlansPage() {
     }
 
     return (
-        <>
+        <main>
             <section id="plans-title" className="page">
                 <h2>Your Current Plans:</h2>
             </section>
             <section id="plans" aria-label="Plans Section" className="page">
                 <EventList events={events} />
             </section>
-        </>
+        </main>
     );
 }
 

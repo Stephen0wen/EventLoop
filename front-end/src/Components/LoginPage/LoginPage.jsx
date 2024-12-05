@@ -54,7 +54,7 @@ function LoginPage() {
     };
 
     return (
-        <section id="login-page" className="page">
+        <main id="login-page" className="page">
             <form id="login-form">
                 <h2>Sign in to EventLoop</h2>
                 <label>
@@ -83,7 +83,7 @@ function LoginPage() {
             <p id="under-form-message">
                 Don't have an account? <span id="sign-up-link">Sign Up</span>
             </p>
-        </section>
+        </main>
     );
 }
 
