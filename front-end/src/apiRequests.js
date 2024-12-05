@@ -34,3 +34,14 @@ export function getPlans(token, user_id) {
     }
     return Promise.reject("No token or user_id");
 }
+
+export function getPlan(token, user_id, event_id) {
+    if (token && user_id) {
+        return axios(`${baseURL}/api/user/${user_id}/events/${event_id}`, {
+            headers: { auth: token },
+        }).then(({ data: { event } }) => {
+            return event;
+        });
+    }
+    return Promise.reject("No token or user_id");
+}

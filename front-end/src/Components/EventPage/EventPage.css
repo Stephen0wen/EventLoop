@@ -2,9 +2,12 @@
     display: flex;
     justify-content: space-between;
     margin: 0.5rem auto;
+    gap: 1rem;
     width: 85%;
 }
 
 #button-container button {
-    width: 9rem;
+    width: 33%;
+    overflow: hidden;
+    padding: 0.5rem;
 }

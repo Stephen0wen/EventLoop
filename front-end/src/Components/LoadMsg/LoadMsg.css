@@ -5,6 +5,7 @@
     margin: 2rem;
     gap: 1rem;
     color: var(--on-background-colour);
+    text-align: center;
 }
 
 #load-message {

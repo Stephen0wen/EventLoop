@@ -1,0 +1,36 @@
+#grey-zone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000a;
+    height: 100vh;
+    width: 100vw;
+}
+
+#confirmation-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--secondary-colour);
+    border-radius: 1rem;
+    background-color: var(--secondary-colour);
+    color: var(--on-secondary-colour);
+    border: 1px solid var(--primary-colour);
+    box-shadow: 0 0 0.5rem -0.1rem black;
+    padding: 1rem;
+}
+
+#confirmation-button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+#confirmation-button-container button {
+    width: 8rem;
+}
