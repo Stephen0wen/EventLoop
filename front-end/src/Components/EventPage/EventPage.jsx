@@ -36,7 +36,7 @@ function EventPage() {
                         navigate("/");
                     }}
                 >
-                    {"<-- Back <--"}
+                    {"Back"}
                 </button>
                 <button
                     onClick={() => {

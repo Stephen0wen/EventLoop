@@ -170,6 +170,13 @@
         }
     },
     {
+        "DELETE /api/users/:user_id/events/:event_id": {
+            "description": "Cancels the users attendance at the event",
+            "queries": [],
+            "exampleResponse": {}
+        }
+    },
+    {
         "GET /api/staff/:user_id/events": {
             "description": "Serves an array of event objects created by the user",
             "queries": [],
