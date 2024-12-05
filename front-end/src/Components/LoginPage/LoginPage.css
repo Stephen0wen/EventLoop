@@ -31,7 +31,7 @@
 }
 
 #login-form .warning {
-    color: var(--danger-colour);
+    color: var(--on-danger-colour);
     height: 1rem;
     font-size: 0.8rem;
 }
