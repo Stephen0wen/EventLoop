@@ -43,27 +43,25 @@ function PlanDetailsPage() {
     }
 
     return (
-        <>
-            <main id="plan-details-page" className="page">
-                <EventDetails event={event} />
-                <section aria-label="Plan Options" id="button-container">
-                    <button
-                        onClick={() => {
-                            navigate("/plans");
-                        }}
-                    >
-                        {"Back"}
-                    </button>
-                    <button
-                        onClick={() => {
-                            setHideCancelPlanPopup(false);
-                        }}
-                    >
-                        Cancel Plan
-                    </button>
-                    <button>Add to Calendar</button>
-                </section>
-            </main>
+        <main id="plan-details-page" className="page">
+            <EventDetails event={event} />
+            <section aria-label="Plan Options" id="button-container">
+                <button
+                    onClick={() => {
+                        navigate("/plans");
+                    }}
+                >
+                    {"Back"}
+                </button>
+                <button
+                    onClick={() => {
+                        setHideCancelPlanPopup(false);
+                    }}
+                >
+                    Cancel Plan
+                </button>
+                <button>Add to Calendar</button>
+            </section>
             <ConfirmationPopup
                 message="Are you sure you want to cancel this plan?"
                 isHidden={hideCancelPlanPopup}
@@ -71,7 +69,7 @@ function PlanDetailsPage() {
                 func={cancelPlan}
                 args={[token, user_id, event_id]}
             />
-        </>
+        </main>
     );
 }
 
