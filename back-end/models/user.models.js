@@ -115,3 +115,23 @@ exports.insertAttendance = (user_id, event_id) => {
             return rows[0];
         });
 };
+
+exports.dropAttendance = (user_id, event_id) => {
+    return db
+        .query(
+            `
+    DELETE FROM attendance
+    WHERE user_id=$1
+    AND event_id=$2
+    RETURNING *    
+        `
+        )
+        .then(({ rows }) => {
+            if (!rows.length) {
+                return Promise.reject({
+                    status: 404,
+                    msg: "Resource Not Found",
+                });
+            }
+        });
+};

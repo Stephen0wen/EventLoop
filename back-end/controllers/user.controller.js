@@ -71,3 +71,18 @@ exports.postAttendance = (req, res, next) => {
         })
         .catch(next);
 };
+
+exports.deleteAttendance = (req, res, next) => {
+    const { user_id, event_id } = req.params;
+    fetchEvent(event_id)
+        .then(() => {
+            return authenticate(req);
+        })
+        .then((firebase_id) => {
+            return varifyUser(user_id, firebase_id);
+        })
+        .then(() => {
+            res.status(204).send({});
+        })
+        .catch(next);
+};

@@ -204,7 +204,7 @@ describe("/api/user/:user_id/events", () => {
     });
 });
 
-describe("/api/user/:user_id/events/:event_id", () => {
+describe.only("/api/user/:user_id/events/:event_id", () => {
     test("GET:200 Should return the requested event and indicate if the user is attending", () => {
         return getToken(1)
             .then((idToken) => {
@@ -387,6 +387,71 @@ describe("/api/user/:user_id/events/:event_id", () => {
             })
             .then(({ body: { msg } }) => {
                 expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("DELETE:204 Should cancel the users attendance and return an empty object", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .delete("/api/user/1/events/1")
+                    .set({ auth: idToken })
+                    .expect(204);
+            })
+            .then(({ body }) => {
+                expect(body).toEqual({});
+            });
+    });
+    test("GET:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .delete("/api/user/1/events/1")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("GET:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .delete("/api/user/1/events/1")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(5)
+            .then((idToken) => {
+                return request(app)
+                    .delete("/api/user/1/events/1")
+                    .set({ auth: idToken })
+                    .expect(403);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:400 Should return an error when given an invalid event_id", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .delete("/api/user/1/events/bad_id")
+                    .set({ auth: idToken })
+                    .expect(400);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Invalid Request");
+            });
+    });
+    test("GET:404 Should return an error when given an event_id which doesn't exist", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .delete("/api/user/1/events/999")
+                    .set({ auth: idToken })
+                    .expect(404);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Resource Not Found");
             });
     });
 });
