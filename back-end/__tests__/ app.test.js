@@ -205,6 +205,121 @@ describe("/api/user/:user_id/events", () => {
 });
 
 describe("/api/user/:user_id/events/:event_id", () => {
+    test("GET:200 Should return the requested event and indicate if the user is attending", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/1/events/1")
+                    .set({ auth: idToken })
+                    .expect(200);
+            })
+            .then(({ body: { event } }) => {
+                expect(event).toEqual({
+                    event_id: 1,
+                    event_created_by: 2,
+                    event_title: "Hello Event World",
+                    event_start: "2024-12-25T09:30:00.000Z",
+                    event_end: "2024-12-25T11:30:00.000Z",
+                    event_location: "4 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                    is_user_attending: true,
+                });
+            });
+    });
+    test("GET:200 Should return the requested event and indicate if the user is not attending", () => {
+        return getToken(4)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/4/events/1")
+                    .set({ auth: idToken })
+                    .expect(200);
+            })
+            .then(({ body: { event } }) => {
+                expect(event).toEqual({
+                    event_id: 1,
+                    event_created_by: 2,
+                    event_title: "Hello Event World",
+                    event_start: "2024-12-25T09:30:00.000Z",
+                    event_end: "2024-12-25T11:30:00.000Z",
+                    event_location: "4 Privet Drive",
+                    event_thumbnail:
+                        "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                    event_thumbnail_alt: "A wizards childhood home",
+                    event_image:
+                        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                    event_image_alt:
+                        "A wizards aunt stood infront of his childhood home",
+                    event_description_short:
+                        "Lets say hello to the magical world of events",
+                    event_description_long:
+                        "A longer description of an event at Mr Potter's house",
+                    is_user_attending: false,
+                });
+            });
+    });
+    test("GET:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .get("/api/user/1/events/1")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("GET:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .get("/api/user/1/events/1")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+        return getToken(5)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/1/events/1")
+                    .set({ auth: idToken })
+                    .expect(403);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
+    test("GET:400 Should return an error when given an invalid event_id", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/1/events/bad_id")
+                    .set({ auth: idToken })
+                    .expect(400);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Invalid Request");
+            });
+    });
+    test("GET:404 Should return an error when given an event_id which doesn't exist", () => {
+        return getToken(1)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user/1/events/999")
+                    .set({ auth: idToken })
+                    .expect(404);
+            })
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Resource Not Found");
+            });
+    });
     test("POST:201 Should register the attendance of the user to the event and return the new attendance object", () => {
         return getToken(6)
             .then((idToken) => {

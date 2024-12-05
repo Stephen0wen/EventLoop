@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import "./PublicEventPage.css";
+import "./PlanDetailsPage.css";
 import { useParams } from "react-router-dom";
 import { getEvent } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import { useNavigate } from "react-router-dom";
 
-function PublicEventPage() {
+function PlanDetailsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const { event_id } = useParams();
@@ -24,30 +24,23 @@ function PublicEventPage() {
     }, []);
 
     if (isLoading) {
-        return <LoadMsg message="Loading Event.." />;
+        return <LoadMsg message="Loading Plan.." />;
     }
 
     return (
-        <main id="public-event-page" className="page">
+        <main id="plan-details-page" className="page">
             <EventDetails event={event} />
-            <section aria-label="Event Options" id="button-container">
+            <section aria-label="Plan Options" id="button-container">
                 <button
                     onClick={() => {
-                        navigate("/");
+                        navigate("/plans");
                     }}
                 >
                     {"<-- Back <--"}
-                </button>
-                <button
-                    onClick={() => {
-                        navigate("/login");
-                    }}
-                >
-                    Log In
                 </button>
             </section>
         </main>
     );
 }
 
-export default PublicEventPage;
+export default PlanDetailsPage;

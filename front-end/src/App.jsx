@@ -2,7 +2,7 @@ import AccountPage from "./Components/AccountPage/AccountPage";
 import Header from "./Components/Header/Header";
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
-import PublicEventPage from "./Components/PublicEventPage/PublicEventPage";
+import EventPage from "./Components/EventPage/EventPage";
 import { Routes, Route } from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -13,6 +13,7 @@ import FooterNav from "./Components/FooterNav/FooterNav";
 import { DisplayContext } from "./Contexts/DisplayContext";
 import useWindowSize from "./Hooks/useWindowSize";
 import PlansPage from "./Components/PlansPage/PlansPage";
+import PlanDetailsPage from "./Components/PlanDetailsPage/PlanDetailsPage";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken } =
@@ -58,8 +59,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/events" element={<HomePage />} />
-                <Route path="/events/:event_id" element={<PublicEventPage />} />
+                <Route path="/events/:event_id" element={<EventPage />} />
                 <Route path="/plans" element={<PlansPage />} />
+                <Route path="/plans/:event_id" element={<PlanDetailsPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
             </Routes>
