@@ -138,6 +138,27 @@
         }
     },
     {
+        "GET /api/users/:user_id/events/:event_id": {
+            "description": "Serves the requested event with an additional key indicating the users attendance",
+            "queries": [],
+            "exampleResponse": {
+                "event_id": 1,
+                "event_created_by": 2,
+                "event_title": "Hello Event World",
+                "event_start": "2024-12-25T09:30:00.000Z",
+                "event_end": "2024-12-25T11:30:00.000Z",
+                "event_location": "4 Privet Drive",
+                "event_thumbnail": "https://i2-prod.getsurrey.co.uk/incoming/article11906136.ece/ALTERNATES/s1200b/JS99791888.jpg",
+                "event_thumbnail_alt": "A wizards childhood home",
+                "event_image": "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/0B04/production/_91302820_privet8.jpg",
+                "event_image_alt": "A wizards aunt stood infront of his childhood home",
+                "event_description_short": "Lets say hello to the magical world of events",
+                "event_description_long": "A longer description of an event at Mr Potter's house",
+                "is_user_attending": true
+            }
+        }
+    },
+    {
         "POST /api/users/:user_id/events/:event_id": {
             "description": "Registers the users attendance at the event and returns the attendance object",
             "queries": [],

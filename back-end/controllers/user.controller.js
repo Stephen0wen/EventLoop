@@ -4,6 +4,7 @@ const {
     fetchUserEvents,
     insertAttendance,
     fetchUser,
+    fetchUserEventAttending,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -29,6 +30,26 @@ exports.getUserEvents = (req, res, next) => {
         })
         .then((events) => {
             res.status(200).send({ events });
+        })
+        .catch(next);
+};
+
+exports.getUserEvent = (req, res, next) => {
+    const { user_id, event_id } = req.params;
+    authenticate(req)
+        .then((firebase_id) => {
+            return varifyUser(user_id, firebase_id);
+        })
+        .then(() => {
+            return fetchUserEventAttending(user_id, event_id);
+        })
+        .then((event) => {
+            if (event) res.status(200).send({ event });
+            else return fetchEvent(event_id);
+        })
+        .then((event) => {
+            event.is_user_attending = false;
+            res.status(200).send({ event });
         })
         .catch(next);
 };
