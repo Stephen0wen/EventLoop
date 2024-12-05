@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "./PlanDetailsPage.css";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { getPlan } from "../../apiRequests";
+import { deletePlan, getPlan } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
@@ -27,6 +27,16 @@ function PlanDetailsPage() {
                 setIsLoading(false);
             });
     }, []);
+
+    const cancelPlan = () => {
+        deletePlan(token, user_id, event_id)
+            .then(() => {
+                navigate("/plans");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     if (isLoading) {
         return <LoadMsg message="Loading Plan.." />;
@@ -58,6 +68,8 @@ function PlanDetailsPage() {
                 message="Are you sure you want to cancel this plan?"
                 isHidden={hideCancelPlanPopup}
                 setIsHidden={setHideCancelPlanPopup}
+                func={cancelPlan}
+                args={[token, user_id, event_id]}
             />
         </>
     );
