@@ -5,6 +5,7 @@ const {
     insertAttendance,
     fetchUser,
     fetchUserEventAttending,
+    dropAttendance,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -80,6 +81,9 @@ exports.deleteAttendance = (req, res, next) => {
         })
         .then((firebase_id) => {
             return varifyUser(user_id, firebase_id);
+        })
+        .then(() => {
+            dropAttendance(user_id, event_id);
         })
         .then(() => {
             res.status(204).send({});
