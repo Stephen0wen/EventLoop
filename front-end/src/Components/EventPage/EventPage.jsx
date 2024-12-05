@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import "./EventPage.css";
 import { useParams } from "react-router-dom";
-import { getEvent, getPlan } from "../../apiRequests";
+import { getEvent, getPlan, postPlan } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,15 @@ function EventPage() {
     );
 
     const signUpButton = (
-        <button id="sign-up-button" key="sign-up-button">
+        <button
+            id="sign-up-button"
+            key="sign-up-button"
+            onClick={() => {
+                postPlan(token, user_id, event_id).then(() => {
+                    navigate(`/plans/${event_id}`);
+                });
+            }}
+        >
             Sign Up
         </button>
     );
@@ -50,7 +58,7 @@ function EventPage() {
             id="view-plan-button"
             key="view-plan-button"
             onClick={() => {
-                navigate(`/user/${user_id}/plans/${event_id}`);
+                navigate(`/plans/${event_id}`);
             }}
         >
             View Plan
@@ -61,17 +69,6 @@ function EventPage() {
         if (isLoggedIn) return getPlan(token, user_id, event_id);
         else return getEvent(event_id);
     };
-
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     getEvent(event_id)
-    //         .then((apiEvent) => {
-    //             setEvent(apiEvent);
-    //         })
-    //         .then(() => {
-    //             setIsLoading(false);
-    //         });
-    // }, []);
 
     useEffect(() => {
         const newButtons = [backButton];

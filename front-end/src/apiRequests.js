@@ -48,12 +48,23 @@ export function getPlan(token, user_id, event_id) {
 
 export function deletePlan(token, user_id, event_id) {
     if (token && user_id) {
-        return axios
-            .delete(`${baseURL}/api/user/${user_id}/events/${event_id}`, {
+        return axios.delete(
+            `${baseURL}/api/user/${user_id}/events/${event_id}`,
+            {
                 headers: { auth: token },
-            })
-            .then((res) => {
-                console.log(res);
-            });
+            }
+        );
+    }
+}
+
+export function postPlan(token, user_id, event_id) {
+    if (token && user_id) {
+        return axios.post(
+            `${baseURL}/api/user/${user_id}/events/${event_id}`,
+            {},
+            {
+                headers: { auth: token },
+            }
+        );
     }
 }
