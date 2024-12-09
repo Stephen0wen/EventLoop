@@ -17,7 +17,7 @@ import PlanDetailsPage from "./Components/PlanDetailsPage/PlanDetailsPage";
 import ManageListPage from "./Components/ManageListPage/ManageListPage";
 
 function App() {
-    const { setUser, setIsLoggedIn, setUser_id, setToken } =
+    const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
         useContext(UserContext);
 
     const { setIsWide } = useContext(DisplayContext);
@@ -35,6 +35,7 @@ function App() {
                     })
                     .then(({ user_id, user_is_staff }) => {
                         setUser_id(user_id);
+                        setUser_is_staff(user_is_staff);
                         setUser(user);
                         setIsLoggedIn(true);
                     });

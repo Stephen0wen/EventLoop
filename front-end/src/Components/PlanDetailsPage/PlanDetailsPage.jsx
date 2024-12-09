@@ -13,8 +13,14 @@ function PlanDetailsPage() {
     const [event, setEvent] = useState({});
     const [hideCancelPlanPopup, setHideCancelPlanPopup] = useState(true);
     const { event_id } = useParams();
-    const { token, user_id } = useContext(UserContext);
+    const { token, user_id, isLoggedIn } = useContext(UserContext);
     const navigate = useNavigate();
+
+    setTimeout(() => {
+        if (!isLoggedIn) {
+            navigate("/login");
+        }
+    }, 5000);
 
     useEffect(() => {
         setIsLoading(true);
