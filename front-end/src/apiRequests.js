@@ -78,3 +78,14 @@ export function getStaffEvents(token, user_id) {
         });
     }
 }
+
+export function deleteEvent(token, user_id, event_id) {
+    if (token && user_id) {
+        return axios.delete(
+            `${baseURL}/api/staff/${user_id}/events/${event_id}`,
+            {
+                headers: { auth: token },
+            }
+        );
+    }
+}
