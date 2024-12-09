@@ -23,7 +23,8 @@ exports.fetchUser = (firebase_id) => {
     return db
         .query(
             `
-    SELECT user_id FROM users
+    SELECT user_id, user_is_staff 
+    FROM users
     WHERE user_firebase_id = $1    
         `,
             [firebase_id]
