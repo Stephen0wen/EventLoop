@@ -8,7 +8,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
-import { getUserId } from "./apiRequests";
+import { getUser } from "./apiRequests";
 import FooterNav from "./Components/FooterNav/FooterNav";
 import { DisplayContext } from "./Contexts/DisplayContext";
 import useWindowSize from "./Hooks/useWindowSize";
@@ -31,10 +31,10 @@ function App() {
                     .currentUser.getIdToken()
                     .then((apiToken) => {
                         setToken(apiToken);
-                        return getUserId(apiToken);
+                        return getUser(apiToken);
                     })
-                    .then((apiUser_id) => {
-                        setUser_id(apiUser_id);
+                    .then(({ user_id, user_is_staff }) => {
+                        setUser_id(user_id);
                         setUser(user);
                         setIsLoggedIn(true);
                     });

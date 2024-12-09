@@ -16,11 +16,11 @@ export function getEvent(event_id) {
         });
 }
 
-export function getUserId(token) {
+export function getUser(token) {
     return axios(`${baseURL}/api/user`, {
         headers: { auth: token },
-    }).then(({ data: { user_id } }) => {
-        return user_id;
+    }).then(({ data: { user } }) => {
+        return user;
     });
 }
 
