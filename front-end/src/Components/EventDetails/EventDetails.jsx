@@ -6,7 +6,7 @@ function EventDetails({ event }) {
             <h2>{event.event_title}</h2>
             <img src={event.event_image} alt={event.event_image_alt} />
             <p id="description">{event.event_description_long}</p>
-            <div>
+            <div id="date-container">
                 <p>
                     Date:{" "}
                     <span>

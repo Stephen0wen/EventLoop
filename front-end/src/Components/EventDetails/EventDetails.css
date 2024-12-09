@@ -20,13 +20,15 @@
 
 #event-details img {
     border-radius: 0.5rem;
+    max-width: 100%;
+    max-height: 50vh;
 }
 
 #description {
     text-align: center;
 }
 
-#event-details span {
+#date-container span {
     text-align: left;
     font-style: "italic";
 }
