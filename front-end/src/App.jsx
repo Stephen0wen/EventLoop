@@ -8,7 +8,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
-import { getUserId } from "./apiRequests";
+import { getUser } from "./apiRequests";
 import FooterNav from "./Components/FooterNav/FooterNav";
 import { DisplayContext } from "./Contexts/DisplayContext";
 import useWindowSize from "./Hooks/useWindowSize";
@@ -17,7 +17,7 @@ import PlanDetailsPage from "./Components/PlanDetailsPage/PlanDetailsPage";
 import ManageListPage from "./Components/ManageListPage/ManageListPage";
 
 function App() {
-    const { setUser, setIsLoggedIn, setUser_id, setToken } =
+    const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
         useContext(UserContext);
 
     const { setIsWide } = useContext(DisplayContext);
@@ -31,10 +31,11 @@ function App() {
                     .currentUser.getIdToken()
                     .then((apiToken) => {
                         setToken(apiToken);
-                        return getUserId(apiToken);
+                        return getUser(apiToken);
                     })
-                    .then((apiUser_id) => {
-                        setUser_id(apiUser_id);
+                    .then(({ user_id, user_is_staff }) => {
+                        setUser_id(user_id);
+                        setUser_is_staff(user_is_staff);
                         setUser(user);
                         setIsLoggedIn(true);
                     });

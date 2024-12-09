@@ -16,11 +16,11 @@ export function getEvent(event_id) {
         });
 }
 
-export function getUserId(token) {
+export function getUser(token) {
     return axios(`${baseURL}/api/user`, {
         headers: { auth: token },
-    }).then(({ data: { user_id } }) => {
-        return user_id;
+    }).then(({ data: { user } }) => {
+        return user;
     });
 }
 
@@ -66,5 +66,15 @@ export function postPlan(token, user_id, event_id) {
                 headers: { auth: token },
             }
         );
+    }
+}
+
+export function getStaffEvents(token, user_id) {
+    if (token && user_id) {
+        return axios(`${baseURL}/api/staff/${user_id}/events`, {
+            headers: { auth: token },
+        }).then(({ data: { events } }) => {
+            return events;
+        });
     }
 }
