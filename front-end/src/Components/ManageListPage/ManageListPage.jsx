@@ -14,9 +14,11 @@ function ManageListPage() {
 
     if (isLoading) {
         return (
-            <LoadMsg message="Loading the events you manage...">
-                <p>{`Please ensure you are logged in (as a staff member)...`}</p>
-            </LoadMsg>
+            <main>
+                <LoadMsg message="Loading the events you manage...">
+                    <p>{`Please ensure you are logged in (as a staff member)...`}</p>
+                </LoadMsg>
+            </main>
         );
     }
 }
