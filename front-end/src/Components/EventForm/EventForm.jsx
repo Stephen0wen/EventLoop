@@ -16,8 +16,29 @@ function EventForm({ event }) {
     const [longDescription, setLongDescription] = useState(
         event.event_description_long
     );
+    const [validationErrors, setValidationErrors] = useState({});
 
-    const updateField = (setter) => (event) => setter(event.target.value);
+    const updateField = (setter, field) => (event) => {
+        const value = event.target.value;
+        setter(value);
+        validateField(field, value);
+    };
+
+    const validateField = (field, value) => {
+        const errors = { ...validationErrors };
+
+        // Validation rules
+        if (field === "thumbnailURL" || field === "imageURL") {
+            const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/;
+            if (!urlPattern.test(value)) {
+                errors[field] = "Please enter a valid URL.";
+            } else {
+                delete errors[field];
+            }
+        }
+
+        setValidationErrors(errors);
+    };
 
     return (
         <form id="edit-event-form">
@@ -27,7 +48,7 @@ function EventForm({ event }) {
                 <input
                     id="title"
                     placeholder={event.event_title}
-                    onChange={updateField(setTitle)}
+                    onChange={updateField(setTitle, "title")}
                     value={title}
                 />
             </label>
@@ -37,7 +58,7 @@ function EventForm({ event }) {
                     id="start"
                     type="datetime-local"
                     placeholder={event.event_start}
-                    onChange={updateField(setStart)}
+                    onChange={updateField(setStart, "start")}
                     value={start}
                 />
             </label>
@@ -47,7 +68,7 @@ function EventForm({ event }) {
                     id="end"
                     type="datetime-local"
                     placeholder={event.event_end}
-                    onChange={updateField(setEnd)}
+                    onChange={updateField(setEnd, "end")}
                     value={end}
                 />
             </label>
@@ -56,7 +77,7 @@ function EventForm({ event }) {
                 <input
                     id="location"
                     placeholder={event.event_location}
-                    onChange={updateField(setLocation)}
+                    onChange={updateField(setLocation, "location")}
                     value={location}
                 />
             </label>
@@ -65,16 +86,19 @@ function EventForm({ event }) {
                 <input
                     id="thumbnail-url"
                     placeholder={event.event_thumbnail}
-                    onChange={updateField(setThumbnailURL)}
+                    onChange={updateField(setThumbnailURL, "thumbnailURL")}
                     value={thumbnailURL}
                 />
+                {validationErrors.thumbnailURL ? (
+                    <p className="warning">{validationErrors.thumbnailURL}</p>
+                ) : null}
             </label>
             <label>
                 <p>Thumbnail Alt Text:</p>
                 <input
                     id="thumbnail-alt"
                     placeholder={event.event_thumbnail_alt}
-                    onChange={updateField(setThumbnailAlt)}
+                    onChange={updateField(setThumbnailAlt, "thumbnailAlt")}
                     value={thumbnailAlt}
                 />
             </label>
@@ -83,16 +107,19 @@ function EventForm({ event }) {
                 <input
                     id="image-url"
                     placeholder={event.event_image}
-                    onChange={updateField(setImageURL)}
+                    onChange={updateField(setImageURL, "imageURL")}
                     value={imageURL}
                 />
+                {validationErrors.imageURL ? (
+                    <p className="warning">{validationErrors.imageURL}</p>
+                ) : null}
             </label>
             <label>
                 <p>Image Alt Text:</p>
                 <input
                     id="image-alt"
                     placeholder={event.event_image_alt}
-                    onChange={updateField(setImageAlt)}
+                    onChange={updateField(setImageAlt, "imageAlt")}
                     value={imageAlt}
                 />
             </label>
@@ -101,7 +128,10 @@ function EventForm({ event }) {
                 <textarea
                     id="short-description"
                     placeholder={event.event_description_short}
-                    onChange={updateField(setShortDescription)}
+                    onChange={updateField(
+                        setShortDescription,
+                        "shortDescription"
+                    )}
                     value={shortDescription}
                 />
             </label>
@@ -110,7 +140,10 @@ function EventForm({ event }) {
                 <textarea
                     id="long-description"
                     placeholder={event.event_description_long}
-                    onChange={updateField(setLongDescription)}
+                    onChange={updateField(
+                        setLongDescription,
+                        "longDescription"
+                    )}
                     value={longDescription}
                 />
             </label>

@@ -54,3 +54,9 @@
 #long-description {
     height: 5rem;
 }
+
+#edit-event-form .warning {
+    color: var(--on-danger-colour);
+    height: 1.5rem;
+    font-size: 1.2rem;
+}
