@@ -3,6 +3,8 @@ import { useEffect, useState, useContext } from "react";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { getStaffEvents } from "../../apiRequests";
+import EventList from "../EventList/EventList";
 
 function ManageListPage() {
     const [events, setEvents] = useState([]);
@@ -18,6 +20,16 @@ function ManageListPage() {
 
     useEffect(() => {
         setIsLoading(true);
+        getStaffEvents(token, user_id)
+            .then((apiEvents) => {
+                setEvents(apiEvents);
+            })
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((apiError) => {
+                console.log(apiError);
+            });
     }, [token, user_id]);
 
     if (isLoading) {
@@ -29,6 +41,17 @@ function ManageListPage() {
             </main>
         );
     }
+
+    return (
+        <main>
+            <section id="staff-events-title">
+                <h2>The events you manage:</h2>
+            </section>
+            <section id="staff-events">
+                <EventList destination="events" events={events} />
+            </section>
+        </main>
+    );
 }
 
 export default ManageListPage;

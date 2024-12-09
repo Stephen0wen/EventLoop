@@ -68,3 +68,13 @@ export function postPlan(token, user_id, event_id) {
         );
     }
 }
+
+export function getStaffEvents(token, user_id) {
+    if (token && user_id) {
+        return axios(`${baseURL}/api/staff/${user_id}/events`, {
+            headers: { auth: token },
+        }).then(({ data: { events } }) => {
+            return events;
+        });
+    }
+}
