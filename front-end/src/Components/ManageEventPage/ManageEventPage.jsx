@@ -74,7 +74,13 @@ function ManageEventPage() {
                 >
                     Cancel Event
                 </button>
-                <button>Edit Event</button>
+                <button
+                    onClick={() => {
+                        navigate(`/manage/${event_id}/edit`);
+                    }}
+                >
+                    Edit Event
+                </button>
             </section>
             <ConfirmationPopup
                 message={`Are you sure you want to cancel this event? It will be permenantly deleted along with all associated attendance data!`}
