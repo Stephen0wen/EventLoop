@@ -25,7 +25,7 @@ function AccountPage() {
     };
 
     return (
-        <main id="account-page" className="page">
+        <main id="account-page">
             <section aria-label="Account Settings" id="account-container">
                 <h2 id="greeting">Hello {user.displayName || user.email}</h2>
                 <button onClick={handleSignOut}>Log Out</button>

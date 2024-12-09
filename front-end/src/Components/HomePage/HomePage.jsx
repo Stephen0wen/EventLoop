@@ -27,14 +27,14 @@ function HomePage() {
     }
 
     return (
-        <>
-            <section id="welcome" aria-label="Welcome Message" className="page">
+        <main>
+            <section id="welcome" aria-label="Welcome Message">
                 <h2>Welcome to EventLoop!</h2>
             </section>
-            <section id="events" aria-label="Events Section" className="page">
+            <section id="events" aria-label="Events Section">
                 <EventGrid events={events} />
             </section>
-        </>
+        </main>
     );
 }
 

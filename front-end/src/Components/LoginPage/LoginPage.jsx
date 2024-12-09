@@ -54,7 +54,7 @@ function LoginPage() {
     };
 
     return (
-        <main id="login-page" className="page">
+        <main id="login-page">
             <form id="login-form">
                 <h2>Sign in to EventLoop</h2>
                 <label>

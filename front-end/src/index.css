@@ -40,13 +40,21 @@
     padding-bottom: 3rem;
 }
 
-.page {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: var(--header-gap);
     width: 100%;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     max-width: 1200px;
+    margin-bottom: 1rem;
 }
 
 .danger {

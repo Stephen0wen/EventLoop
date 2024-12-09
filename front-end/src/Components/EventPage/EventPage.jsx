@@ -96,7 +96,7 @@ function EventPage() {
     }
 
     return (
-        <main id="event-page" className="page">
+        <main id="event-page">
             <EventDetails event={event} />
             <section aria-label="Event Options" id="button-container">
                 {buttons}

@@ -43,7 +43,7 @@ function PlanDetailsPage() {
     }
 
     return (
-        <main id="plan-details-page" className="page">
+        <main id="plan-details-page">
             <EventDetails event={event} />
             <section aria-label="Plan Options" id="button-container">
                 <button
