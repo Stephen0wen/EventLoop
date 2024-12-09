@@ -14,8 +14,8 @@ exports.getUser = (req, res, next) => {
         .then((firebase_id) => {
             return fetchUser(firebase_id);
         })
-        .then(({ user_id }) => {
-            res.status(200).send({ user_id });
+        .then((user) => {
+            res.status(200).send({ user });
         })
         .catch(next);
 };

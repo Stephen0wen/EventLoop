@@ -1,5 +1,6 @@
 #button-container {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin: 0.5rem auto;
     gap: 1rem;
@@ -8,6 +9,5 @@
 
 #button-container button {
     width: 33%;
-    overflow: hidden;
     padding: 0.5rem;
 }

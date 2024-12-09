@@ -51,7 +51,7 @@ function PlanDetailsPage() {
                         navigate("/plans");
                     }}
                 >
-                    {"Back"}
+                    Back
                 </button>
                 <button
                     onClick={() => {

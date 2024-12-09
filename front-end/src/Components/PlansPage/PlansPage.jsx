@@ -38,7 +38,7 @@ function PlansPage() {
                 <h2>Your Current Plans:</h2>
             </section>
             <section id="plans" aria-label="Plans Section">
-                <EventList events={events} />
+                <EventList destination="plans" events={events} />
             </section>
         </main>
     );

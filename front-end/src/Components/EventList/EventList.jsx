@@ -1,11 +1,17 @@
 import EventTileWide from "../EventTileWide/EventTileWide";
 import "./EventList.css";
 
-function EventList({ events }) {
+function EventList({ destination, events }) {
     return (
         <div id="event-list">
             {events.map((event) => {
-                return <EventTileWide key={event.event_id} event={event} />;
+                return (
+                    <EventTileWide
+                        destination={destination}
+                        key={event.event_id}
+                        event={event}
+                    />
+                );
             })}
         </div>
     );

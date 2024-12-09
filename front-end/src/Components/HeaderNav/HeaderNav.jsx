@@ -26,7 +26,13 @@ function HeaderNav({ children }) {
                 >
                     Plans
                 </button>
-                <button>Manage</button>
+                <button
+                    onClick={() => {
+                        navigate("/manage");
+                    }}
+                >
+                    Manage
+                </button>
                 {children}
             </nav>
         );

@@ -14,6 +14,7 @@ import { DisplayContext } from "./Contexts/DisplayContext";
 import useWindowSize from "./Hooks/useWindowSize";
 import PlansPage from "./Components/PlansPage/PlansPage";
 import PlanDetailsPage from "./Components/PlanDetailsPage/PlanDetailsPage";
+import ManageListPage from "./Components/ManageListPage/ManageListPage";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken } =
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/events/:event_id" element={<EventPage />} />
                 <Route path="/plans" element={<PlansPage />} />
                 <Route path="/plans/:event_id" element={<PlanDetailsPage />} />
+                <Route path="/manage" element={<ManageListPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
             </Routes>

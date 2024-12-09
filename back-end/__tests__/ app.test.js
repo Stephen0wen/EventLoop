@@ -102,7 +102,7 @@ describe("/api/events/:event_id", () => {
 });
 
 describe("/api/user", () => {
-    test("GET:200 Should return the user_id associated with the auth token provided", () => {
+    test("GET:200 Should return the user associated with the auth token provided", () => {
         return getToken(3)
             .then((idToken) => {
                 return request(app)
@@ -110,8 +110,9 @@ describe("/api/user", () => {
                     .set({ auth: idToken })
                     .expect(200);
             })
-            .then(({ body: { user_id } }) => {
-                expect(user_id).toBe(3);
+            .then(({ body: { user } }) => {
+                expect(user.user_id).toBe(3);
+                expect(user.user_is_staff).toBe(true);
             });
     });
     test("GET:403 Should return an authentication error if no auth header is provided", () => {

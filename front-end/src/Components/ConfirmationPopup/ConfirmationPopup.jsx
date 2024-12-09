@@ -8,7 +8,7 @@ export default function ConfirmationPopup({
     args,
 }) {
     return (
-        <div id="grey-zone" className={isHidden ? "hidden" : ""}>
+        <main id="grey-zone" className={isHidden ? "hidden" : ""}>
             <section id="confirmation-popup">
                 <p id="confirmation-message">{message}</p>
                 <div id="confirmation-button-container">
@@ -29,6 +29,6 @@ export default function ConfirmationPopup({
                     </button>
                 </div>
             </section>
-        </div>
+        </main>
     );
 }
