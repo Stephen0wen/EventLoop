@@ -22,7 +22,7 @@
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
-    border: 0.3rem solid #0003;
+    border: 0.3rem solid transparent;
     border-top: 0.3rem solid var(--primary-colour);
     animation: spin 0.65s linear infinite;
 }
