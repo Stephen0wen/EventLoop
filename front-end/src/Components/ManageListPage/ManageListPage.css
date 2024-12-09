@@ -1,0 +1,8 @@
+#staff-events-title {
+    text-align: left;
+}
+
+#staff-events-title h2 {
+    color: var(--on-background-colour);
+    width: 90%;
+}
