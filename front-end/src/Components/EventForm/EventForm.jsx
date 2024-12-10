@@ -2,7 +2,7 @@ import "./EventForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function EventForm({ event }) {
+function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
     const navigate = useNavigate();
     const [title, setTitle] = useState(event.event_title);
     const [start, setStart] = useState(event.event_start);
@@ -20,10 +20,26 @@ function EventForm({ event }) {
     );
     const [validationErrors, setValidationErrors] = useState({});
 
+    const updateOutput = () => {
+        setNewEvent({
+            event_title: title,
+            event_start: start,
+            event_end: end,
+            event_location: location,
+            event_thumbnail: thumbnailURL,
+            event_thumbnail_alt: thumbnailAlt,
+            event_image: imageURL,
+            event_image_alt: imageAlt,
+            event_description_short: shortDescription,
+            event_description_long: longDescription,
+        });
+    };
+
     const updateField = (setter, field) => (event) => {
         const value = event.target.value;
         setter(value);
         validateField(field, value);
+        updateOutput();
     };
 
     const validateField = (field, value) => {
@@ -44,7 +60,7 @@ function EventForm({ event }) {
 
     return (
         <form id="edit-event-form">
-            <h2>Edit Event</h2>
+            <h2>{formTitle}</h2>
             <label>
                 <p>Title:</p>
                 <input
@@ -158,7 +174,14 @@ function EventForm({ event }) {
                 >
                     Back
                 </button>
-                <button type="button">Update</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        submitFunc();
+                    }}
+                >
+                    {buttonText}
+                </button>
             </div>
         </form>
     );

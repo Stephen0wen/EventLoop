@@ -7,9 +7,10 @@ import LoadMsg from "../LoadMsg/LoadMsg";
 import "./EditEventPage.css";
 import EventForm from "../EventForm/EventForm";
 
-function EditEventForm() {
+function EditEventPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
+    const [newEvent, setNewEvent] = useState({});
     const { event_id } = useParams();
     const navigate = useNavigate();
     const { token, user_id, user_is_staff } = useContext(UserContext);
@@ -36,9 +37,14 @@ function EditEventForm() {
 
     return (
         <main>
-            <EventForm event={event} />
+            <EventForm
+                event={event}
+                setNewEvent={setNewEvent}
+                formTitle="Edit Event"
+                buttonText="Update"
+            />
         </main>
     );
 }
 
-export default EditEventForm;
+export default EditEventPage;
