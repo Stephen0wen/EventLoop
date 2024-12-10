@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { getPlan } from "../../apiRequests";
+import { getPlan, patchEvent } from "../../apiRequests";
 import { useNavigate } from "react-router-dom";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import "./EditEventPage.css";
@@ -24,8 +24,17 @@ function EditEventPage() {
             })
             .then(() => {
                 setIsLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }, []);
+
+    const handleSubmit = () => {
+        patchEvent(token, user_id, event_id, newEvent).then(() => {
+            navigate(`/manage/${event_id}`);
+        });
+    };
 
     if (isLoading) {
         return (
@@ -42,6 +51,7 @@ function EditEventPage() {
                 setNewEvent={setNewEvent}
                 formTitle="Edit Event"
                 buttonText="Update"
+                submitFunc={handleSubmit}
             />
         </main>
     );

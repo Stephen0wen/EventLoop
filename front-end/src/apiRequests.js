@@ -89,3 +89,13 @@ export function deleteEvent(token, user_id, event_id) {
         );
     }
 }
+
+export function patchEvent(token, user_id, event_id, newEvent) {
+    if (token && user_id) {
+        return axios.patch(
+            `${baseURL}/api/staff/${user_id}/events/${event_id}`,
+            newEvent,
+            { headers: { auth: token } }
+        );
+    }
+}

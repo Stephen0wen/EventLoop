@@ -177,7 +177,10 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                 <button
                     type="button"
                     onClick={() => {
-                        submitFunc();
+                        updateOutput();
+                        setTimeout(() => {
+                            submitFunc();
+                        }, 1000);
                     }}
                 >
                     {buttonText}
