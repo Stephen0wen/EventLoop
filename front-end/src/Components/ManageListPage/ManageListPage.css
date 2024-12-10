@@ -6,3 +6,7 @@
     color: var(--on-background-colour);
     width: 90%;
 }
+
+#new-event-button {
+    margin: 1rem;
+}

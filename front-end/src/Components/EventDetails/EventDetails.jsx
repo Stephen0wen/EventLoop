@@ -7,21 +7,11 @@ function EventDetails({ event }) {
             <img src={event.event_image} alt={event.event_image_alt} />
             <p id="description">{event.event_description_long}</p>
             <div id="date-container">
+                <p>{new Date(event.event_start).toLocaleDateString("en-GB")}</p>
                 <p>
-                    Date:{" "}
-                    <span>
-                        {new Date(event.event_start).toLocaleDateString(
-                            "en-GB"
-                        )}
-                    </span>
-                </p>
-                <p>
-                    Time:{" "}
-                    <span>
-                        {new Date(event.event_start).toLocaleTimeString(
-                            "en-US"
-                        )}
-                    </span>
+                    {new Date(event.event_start)
+                        .toLocaleTimeString("en-GB")
+                        .substring(0, 5)}
                 </p>
             </div>
         </section>

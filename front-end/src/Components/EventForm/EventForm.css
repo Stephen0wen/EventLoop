@@ -1,0 +1,64 @@
+#edit-event-form {
+    margin: auto;
+    width: 85%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    border-radius: 1rem;
+    background-color: var(--secondary-colour);
+    color: var(--on-secondary-colour);
+    border: 1px solid var(--primary-colour);
+    box-shadow: 0 0 0.5rem -0.1rem black;
+    margin-bottom: 3rem;
+}
+
+#edit-event-form h2 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#edit-event-form label {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit-event-form input {
+    margin: 0;
+    height: 2rem;
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 0.2 0.5rem;
+    box-sizing: border-box;
+}
+
+#edit-event-form p {
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+#edit-event-form textarea {
+    margin: 0.5rem;
+    width: 100%;
+    padding: 0.2rem;
+    box-sizing: border-box;
+}
+
+#short-description {
+    height: 2.5rem;
+}
+
+#long-description {
+    height: 5rem;
+}
+
+#edit-event-form .warning {
+    color: var(--on-danger-colour);
+    height: 1.5rem;
+    font-size: 1.2rem;
+}

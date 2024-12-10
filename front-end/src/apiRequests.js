@@ -78,3 +78,32 @@ export function getStaffEvents(token, user_id) {
         });
     }
 }
+
+export function deleteEvent(token, user_id, event_id) {
+    if (token && user_id) {
+        return axios.delete(
+            `${baseURL}/api/staff/${user_id}/events/${event_id}`,
+            {
+                headers: { auth: token },
+            }
+        );
+    }
+}
+
+export function patchEvent(token, user_id, event_id, newEvent) {
+    if (token && user_id) {
+        return axios.patch(
+            `${baseURL}/api/staff/${user_id}/events/${event_id}`,
+            newEvent,
+            { headers: { auth: token } }
+        );
+    }
+}
+
+export function postEvent(token, user_id, newEvent) {
+    if (token && user_id) {
+        return axios.post(`${baseURL}/api/staff/${user_id}/events`, newEvent, {
+            headers: { auth: token },
+        });
+    }
+}

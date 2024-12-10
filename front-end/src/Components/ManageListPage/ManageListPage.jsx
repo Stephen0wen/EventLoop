@@ -1,5 +1,6 @@
 import "./ManageListPage.css";
 import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +8,7 @@ import { getStaffEvents } from "../../apiRequests";
 import EventList from "../EventList/EventList";
 
 function ManageListPage() {
+    const { event_id } = useParams();
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { token, user_id, isLoggedIn, user_is_staff } =
@@ -35,9 +37,7 @@ function ManageListPage() {
     if (isLoading) {
         return (
             <main>
-                <LoadMsg message="Loading the events you manage...">
-                    <p>{`Please ensure you are logged in (as a staff member)...`}</p>
-                </LoadMsg>
+                <LoadMsg message="Loading your events..." />
             </main>
         );
     }
@@ -48,7 +48,15 @@ function ManageListPage() {
                 <h2>The events you manage:</h2>
             </section>
             <section id="staff-events">
-                <EventList destination="events" events={events} />
+                <EventList destination="manage" events={events} />
+                <button
+                    id="new-event-button"
+                    onClick={() => {
+                        navigate("/create");
+                    }}
+                >
+                    New Event +
+                </button>
             </section>
         </main>
     );

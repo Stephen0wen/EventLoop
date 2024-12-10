@@ -28,7 +28,7 @@
     text-align: center;
 }
 
-#date-container span {
-    text-align: left;
+#date-container p {
+    text-align: center;
     font-style: "italic";
 }
