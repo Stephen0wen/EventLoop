@@ -99,3 +99,11 @@ export function patchEvent(token, user_id, event_id, newEvent) {
         );
     }
 }
+
+export function postEvent(token, user_id, newEvent) {
+    if (token && user_id) {
+        return axios.post(`${baseURL}/api/staff/${user_id}/events`, newEvent, {
+            headers: { auth: token },
+        });
+    }
+}

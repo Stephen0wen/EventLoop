@@ -49,6 +49,14 @@ function ManageListPage() {
             </section>
             <section id="staff-events">
                 <EventList destination="manage" events={events} />
+                <button
+                    id="new-event-button"
+                    onClick={() => {
+                        navigate("/create");
+                    }}
+                >
+                    New Event +
+                </button>
             </section>
         </main>
     );

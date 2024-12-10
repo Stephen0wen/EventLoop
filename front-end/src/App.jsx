@@ -17,6 +17,7 @@ import PlanDetailsPage from "./Components/PlanDetailsPage/PlanDetailsPage";
 import ManageListPage from "./Components/ManageListPage/ManageListPage";
 import ManageEventPage from "./Components/ManageEventPage/ManageEventPage";
 import EditEventForm from "./Components/EditEventPage/EditEventPage";
+import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
@@ -72,6 +73,7 @@ function App() {
                     path="/manage/:event_id/edit"
                     element={<EditEventForm />}
                 />
+                <Route path="/create" element={<CreateEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
             </Routes>
