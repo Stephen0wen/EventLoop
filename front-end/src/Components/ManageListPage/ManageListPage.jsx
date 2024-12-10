@@ -37,7 +37,7 @@ function ManageListPage() {
     if (isLoading) {
         return (
             <main>
-                <LoadMsg message="Loading your event..." />
+                <LoadMsg message="Loading your events..." />
             </main>
         );
     }

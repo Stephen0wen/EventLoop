@@ -12,13 +12,7 @@ function EditEventForm() {
     const [event, setEvent] = useState({});
     const { event_id } = useParams();
     const navigate = useNavigate();
-    const { token, user_id, isLoggedIn, user_is_staff } =
-        useContext(UserContext);
-
-    setTimeout(() => {
-        if (!isLoggedIn) navigate("/login");
-        if (!user_is_staff) navigate("/");
-    }, 5000);
+    const { token, user_id, user_is_staff } = useContext(UserContext);
 
     useEffect(() => {
         setIsLoading(true);

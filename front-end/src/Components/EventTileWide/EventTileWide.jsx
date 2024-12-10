@@ -12,20 +12,14 @@ function EventTileWide({ destination, event }) {
                 <h2>{event.event_title}</h2>
                 <div className="date-time-container">
                     <p>
-                        Date:{" "}
-                        <span>
-                            {new Date(event.event_start).toLocaleDateString(
-                                "en-GB"
-                            )}
-                        </span>
+                        {new Date(event.event_start).toLocaleDateString(
+                            "en-GB"
+                        )}
                     </p>
                     <p>
-                        Time:{" "}
-                        <span>
-                            {new Date(event.event_start).toLocaleTimeString(
-                                "en-US"
-                            )}
-                        </span>
+                        {new Date(event.event_start)
+                            .toLocaleTimeString("en-GB")
+                            .substring(0, 5)}
                     </p>
                 </div>
             </div>

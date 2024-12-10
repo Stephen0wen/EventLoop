@@ -1,7 +1,9 @@
 import "./EventForm.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function EventForm({ event }) {
+    const navigate = useNavigate();
     const [title, setTitle] = useState(event.event_title);
     const [start, setStart] = useState(event.event_start);
     const [end, setEnd] = useState(event.event_end);
@@ -59,7 +61,7 @@ function EventForm({ event }) {
                     type="datetime-local"
                     placeholder={event.event_start}
                     onChange={updateField(setStart, "start")}
-                    value={start}
+                    value={start.substring(0, 23)}
                 />
             </label>
             <label>
@@ -69,7 +71,7 @@ function EventForm({ event }) {
                     type="datetime-local"
                     placeholder={event.event_end}
                     onChange={updateField(setEnd, "end")}
-                    value={end}
+                    value={end.substring(0, 23)}
                 />
             </label>
             <label>
@@ -147,6 +149,17 @@ function EventForm({ event }) {
                     value={longDescription}
                 />
             </label>
+            <div id="button-container">
+                <button
+                    type="button"
+                    onClick={() => {
+                        navigate(-1);
+                    }}
+                >
+                    Back
+                </button>
+                <button type="button">Update</button>
+            </div>
         </form>
     );
 }
