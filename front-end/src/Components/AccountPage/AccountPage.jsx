@@ -1,19 +1,27 @@
 import "./AccountPage.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 import { useNavigate } from "react-router-dom";
+import LoadMsg from "../LoadMsg/LoadMsg";
 
 function AccountPage() {
-    const { isLoggedIn, user } = useContext(UserContext);
+    const { isLoggedIn, user, token, user_id } = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(true);
+    const { setError } = useContext(ErrorContext);
     const nagivate = useNavigate();
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            nagivate("/");
+        setIsLoading(true);
+        if (token && user_id && !isLoggedIn) {
+            nagivate("/login");
         }
-    }, [isLoggedIn]);
+        if (token && user_id && isLoggedIn) {
+            setIsLoading(false);
+        }
+    }, [isLoggedIn, token, user_id]);
 
     const handleSignOut = () => {
         firebase
@@ -21,8 +29,19 @@ function AccountPage() {
             .signOut()
             .then(() => {
                 nagivate("/");
+            })
+            .catch((error) => {
+                setError(error);
             });
     };
+
+    if (isLoading) {
+        return (
+            <main>
+                <LoadMsg message="Loading page.." />
+            </main>
+        );
+    }
 
     return (
         <main id="account-page">
