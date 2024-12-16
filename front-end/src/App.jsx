@@ -18,6 +18,7 @@ import ManageListPage from "./Components/ManageListPage/ManageListPage";
 import ManageEventPage from "./Components/ManageEventPage/ManageEventPage";
 import EditEventForm from "./Components/EditEventPage/EditEventPage";
 import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
+import { ErrorContext } from "./Contexts/ErrorContext";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
@@ -25,6 +26,8 @@ function App() {
 
     const { setIsWide } = useContext(DisplayContext);
     const windowSize = useWindowSize();
+
+    const { error } = useContext(ErrorContext);
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
@@ -56,6 +59,15 @@ function App() {
             setIsWide(true);
         } else setIsWide(false);
     }, [windowSize]);
+
+    if (error) {
+        return (
+            <>
+                <Header />
+                <FooterNav />
+            </>
+        );
+    }
 
     return (
         <>

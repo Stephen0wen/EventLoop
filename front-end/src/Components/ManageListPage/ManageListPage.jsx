@@ -15,11 +15,6 @@ function ManageListPage() {
         useContext(UserContext);
     const navigate = useNavigate();
 
-    setTimeout(() => {
-        if (!isLoggedIn) navigate("/login");
-        if (!user_is_staff) navigate("/");
-    }, 5000);
-
     useEffect(() => {
         setIsLoading(true);
         getStaffEvents(token, user_id)
