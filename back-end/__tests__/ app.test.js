@@ -115,6 +115,19 @@ describe("/api/user", () => {
                 expect(user.user_is_staff).toBe(true);
             });
     });
+    test("GET:201 Should create and return a new user object when passed a token which does not already have a corresponding user_id", () => {
+        return getToken(7)
+            .then((idToken) => {
+                return request(app)
+                    .get("/api/user")
+                    .set({ auth: idToken })
+                    .expect(201);
+            })
+            .then(({ body: { user } }) => {
+                expect(user.user_id).toBe(7);
+                expect(user.user_is_staff).toBe(false);
+            });
+    });
     test("GET:403 Should return an authentication error if no auth header is provided", () => {
         return request(app)
             .get("/api/user")
@@ -130,18 +143,6 @@ describe("/api/user", () => {
             .expect(403)
             .then(({ body: { msg } }) => {
                 expect(msg).toBe("Authentication Failed");
-            });
-    });
-    test("GET:404 Should return an error when given a token with no corresponding user_id", () => {
-        return getToken(7)
-            .then((idToken) => {
-                return request(app)
-                    .get("/api/user")
-                    .set({ auth: idToken })
-                    .expect(404);
-            })
-            .then(({ body: { msg } }) => {
-                expect(msg).toBe("Resource Not Found");
             });
     });
 });

@@ -1,3 +1,4 @@
+const { getFirebaseUser } = require("../auth/getEmail");
 const db = require("../db/connection");
 
 exports.varifyUser = (user_id, firebase_id) => {
@@ -30,12 +31,24 @@ exports.fetchUser = (firebase_id) => {
             [firebase_id]
         )
         .then(({ rows }) => {
-            if (!rows.length) {
-                return Promise.reject({
-                    status: 404,
-                    msg: "Resource Not Found",
-                });
-            }
+            return rows[0];
+        });
+};
+
+exports.insertUser = (request) => {
+    return getFirebaseUser(request)
+        .then(({ email, uid }) => {
+            return db.query(
+                `
+    INSERT INTO users
+        (user_firebase_id, user_email, user_is_staff)
+    VALUES ($1, $2, $3)
+    RETURNING user_id, user_is_staff
+        `,
+                [uid, email, false]
+            );
+        })
+        .then(({ rows }) => {
             return rows[0];
         });
 };
