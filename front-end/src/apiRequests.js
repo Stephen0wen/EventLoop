@@ -32,7 +32,6 @@ export function getPlans(token, user_id) {
             return events;
         });
     }
-    // return Promise.reject({ message: "No token or user_id" });
 }
 
 export function getPlan(token, user_id, event_id) {
@@ -43,7 +42,6 @@ export function getPlan(token, user_id, event_id) {
             return event;
         });
     }
-    return Promise.reject("No token or user_id");
 }
 
 export function deletePlan(token, user_id, event_id) {
