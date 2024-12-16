@@ -7,32 +7,34 @@ import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
 import { useNavigate } from "react-router-dom";
 import { deleteEvent, getPlan } from "../../apiRequests";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function ManageEventPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [hideCancelEventPopup, setHideCancelEventPopup] = useState(true);
     const { event_id } = useParams();
-    const { token, user_id, isLoggedIn, user_is_staff } =
-        useContext(UserContext);
+    const { token, user_id } = useContext(UserContext);
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
-
-    setTimeout(() => {
-        if (!isLoggedIn) navigate("/login");
-        if (!user_is_staff) navigate("/");
-    }, 5000);
 
     useEffect(() => {
         setIsLoading(true);
-        getPlan(token, user_id, event_id)
-            .then((apiEvent) => {
-                if (apiEvent.event_created_by === user_id) setEvent(apiEvent);
-                else navigate(`/events/${event_id}`);
-            })
-            .then(() => {
-                setIsLoading(false);
-            });
-    }, []);
+        if (token && user_id) {
+            getPlan(token, user_id, event_id)
+                .then((apiEvent) => {
+                    if (apiEvent.event_created_by === user_id)
+                        setEvent(apiEvent);
+                    else navigate(`/events/${event_id}`);
+                })
+                .then(() => {
+                    setIsLoading(false);
+                })
+                .catch((apiError) => {
+                    setError(apiError);
+                });
+        }
+    }, [token, user_id]);
 
     const cancelEvent = () => {
         deleteEvent(token, user_id, event_id)
@@ -40,7 +42,7 @@ function ManageEventPage() {
                 navigate("/manage");
             })
             .catch((error) => {
-                console.log(error);
+                setError(error);
             });
     };
 
