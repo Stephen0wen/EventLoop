@@ -37,7 +37,6 @@ function App() {
                     .auth()
                     .currentUser.getIdToken()
                     .then((apiToken) => {
-                        console.log(apiToken);
                         setToken(apiToken);
                         return getUser(apiToken);
                     })

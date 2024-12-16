@@ -34,6 +34,7 @@
     border-radius: 3rem;
     border: 1px solid var(--primary-colour);
     background-color: var(--on-primary-colour);
+    box-shadow: 0 0 0.2rem black;
     transition: border-color 0.25s;
 }
 
