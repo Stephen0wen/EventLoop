@@ -7,6 +7,7 @@ const {
     fetchUserEventAttending,
     dropAttendance,
     insertUser,
+    dropUser,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -23,6 +24,17 @@ exports.getUser = (req, res, next) => {
         })
         .then((user) => {
             res.status(201).send({ user });
+        })
+        .catch(next);
+};
+
+exports.deleteUser = (req, res, next) => {
+    authenticate(req)
+        .then((firebase_id) => {
+            return dropUser(firebase_id);
+        })
+        .then(() => {
+            res.status(204).send({});
         })
         .catch(next);
 };

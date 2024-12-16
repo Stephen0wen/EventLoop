@@ -145,6 +145,47 @@ describe("/api/user", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
+    test("DELETE:204 Should delete the user and all associated attendance data", () => {
+        return getToken(4).then((idToken) => {
+            return request(app)
+                .delete("/api/user")
+                .set({ auth: idToken })
+                .expect(204)
+                .then(({ body }) => {
+                    expect(body).toEqual({});
+                });
+        });
+    });
+    test("DELETE:403 Should return an error if attempting to delete a staff account", () => {
+        return getToken(1).then((idToken) => {
+            return request(app)
+                .delete("/api/user")
+                .set({ auth: idToken })
+                .expect(403)
+                .then(({ body: { msg } }) => {
+                    expect(msg).toEqual(
+                        "Staff accounts can only be deleted by the administrator"
+                    );
+                });
+        });
+    });
+    test("DELETE:403 Should return an authentication error if no auth header is provided", () => {
+        return request(app)
+            .delete("/api/user")
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("No Authentication Token");
+            });
+    });
+    test("DELETE:403 Should return an authentication error if an invalid token is provided", () => {
+        return request(app)
+            .delete("/api/user")
+            .set({ auth: "not a token" })
+            .expect(403)
+            .then(({ body: { msg } }) => {
+                expect(msg).toBe("Authentication Failed");
+            });
+    });
 });
 
 describe("/api/user/:user_id/events", () => {
