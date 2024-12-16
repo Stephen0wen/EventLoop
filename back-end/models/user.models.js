@@ -64,6 +64,7 @@ exports.dropUser = (firebase_id) => {
             [firebase_id]
         )
         .then(({ rows }) => {
+            if (!rows.length) return;
             const { user_id, user_is_staff } = rows[0];
             if (user_is_staff) {
                 return Promise.reject({
