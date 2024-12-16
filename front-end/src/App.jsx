@@ -20,6 +20,7 @@ import EditEventForm from "./Components/EditEventPage/EditEventPage";
 import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
 import { ErrorContext } from "./Contexts/ErrorContext";
 import ErrorDisplay from "./Components/ErrorDisplay/ErrorDisplay";
+import SignUpPage from "./Components/SignUpPage/SignUpPage";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
@@ -89,6 +90,7 @@ function App() {
                 />
                 <Route path="/create" element={<CreateEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/*" element={<ErrorDisplay notFound={true} />} />
             </Routes>
