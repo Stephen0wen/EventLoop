@@ -28,6 +28,10 @@
     height: 2rem;
     width: 14rem;
     font-size: 1.4rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--primary-colour);
+    border-radius: 0.2rem;
+    background-color: var(--background-colour);
 }
 
 #login-form .warning {

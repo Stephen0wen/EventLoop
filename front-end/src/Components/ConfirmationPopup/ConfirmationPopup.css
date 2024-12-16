@@ -16,6 +16,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 90%;
+    width: fit-content;
     gap: 2rem;
     background-color: var(--secondary-colour);
     border-radius: 1rem;

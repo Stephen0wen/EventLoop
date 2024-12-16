@@ -53,6 +53,45 @@ exports.insertUser = (request) => {
         });
 };
 
+exports.dropUser = (firebase_id) => {
+    return db
+        .query(
+            `
+    SELECT user_id, user_is_staff
+    FROM users
+    WHERE user_firebase_id = $1 
+        `,
+            [firebase_id]
+        )
+        .then(({ rows }) => {
+            const { user_id, user_is_staff } = rows[0];
+            if (user_is_staff) {
+                return Promise.reject({
+                    status: 403,
+                    msg: "Staff accounts can only be deleted by the administrator",
+                });
+            } else {
+                return db.query(
+                    `
+    DELETE FROM attendance
+    WHERE user_id = $1         
+                    `,
+                    [user_id]
+                );
+            }
+        })
+        .then(() => {
+            return db.query(
+                `
+    DELETE FROM users
+    WHERE user_firebase_id = $1
+    RETURNING *
+                `,
+                [firebase_id]
+            );
+        });
+};
+
 exports.fetchUserEvents = (user_id) => {
     return db
         .query(
