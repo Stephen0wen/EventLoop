@@ -27,9 +27,9 @@ const ErrorDisplay = ({ notFound }) => {
     //     message = error.message;
     // }
 
-    // if (error.code && error.code === "ERR_NETWORK") {
-    //     message = "Unable to connect to server...";
-    // }
+    if (error.code && error.code === "ERR_NETWORK") {
+        message = "Unable to connect to server...";
+    }
 
     // if (error.msg) {
     //     message = error.msg;
