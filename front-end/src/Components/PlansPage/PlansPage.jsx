@@ -4,32 +4,28 @@ import LoadMsg from "../LoadMsg/LoadMsg";
 import { UserContext } from "../../Contexts/UserContext";
 import { getPlans } from "../../apiRequests";
 import EventList from "../EventList/EventList";
-import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function PlansPage() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { token, user_id, isLoggedIn } = useContext(UserContext);
-    const navigate = useNavigate();
-
-    setTimeout(() => {
-        if (!isLoggedIn) {
-            navigate("/login");
-        }
-    }, 5000);
+    const { token, user_id } = useContext(UserContext);
+    const { setError } = useContext(ErrorContext);
 
     useEffect(() => {
         setIsLoading(true);
-        getPlans(token, user_id)
-            .then((plans) => {
-                setEvents(plans);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-            .catch((apiError) => {
-                console.log(apiError);
-            });
+        if (token && user_id) {
+            getPlans(token, user_id)
+                .then((plans) => {
+                    setEvents(plans);
+                })
+                .then(() => {
+                    setIsLoading(false);
+                })
+                .catch((apiError) => {
+                    setError(apiError);
+                });
+        }
     }, [token, user_id]);
 
     if (isLoading) {

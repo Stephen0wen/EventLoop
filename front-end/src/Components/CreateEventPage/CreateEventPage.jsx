@@ -1,12 +1,16 @@
 import "./CreateEventPage.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import { patchEvent, postEvent } from "../../apiRequests";
+import { postEvent } from "../../apiRequests";
 import { useNavigate } from "react-router-dom";
 import EventForm from "../EventForm/EventForm";
+import { ErrorContext } from "../../Contexts/ErrorContext";
+import LoadMsg from "../LoadMsg/LoadMsg";
 
 function CreateEventPage() {
     const [newEvent, setNewEvent] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
     const { token, user_id, user_is_staff } = useContext(UserContext);
     const [event, setEvent] = useState({
@@ -22,11 +26,29 @@ function CreateEventPage() {
         event_description_long: "",
     });
 
+    useEffect(() => {
+        setIsLoading(true);
+        if (token && user_id && !user_is_staff) {
+            navigate("/");
+        }
+        if (token && user_id) {
+            setIsLoading(false);
+        }
+    }, [token, user_id]);
+
     const handleSubmit = () => {
-        postEvent(token, user_id, newEvent).then(() => {
-            navigate("/manage");
-        });
+        postEvent(token, user_id, newEvent)
+            .then(() => {
+                navigate("/manage");
+            })
+            .catch((apiError) => {
+                setError(apiError);
+            });
     };
+
+    if (isLoading) {
+        return <LoadMsg message="Loading Page..." />;
+    }
 
     return (
         <main>

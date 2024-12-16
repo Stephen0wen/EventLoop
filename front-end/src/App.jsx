@@ -18,6 +18,8 @@ import ManageListPage from "./Components/ManageListPage/ManageListPage";
 import ManageEventPage from "./Components/ManageEventPage/ManageEventPage";
 import EditEventForm from "./Components/EditEventPage/EditEventPage";
 import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
+import { ErrorContext } from "./Contexts/ErrorContext";
+import ErrorDisplay from "./Components/ErrorDisplay/ErrorDisplay";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
@@ -25,6 +27,8 @@ function App() {
 
     const { setIsWide } = useContext(DisplayContext);
     const windowSize = useWindowSize();
+
+    const { error } = useContext(ErrorContext);
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
@@ -44,9 +48,9 @@ function App() {
                     });
             } else {
                 setUser({});
-                setUser_id(null);
+                setUser_id(true);
                 setIsLoggedIn(false);
-                setToken(null);
+                setToken(true);
             }
         });
     }, []);
@@ -56,6 +60,16 @@ function App() {
             setIsWide(true);
         } else setIsWide(false);
     }, [windowSize]);
+
+    if (error) {
+        return (
+            <>
+                <Header />
+                <ErrorDisplay />
+                <FooterNav />
+            </>
+        );
+    }
 
     return (
         <>
@@ -76,6 +90,7 @@ function App() {
                 <Route path="/create" element={<CreateEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
+                <Route path="/*" element={<ErrorDisplay notFound={true} />} />
             </Routes>
         </>
     );

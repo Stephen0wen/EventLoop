@@ -1,37 +1,33 @@
 import "./ManageListPage.css";
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { getStaffEvents } from "../../apiRequests";
 import EventList from "../EventList/EventList";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function ManageListPage() {
-    const { event_id } = useParams();
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { token, user_id, isLoggedIn, user_is_staff } =
-        useContext(UserContext);
+    const { token, user_id } = useContext(UserContext);
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
-
-    setTimeout(() => {
-        if (!isLoggedIn) navigate("/login");
-        if (!user_is_staff) navigate("/");
-    }, 5000);
 
     useEffect(() => {
         setIsLoading(true);
-        getStaffEvents(token, user_id)
-            .then((apiEvents) => {
-                setEvents(apiEvents);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-            .catch((apiError) => {
-                console.log(apiError);
-            });
+        if (token && user_id) {
+            getStaffEvents(token, user_id)
+                .then((apiEvents) => {
+                    setEvents(apiEvents);
+                })
+                .then(() => {
+                    setIsLoading(false);
+                })
+                .catch((apiError) => {
+                    setError(apiError);
+                });
+        }
     }, [token, user_id]);
 
     if (isLoading) {
