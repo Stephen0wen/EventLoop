@@ -4,6 +4,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -12,9 +13,8 @@ function LoginPage() {
         email: "",
         password: "",
     });
-
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
-
     const { setIsLoggedIn, setToken, setUser, setUser_id } =
         useContext(UserContext);
 
@@ -41,15 +41,15 @@ function LoginPage() {
     const handleError = (error) => {
         if (error.code === "auth/invalid-email") {
             setWarnings({ email: "Invalid Email", password: "" });
-        }
-        if (error.code === "auth/missing-password") {
+        } else if (error.code === "auth/missing-password") {
             setWarnings({ email: "", password: "Enter Password" });
-        }
-        if (error.code === "auth/invalid-credential") {
+        } else if (error.code === "auth/invalid-credential") {
             setWarnings({
                 email: "",
                 password: "Incorrect email or password",
             });
+        } else {
+            setError(error);
         }
     };
 
