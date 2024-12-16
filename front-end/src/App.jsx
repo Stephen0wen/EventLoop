@@ -19,6 +19,7 @@ import ManageEventPage from "./Components/ManageEventPage/ManageEventPage";
 import EditEventForm from "./Components/EditEventPage/EditEventPage";
 import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
 import { ErrorContext } from "./Contexts/ErrorContext";
+import ErrorDisplay from "./Components/ErrorDisplay/ErrorDisplay";
 
 function App() {
     const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
@@ -64,6 +65,7 @@ function App() {
         return (
             <>
                 <Header />
+                <ErrorDisplay />
                 <FooterNav />
             </>
         );
@@ -88,6 +90,7 @@ function App() {
                 <Route path="/create" element={<CreateEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<AccountPage />} />
+                <Route path="/*" element={<ErrorDisplay notFound={true} />} />
             </Routes>
         </>
     );

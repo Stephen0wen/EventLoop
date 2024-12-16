@@ -11,12 +11,13 @@ import { ErrorProvider } from "./Contexts/ErrorContext.jsx";
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
         <DisplayProvider>
-            <ErrorProvider />
-            <UserProvider>
-                <StrictMode>
-                    <App />
-                </StrictMode>
-            </UserProvider>
+            <ErrorProvider>
+                <UserProvider>
+                    <StrictMode>
+                        <App />
+                    </StrictMode>
+                </UserProvider>
+            </ErrorProvider>
         </DisplayProvider>
     </BrowserRouter>
 );
