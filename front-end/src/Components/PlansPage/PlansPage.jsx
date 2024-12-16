@@ -10,7 +10,7 @@ function PlansPage() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { token, user_id } = useContext(UserContext);
-    const { error, setError } = useContext(ErrorContext);
+    const { setError } = useContext(ErrorContext);
 
     useEffect(() => {
         setIsLoading(true);

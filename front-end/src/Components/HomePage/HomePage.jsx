@@ -8,7 +8,7 @@ import { ErrorContext } from "../../Contexts/ErrorContext";
 function HomePage() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { error, setError } = useContext(ErrorContext);
+    const { setError } = useContext(ErrorContext);
 
     useEffect(() => {
         setIsLoading(true);

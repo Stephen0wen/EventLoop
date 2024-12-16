@@ -7,32 +7,33 @@ import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
 import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function PlanDetailsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [hideCancelPlanPopup, setHideCancelPlanPopup] = useState(true);
     const { event_id } = useParams();
-    const { token, user_id, isLoggedIn } = useContext(UserContext);
+    const { token, user_id } = useContext(UserContext);
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
-
-    setTimeout(() => {
-        if (!isLoggedIn) {
-            navigate("/login");
-        }
-    }, 5000);
 
     useEffect(() => {
         setIsLoading(true);
-        getPlan(token, user_id, event_id)
-            .then((apiEvent) => {
-                if (apiEvent.is_user_attending) setEvent(apiEvent);
-                else navigate(`/events/${event_id}`);
-            })
-            .then(() => {
-                setIsLoading(false);
-            });
-    }, []);
+        if (token && user_id) {
+            getPlan(token, user_id, event_id)
+                .then((apiEvent) => {
+                    if (apiEvent.is_user_attending) setEvent(apiEvent);
+                    else navigate(`/events/${event_id}`);
+                })
+                .then(() => {
+                    setIsLoading(false);
+                })
+                .catch((apiError) => {
+                    setError(apiError);
+                });
+        }
+    }, [token, user_id]);
 
     const cancelPlan = () => {
         deletePlan(token, user_id, event_id)

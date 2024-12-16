@@ -14,7 +14,7 @@ function EventPage() {
     const [buttons, setButtons] = useState([]);
     const { event_id } = useParams();
     const { isLoggedIn, user_id, token } = useContext(UserContext);
-    const { error, setError } = useContext(ErrorContext);
+    const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
 
     const backButton = (
