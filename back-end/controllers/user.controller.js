@@ -6,6 +6,7 @@ const {
     fetchUser,
     fetchUserEventAttending,
     dropAttendance,
+    insertUser,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -15,7 +16,13 @@ exports.getUser = (req, res, next) => {
             return fetchUser(firebase_id);
         })
         .then((user) => {
-            res.status(200).send({ user });
+            if (user) res.status(200).send({ user });
+            else {
+                return insertUser(req);
+            }
+        })
+        .then((user) => {
+            res.status(201).send({ user });
         })
         .catch(next);
 };

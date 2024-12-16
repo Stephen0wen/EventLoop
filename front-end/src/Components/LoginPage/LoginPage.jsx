@@ -5,6 +5,7 @@ import "firebase/compat/auth";
 import { UserContext } from "../../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../Contexts/ErrorContext";
+import GoogleButton from "../GoogleButton/GoogleButton";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -24,6 +25,18 @@ function LoginPage() {
 
     const updatePassword = (event) => {
         setPassword(event.target.value);
+    };
+
+    const googleSignIn = () => {
+        firebase
+            .auth()
+            .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            .then(() => {
+                navigate("/");
+            })
+            .catch((error) => {
+                setError(error);
+            });
     };
 
     const handleSubmit = () => {
@@ -57,6 +70,8 @@ function LoginPage() {
         <main id="login-page">
             <form id="login-form">
                 <h2>Sign in to EventLoop</h2>
+                <GoogleButton googleSignIn={googleSignIn} />
+                or
                 <label>
                     <p>Email</p>
                     <input
