@@ -23,9 +23,9 @@ const ErrorDisplay = ({ notFound }) => {
         message = "404 - Page not found.";
     }
 
-    // if (error.message) {
-    //     message = error.message;
-    // }
+    if (error.message) {
+        message = error.message;
+    }
 
     if (error.code && error.code === "ERR_NETWORK") {
         message = "Unable to connect to server...";

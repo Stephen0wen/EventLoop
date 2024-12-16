@@ -48,9 +48,9 @@ function App() {
                     });
             } else {
                 setUser({});
-                setUser_id(null);
+                setUser_id(true);
                 setIsLoggedIn(false);
-                setToken(null);
+                setToken(true);
             }
         });
     }, []);
