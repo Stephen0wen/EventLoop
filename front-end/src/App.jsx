@@ -47,7 +47,7 @@ function App() {
                         setIsLoggedIn(true);
                     });
             } else {
-                setUser({});
+                setUser(null);
                 setUser_id(true);
                 setIsLoggedIn(false);
                 setToken(true);

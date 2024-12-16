@@ -24,6 +24,12 @@ export function getUser(token) {
     });
 }
 
+export function deleteUser(token) {
+    return axios.delete(`${baseURL}/api/user`, {
+        headers: { auth: token },
+    });
+}
+
 export function getPlans(token, user_id) {
     if (token && user_id) {
         return axios(`${baseURL}/api/user/${user_id}/events`, {
