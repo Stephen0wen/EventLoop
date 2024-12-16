@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import "./EditEventPage.css";
 import EventForm from "../EventForm/EventForm";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function EditEventPage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -14,26 +15,37 @@ function EditEventPage() {
     const { event_id } = useParams();
     const navigate = useNavigate();
     const { token, user_id, user_is_staff } = useContext(UserContext);
+    const { setError } = useContext(ErrorContext);
 
     useEffect(() => {
         setIsLoading(true);
-        getPlan(token, user_id, event_id)
-            .then((apiEvent) => {
-                if (apiEvent.event_created_by === user_id) setEvent(apiEvent);
-                else navigate(`/events/${event_id}`);
-            })
-            .then(() => {
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+        if (token && user_id) {
+            if (!user_is_staff) {
+                navigate(`/events/${event_id}`);
+            }
+            getPlan(token, user_id, event_id)
+                .then((apiEvent) => {
+                    if (apiEvent.event_created_by === user_id)
+                        setEvent(apiEvent);
+                    else navigate(`/events/${event_id}`);
+                })
+                .then(() => {
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    setError(error);
+                });
+        }
+    }, [token, user_id]);
 
     const handleSubmit = () => {
-        patchEvent(token, user_id, event_id, newEvent).then(() => {
-            navigate(`/manage/${event_id}`);
-        });
+        patchEvent(token, user_id, event_id, newEvent)
+            .then(() => {
+                navigate(`/manage/${event_id}`);
+            })
+            .catch((error) => {
+                setError(error);
+            });
     };
 
     if (isLoading) {
