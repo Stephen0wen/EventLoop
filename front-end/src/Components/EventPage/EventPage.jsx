@@ -6,6 +6,7 @@ import { getEvent, getPlan, postPlan } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../../Contexts/ErrorContext";
 
 function EventPage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +14,7 @@ function EventPage() {
     const [buttons, setButtons] = useState([]);
     const { event_id } = useParams();
     const { isLoggedIn, user_id, token } = useContext(UserContext);
+    const { error, setError } = useContext(ErrorContext);
     const navigate = useNavigate();
 
     const backButton = (
@@ -88,6 +90,9 @@ function EventPage() {
             })
             .then(() => {
                 setIsLoading(false);
+            })
+            .catch((apiError) => {
+                setError(apiError);
             });
     }, [isLoggedIn]);
 

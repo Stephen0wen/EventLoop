@@ -36,9 +36,9 @@ const ErrorDisplay = ({ notFound }) => {
     //     notFound = true;
     // }
 
-    // if (error.response.data.msg) {
-    //     message = error.response.data.msg;
-    // }
+    if (error.response.data.msg) {
+        message = error.response.data.msg;
+    }
 
     return (
         <div id="error-display">
