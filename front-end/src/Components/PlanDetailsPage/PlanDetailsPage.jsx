@@ -47,6 +47,53 @@ function PlanDetailsPage() {
             });
     };
 
+    const cancel_plan_button = (
+        <>
+            <button
+                className="danger"
+                onClick={() => {
+                    setHideCancelPlanPopup(false);
+                }}
+            >
+                Cancel Plan
+            </button>
+            <ConfirmationPopup
+                message="Are you sure you want to cancel this plan?"
+                isHidden={hideCancelPlanPopup}
+                setIsHidden={setHideCancelPlanPopup}
+                func={cancelPlan}
+                args={[token, user_id, event_id]}
+            />
+        </>
+    );
+
+    const calander_allowed_button = (
+        <button
+            onClick={() => {
+                console.log("Placeholder");
+            }}
+        >
+            Add to Calendar
+        </button>
+    );
+
+    const calendar_not_allowed_button = (
+        <>
+            <button
+                onClick={() => {
+                    setHideAuthPopup(false);
+                }}
+            >
+                Add to Calendar
+            </button>
+            <AuthCalendarPopup
+                isHidden={hideAuthPopup}
+                setIsHidden={setHideAuthPopup}
+                event_id={event_id}
+            />
+        </>
+    );
+
     if (isLoading) {
         return <LoadMsg message="Loading Plan.." />;
     }
@@ -62,33 +109,11 @@ function PlanDetailsPage() {
                 >
                     Back
                 </button>
-                <button
-                    className="danger"
-                    onClick={() => {
-                        setHideCancelPlanPopup(false);
-                    }}
-                >
-                    Cancel Plan
-                </button>
-                <button
-                    onClick={() => {
-                        setHideAuthPopup(false);
-                    }}
-                >
-                    Add to Calendar
-                </button>
+                {cancel_plan_button}
+                {user_calendar_allowed
+                    ? calander_allowed_button
+                    : calendar_not_allowed_button}
             </section>
-            <ConfirmationPopup
-                message="Are you sure you want to cancel this plan?"
-                isHidden={hideCancelPlanPopup}
-                setIsHidden={setHideCancelPlanPopup}
-                func={cancelPlan}
-                args={[token, user_id, event_id]}
-            />
-            <AuthCalendarPopup
-                isHidden={hideAuthPopup}
-                setIsHidden={setHideAuthPopup}
-            />
         </main>
     );
 }

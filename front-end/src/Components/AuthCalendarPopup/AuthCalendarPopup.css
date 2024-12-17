@@ -33,3 +33,8 @@
     justify-content: space-between;
     gap: 0.5rem;
 }
+
+#calendar-auth-button-container button {
+    width: fit-content;
+    min-width: 8rem;
+}

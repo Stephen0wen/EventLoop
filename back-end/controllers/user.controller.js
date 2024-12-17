@@ -9,7 +9,7 @@ const {
     dropAttendance,
     insertUser,
     dropUser,
-    patchTokens,
+    updateTokens,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -112,7 +112,7 @@ exports.deleteAttendance = (req, res, next) => {
         .catch(next);
 };
 
-exports.putTokens = (req, res, next) => {
+exports.patchTokens = (req, res, next) => {
     const { user_id } = req.params;
     const { code } = req.body;
 
@@ -125,14 +125,12 @@ exports.putTokens = (req, res, next) => {
         })
         .then(({ tokens }) => {
             if (tokens.refresh_token) {
-                return patchTokens(tokens.refresh_token, user_id);
+                return updateTokens(tokens.refresh_token, user_id);
             }
             res.status(201).send({ user_calendar_allowed: true });
         })
         .then(() => {
             res.status(201).send({ user_calendar_allowed: true });
         })
-        .catch((error) => {
-            console.log(error);
-        });
+        .catch(next);
 };

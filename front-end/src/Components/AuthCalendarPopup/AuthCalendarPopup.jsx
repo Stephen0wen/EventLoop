@@ -5,8 +5,8 @@ import { ErrorContext } from "../../Contexts/ErrorContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import { enableCalendar } from "../../apiRequests";
 
-export default function AuthCalendarPopup({ isHidden, setIsHidden }) {
-    const { user_id, token, user_calendar_allowed, setUser_calendar_allowed } =
+export default function AuthCalendarPopup({ isHidden, setIsHidden, event_id }) {
+    const { user_id, token, setUser_calendar_allowed } =
         useContext(UserContext);
     const { setError } = useContext(ErrorContext);
 

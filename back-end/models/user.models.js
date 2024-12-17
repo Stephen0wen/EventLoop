@@ -60,7 +60,7 @@ exports.insertUser = (request) => {
         });
 };
 
-exports.patchTokens = (refresh_token, user_id) => {
+exports.updateTokens = (refresh_token, user_id) => {
     return db
         .query(
             `
