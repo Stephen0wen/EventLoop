@@ -8,11 +8,13 @@ import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../Contexts/ErrorContext";
+import AuthCalendarPopup from "../AuthCalendarPopup/AuthCalendarPopup";
 
 function PlanDetailsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [hideCancelPlanPopup, setHideCancelPlanPopup] = useState(true);
+    const [hideAuthPopup, setHideAuthPopup] = useState(true);
     const { event_id } = useParams();
     const { token, user_id } = useContext(UserContext);
     const { setError } = useContext(ErrorContext);
@@ -68,7 +70,13 @@ function PlanDetailsPage() {
                 >
                     Cancel Plan
                 </button>
-                <button>Add to Calendar</button>
+                <button
+                    onClick={() => {
+                        setHideAuthPopup(false);
+                    }}
+                >
+                    Add to Calendar
+                </button>
             </section>
             <ConfirmationPopup
                 message="Are you sure you want to cancel this plan?"
@@ -76,6 +84,10 @@ function PlanDetailsPage() {
                 setIsHidden={setHideCancelPlanPopup}
                 func={cancelPlan}
                 args={[token, user_id, event_id]}
+            />
+            <AuthCalendarPopup
+                isHidden={hideAuthPopup}
+                setIsHidden={setHideAuthPopup}
             />
         </main>
     );
