@@ -16,7 +16,7 @@ const ErrorDisplay = ({ notFound }) => {
         }
     };
 
-    console.log(error.code);
+    console.log(error);
     let message = "An error occured";
 
     if (notFound) {

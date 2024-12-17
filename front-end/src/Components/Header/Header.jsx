@@ -10,11 +10,10 @@ function Header() {
     const { user, isLoggedIn, user_id } = useContext(UserContext);
 
     useEffect(() => {
-        if (user_id) {
-            console.log(user.photoURL);
+        if (user) {
             setAvatarURL(user.photoURL);
         }
-    }, [user_id, isLoggedIn]);
+    }, [user]);
 
     const loginButton = (
         <button

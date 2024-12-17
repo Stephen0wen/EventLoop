@@ -7,21 +7,33 @@ import { ErrorContext } from "../../Contexts/ErrorContext";
 import { useNavigate } from "react-router-dom";
 import LoadMsg from "../LoadMsg/LoadMsg";
 
+import ReauthenticationPopup from "../ReauthenticationPopup/ReauthenticationPopup";
+
 function AccountPage() {
-    const { isLoggedIn, user, token, user_id } = useContext(UserContext);
+    const { user, token, user_id } = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [isHidden, setIsHidden] = useState(true);
     const { setError } = useContext(ErrorContext);
+    const [provider, setProvider] = useState(null);
     const nagivate = useNavigate();
 
     useEffect(() => {
         setIsLoading(true);
-        if (token && user_id && !isLoggedIn) {
+        if (token && user_id && !user) {
             nagivate("/login");
         }
-        if (token && user_id && isLoggedIn) {
+        if (token && user_id && user) {
             setIsLoading(false);
         }
-    }, [isLoggedIn, token, user_id]);
+    }, [user, token, user_id]);
+
+    useEffect(() => {
+        if (token && user_id && user) {
+            const { providerId } =
+                firebase.auth().currentUser._delegate.providerData[0];
+            setProvider(providerId);
+        }
+    }, [user, token, user_id]);
 
     const handleSignOut = () => {
         firebase
@@ -43,15 +55,31 @@ function AccountPage() {
         );
     }
 
-    return (
-        <main id="account-page">
-            <section aria-label="Account Settings" id="account-container">
-                <h2 id="greeting">Hello {user.displayName || user.email}</h2>
-                <button onClick={handleSignOut}>Log Out</button>
-                <button className="danger">Delete Account</button>
-            </section>
-        </main>
-    );
+    if (user) {
+        return (
+            <main id="account-page">
+                <section aria-label="Account Settings" id="account-container">
+                    <h2 id="greeting">
+                        Hello {user.displayName || user.email}
+                    </h2>
+                    <button onClick={handleSignOut}>Log Out</button>
+                    <button
+                        className="danger"
+                        onClick={() => {
+                            setIsHidden(false);
+                        }}
+                    >
+                        Delete Account
+                    </button>
+                </section>
+                <ReauthenticationPopup
+                    isHidden={isHidden}
+                    setIsHidden={setIsHidden}
+                    provider={provider}
+                />
+            </main>
+        );
+    }
 }
 
 export default AccountPage;

@@ -5,6 +5,7 @@ const {
     getEndpoints,
     getEvents,
     getEvent,
+    addToCalendar,
 } = require("../controllers/public.controller");
 
 apiRouter.get("/", getEndpoints);

@@ -6,10 +6,10 @@ import { DisplayContext } from "../../Contexts/DisplayContext";
 
 function FooterNav() {
     const navigate = useNavigate();
-    const { isLoggedIn } = useContext(UserContext);
+    const { isLoggedIn, user_is_staff } = useContext(UserContext);
     const { isWide } = useContext(DisplayContext);
 
-    if (isLoggedIn && !isWide) {
+    if (isLoggedIn && !isWide && user_is_staff) {
         return (
             <nav id="footer-nav">
                 <button
@@ -32,6 +32,27 @@ function FooterNav() {
                     }}
                 >
                     Manage
+                </button>
+            </nav>
+        );
+    }
+
+    if (isLoggedIn && !isWide && !user_is_staff) {
+        return (
+            <nav id="footer-nav">
+                <button
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                >
+                    Home
+                </button>
+                <button
+                    onClick={() => {
+                        navigate("/plans");
+                    }}
+                >
+                    Plans
                 </button>
             </nav>
         );

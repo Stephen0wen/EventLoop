@@ -2,6 +2,8 @@ import axios from "axios";
 
 const baseURL = "https://eventloop.onrender.com";
 
+// const baseURL = "http://localhost:9090";
+
 export function getEvents() {
     return axios.get(`${baseURL}/api/events`).then(({ data: { events } }) => {
         return events;
@@ -21,6 +23,12 @@ export function getUser(token) {
         headers: { auth: token },
     }).then(({ data: { user } }) => {
         return user;
+    });
+}
+
+export function deleteUser(token) {
+    return axios.delete(`${baseURL}/api/user`, {
+        headers: { auth: token },
     });
 }
 
@@ -104,4 +112,30 @@ export function postEvent(token, user_id, newEvent) {
             headers: { auth: token },
         });
     }
+}
+
+export function enableCalendar(token, user_id, code) {
+    return axios
+        .patch(
+            `${baseURL}/api/user/${user_id}/tokens`,
+            { code },
+            {
+                headers: { auth: token },
+            }
+        )
+        .then(({ data: { user_calendar_allowed } }) => {
+            return user_calendar_allowed;
+        });
+}
+
+export function addToCalendar(token, user_id, event_id) {
+    return axios
+        .post(
+            `${baseURL}/api/user/${user_id}/events/${event_id}/calendar`,
+            {},
+            { headers: { auth: token } }
+        )
+        .then(({ data: { calendar_event } }) => {
+            return calendar_event;
+        });
 }

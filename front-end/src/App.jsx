@@ -20,10 +20,17 @@ import EditEventForm from "./Components/EditEventPage/EditEventPage";
 import CreateEventPage from "./Components/CreateEventPage/CreateEventPage";
 import { ErrorContext } from "./Contexts/ErrorContext";
 import ErrorDisplay from "./Components/ErrorDisplay/ErrorDisplay";
+import SignUpPage from "./Components/SignUpPage/SignUpPage";
 
 function App() {
-    const { setUser, setIsLoggedIn, setUser_id, setToken, setUser_is_staff } =
-        useContext(UserContext);
+    const {
+        setUser,
+        setIsLoggedIn,
+        setUser_id,
+        setToken,
+        setUser_is_staff,
+        setUser_calendar_allowed,
+    } = useContext(UserContext);
 
     const { setIsWide } = useContext(DisplayContext);
     const windowSize = useWindowSize();
@@ -40,14 +47,17 @@ function App() {
                         setToken(apiToken);
                         return getUser(apiToken);
                     })
-                    .then(({ user_id, user_is_staff }) => {
-                        setUser_id(user_id);
-                        setUser_is_staff(user_is_staff);
-                        setUser(user);
-                        setIsLoggedIn(true);
-                    });
+                    .then(
+                        ({ user_id, user_is_staff, user_calendar_allowed }) => {
+                            setUser_id(user_id);
+                            setUser_is_staff(user_is_staff);
+                            setUser(user);
+                            setIsLoggedIn(true);
+                            setUser_calendar_allowed(user_calendar_allowed);
+                        }
+                    );
             } else {
-                setUser({});
+                setUser(null);
                 setUser_id(true);
                 setIsLoggedIn(false);
                 setToken(true);
@@ -89,6 +99,7 @@ function App() {
                 />
                 <Route path="/create" element={<CreateEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/*" element={<ErrorDisplay notFound={true} />} />
             </Routes>

@@ -7,17 +7,20 @@ import "./Config/firebase-config.js";
 import { UserProvider } from "./Contexts/UserContext.jsx";
 import { DisplayProvider } from "./Contexts/DisplayContext.jsx";
 import { ErrorProvider } from "./Contexts/ErrorContext.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
-        <DisplayProvider>
-            <ErrorProvider>
-                <UserProvider>
-                    <StrictMode>
-                        <App />
-                    </StrictMode>
-                </UserProvider>
-            </ErrorProvider>
-        </DisplayProvider>
+        <GoogleOAuthProvider clientId="410749109743-086kc6ica906frrahf07mt6ob1joorn6.apps.googleusercontent.com">
+            <DisplayProvider>
+                <ErrorProvider>
+                    <UserProvider>
+                        <StrictMode>
+                            <App />
+                        </StrictMode>
+                    </UserProvider>
+                </ErrorProvider>
+            </DisplayProvider>
+        </GoogleOAuthProvider>
     </BrowserRouter>
 );
