@@ -16,7 +16,7 @@ function PlanDetailsPage() {
     const [hideCancelPlanPopup, setHideCancelPlanPopup] = useState(true);
     const [hideAuthPopup, setHideAuthPopup] = useState(true);
     const { event_id } = useParams();
-    const { token, user_id } = useContext(UserContext);
+    const { token, user_id, user_calendar_allowed } = useContext(UserContext);
     const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
 

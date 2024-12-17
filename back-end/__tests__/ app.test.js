@@ -113,6 +113,7 @@ describe("/api/user", () => {
             .then(({ body: { user } }) => {
                 expect(user.user_id).toBe(3);
                 expect(user.user_is_staff).toBe(true);
+                expect(user.user_calendar_allowed).toBe(false);
             });
     });
     test("GET:201 Should create and return a new user object when passed a token which does not already have a corresponding user_id", () => {
@@ -126,6 +127,7 @@ describe("/api/user", () => {
             .then(({ body: { user } }) => {
                 expect(user.user_id).toBe(7);
                 expect(user.user_is_staff).toBe(false);
+                expect(user.user_calendar_allowed).toBe(false);
             });
     });
     test("GET:403 Should return an authentication error if no auth header is provided", () => {

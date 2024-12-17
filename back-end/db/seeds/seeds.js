@@ -16,7 +16,8 @@ const seed = ({ userData, eventData, attendanceData }) => {
         user_id SERIAL PRIMARY KEY,
         user_firebase_id VARCHAR NOT NULL,
         user_email VARCHAR NOT NULL,
-        user_is_staff BOOL NOT NULL
+        user_is_staff BOOL NOT NULL,
+        user_refresh_token VARCHAR
       );`);
         })
         .then(() => {

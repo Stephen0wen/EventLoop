@@ -1,4 +1,5 @@
 const { authenticate } = require("../auth/authenticate");
+const { exchangeTokens } = require("../auth/exchangeTokens");
 const {
     varifyUser,
     fetchUserEvents,
@@ -8,6 +9,7 @@ const {
     dropAttendance,
     insertUser,
     dropUser,
+    patchTokens,
 } = require("../models/user.models");
 const { fetchEvent } = require("../models/public.models");
 
@@ -108,4 +110,29 @@ exports.deleteAttendance = (req, res, next) => {
             res.status(204).send({});
         })
         .catch(next);
+};
+
+exports.putTokens = (req, res, next) => {
+    const { user_id } = req.params;
+    const { code } = req.body;
+
+    authenticate(req)
+        .then((firebase_id) => {
+            return varifyUser(user_id, firebase_id);
+        })
+        .then(() => {
+            return exchangeTokens(code);
+        })
+        .then(({ tokens }) => {
+            if (tokens.refresh_token) {
+                return patchTokens(tokens.refresh_token, user_id);
+            }
+            res.status(201).send({ user_calendar_allowed: true });
+        })
+        .then(() => {
+            res.status(201).send({ user_calendar_allowed: true });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 };

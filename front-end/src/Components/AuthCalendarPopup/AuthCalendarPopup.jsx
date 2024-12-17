@@ -1,14 +1,19 @@
 import "./AuthCalendarPopup.css";
 import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 import { ErrorContext } from "../../Contexts/ErrorContext";
 import { useGoogleLogin } from "@react-oauth/google";
+import { enableCalendar } from "../../apiRequests";
 
 export default function AuthCalendarPopup({ isHidden, setIsHidden }) {
+    const { user_id, token, user_calendar_allowed, setUser_calendar_allowed } =
+        useContext(UserContext);
     const { setError } = useContext(ErrorContext);
 
     const onSuccess = ({ code }) => {
-        console.log(code);
-        setIsHidden(true);
+        enableCalendar(token, user_id, code).then((user_calendar_allowed) => {
+            setUser_calendar_allowed(user_calendar_allowed);
+        });
     };
 
     const onError = (error) => {
