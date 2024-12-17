@@ -17,6 +17,7 @@ exports.varifyUser = (user_id, firebase_id) => {
                     msg: "Authentication Failed",
                 });
             }
+            return rows[0];
         });
 };
 

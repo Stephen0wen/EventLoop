@@ -7,6 +7,7 @@ const {
     deleteAttendance,
     deleteUser,
     patchTokens,
+    addToCalendar,
 } = require("../controllers/user.controller");
 
 userRouter.get("/", getUser);
@@ -16,5 +17,6 @@ userRouter.get("/:user_id/events", getUserEvents);
 userRouter.get("/:user_id/events/:event_id", getUserEvent);
 userRouter.post("/:user_id/events/:event_id", postAttendance);
 userRouter.delete("/:user_id/events/:event_id", deleteAttendance);
+userRouter.post("/:user_id/events/:event_id/calendar", addToCalendar);
 
 module.exports = userRouter;

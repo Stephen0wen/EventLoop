@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { ErrorContext } from "../../Contexts/ErrorContext";
 import { useGoogleLogin } from "@react-oauth/google";
-import { enableCalendar } from "../../apiRequests";
+import { addToCalendar, enableCalendar } from "../../apiRequests";
 
 export default function AuthCalendarPopup({ isHidden, setIsHidden, event_id }) {
     const { user_id, token, setUser_calendar_allowed } =
@@ -11,9 +11,19 @@ export default function AuthCalendarPopup({ isHidden, setIsHidden, event_id }) {
     const { setError } = useContext(ErrorContext);
 
     const onSuccess = ({ code }) => {
-        enableCalendar(token, user_id, code).then((user_calendar_allowed) => {
-            setUser_calendar_allowed(user_calendar_allowed);
-        });
+        enableCalendar(token, user_id, code)
+            .then((user_calendar_allowed) => {
+                setUser_calendar_allowed(user_calendar_allowed);
+            })
+            .then(() => {
+                return addToCalendar(token, user_id, event_id);
+            })
+            .then(({ htmlLink }) => {
+                window.open(htmlLink, "_blank");
+            })
+            .catch((error) => {
+                setError(error);
+            });
     };
 
     const onError = (error) => {

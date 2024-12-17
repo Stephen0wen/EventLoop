@@ -2,7 +2,7 @@ import "./PlanDetailsPage.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
-import { deletePlan, getPlan } from "../../apiRequests";
+import { addToCalendar, deletePlan, getPlan } from "../../apiRequests";
 import LoadMsg from "../LoadMsg/LoadMsg";
 import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
@@ -70,7 +70,13 @@ function PlanDetailsPage() {
     const calander_allowed_button = (
         <button
             onClick={() => {
-                console.log("Placeholder");
+                addToCalendar(token, user_id, event_id)
+                    .then(({ htmlLink }) => {
+                        window.open(htmlLink, "_blank");
+                    })
+                    .catch((error) => {
+                        setError(error);
+                    });
             }}
         >
             Add to Calendar
