@@ -6,10 +6,10 @@ import { DisplayContext } from "../../Contexts/DisplayContext";
 
 function HeaderNav({ children }) {
     const navigate = useNavigate();
-    const { isLoggedIn } = useContext(UserContext);
+    const { isLoggedIn, user_is_staff } = useContext(UserContext);
     const { isWide } = useContext(DisplayContext);
 
-    if (isLoggedIn && isWide) {
+    if (isLoggedIn && isWide && user_is_staff) {
         return (
             <nav id="header-nav">
                 <button
@@ -32,6 +32,28 @@ function HeaderNav({ children }) {
                     }}
                 >
                     Manage
+                </button>
+                {children}
+            </nav>
+        );
+    }
+
+    if (isLoggedIn && isWide && !user_is_staff) {
+        return (
+            <nav id="header-nav">
+                <button
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                >
+                    Home
+                </button>
+                <button
+                    onClick={() => {
+                        navigate("/plans");
+                    }}
+                >
+                    Plans
                 </button>
                 {children}
             </nav>
