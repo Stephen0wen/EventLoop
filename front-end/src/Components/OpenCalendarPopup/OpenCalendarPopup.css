@@ -11,13 +11,12 @@
     width: 100vw;
 }
 
-#calendar-auth-popup {
+#open-calendar-popup {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    max-width: 80%;
-    width: 20rem;
+    max-width: 90%;
+    width: fit-content;
     gap: 2rem;
     background-color: var(--secondary-colour);
     border-radius: 1rem;
@@ -28,14 +27,13 @@
     padding: 1rem;
 }
 
-#calendar-auth-button-container {
+#open-calendar-button-container {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
 }
 
-#calendar-auth-button-container button {
-    width: fit-content;
-    min-width: 8rem;
+#open-calendar-button-container button {
+    width: 8rem;
     height: 3rem !important;
 }
