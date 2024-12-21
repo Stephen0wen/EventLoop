@@ -11,3 +11,9 @@
     width: 33%;
     padding: 0.5rem;
 }
+
+@media (max-width: 590px) {
+    #plan-details-page #button-container button {
+        height: 4rem;
+    }
+}
