@@ -186,7 +186,17 @@ By default, the application will make API requests to the hosted version of the 
 const baseURL = "http://localhost:9090"
 ```
 
-In two separate terminal windows, you can then run the front-end application and start listening with the back-end as detailed in previous sections.
+By default, the back-end is expecting requests to be made from the hosted version of the front-end. In order for the google calendar integration to function, you must change the expected request origin to your locally hosted front-end by changing lines 11-14 of the `exchangeToken` file in the `/back-end/auth` directory to the following:
+
+```
+const oauth2Client = new google.auth.OAuth2(
+    GOOGLE_CLIENT_ID,
+     GOOGLE_CLIENT_SECRET,
+    "http://localhost:5173"
+    );
+```
+
+Once these steps have been completed, in two separate terminal windows, you can then run the front-end application and start listening with the back-end as detailed in previous sections.
 
 ---
 
