@@ -1,0 +1,5 @@
+@media (max-width: 498px) {
+    #manage-event-page #button-container button {
+        height: 4rem;
+    }
+}

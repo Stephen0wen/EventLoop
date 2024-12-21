@@ -12,3 +12,9 @@
     overflow: hidden;
     padding: 0.5rem;
 }
+
+@media (max-width: 365px) {
+    #event-page #button-container button {
+        height: 4rem;
+    }
+}
