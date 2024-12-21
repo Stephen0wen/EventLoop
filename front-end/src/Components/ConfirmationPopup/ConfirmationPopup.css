@@ -35,4 +35,5 @@
 
 #confirmation-button-container button {
     width: 8rem;
+    height: 3rem !important;
 }
