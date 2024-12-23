@@ -58,7 +58,7 @@
 }
 
 #edit-event-form .warning {
-    color: var(--on-danger-colour);
+    color: var(--warning-colour);
     height: 1.5rem;
     font-size: 1.2rem;
 }
