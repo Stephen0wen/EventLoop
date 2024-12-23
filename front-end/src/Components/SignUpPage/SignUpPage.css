@@ -35,7 +35,7 @@
 }
 
 #signup-form .warning {
-    color: var(--on-danger-colour);
+    color: var(--warning-colour);
     height: 1rem;
     font-size: 0.8rem;
     width: 17rem;
