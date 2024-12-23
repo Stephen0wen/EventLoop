@@ -6,6 +6,8 @@ This is a React application which allows users to browse and sign up for events.
 
 Link to the deployed site: `https://event-loop.netlify.app/`
 
+Link to video demonstration: `https://youtu.be/FzPumttsKbw`
+
 ---
 
 ## Back End
