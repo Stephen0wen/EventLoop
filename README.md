@@ -1,5 +1,13 @@
 # EventLoop
 
+Welcome to EventLoop
+
+This is a React application which allows users to browse and sign up for events. Users can sign in using google or email/password and then sign up for events and add them to their google calendars. Users with staff account privileges can manage and create events.
+
+Link to the deployed site: `https://event-loop.netlify.app/`
+
+---
+
 ## Back End
 
 This is a RESTful API which serves the necessary data for the EventLoop platform in JSON format.
@@ -114,6 +122,7 @@ The development database can be seeded by running the seed script using the foll
 ```
 npm run seed
 ```
+---
 
 ### Seeding Production Database
 
@@ -143,15 +152,7 @@ Requests can then be made to the server by the front-end application or using in
 
 ---
 
----
-
 ## Front End
-
-This is a React application which allows users to browse and sign up for events. Users can sign in using google or email/password and then sign up for events and add them to their google calendars. Users with staff account privileges can manage and create events.
-
-Link to the deployed site: `URL WILL GO HERE`
-
----
 
 ### Local Setup Instructions
 
