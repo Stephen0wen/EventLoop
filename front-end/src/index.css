@@ -7,6 +7,7 @@
     --on-secondary-colour: #efe;
     --danger-colour: rgb(150, 0, 0);
     --on-danger-colour: rgb(255, 180, 180);
+    --warning-colour: rgb(255, 20, 20);
     --accent-colour: #99ff80;
     --on-accent-colour: #006600;
     --header-gap: 2rem;
