@@ -6,14 +6,7 @@ import HeaderNav from "../HeaderNav/HeaderNav";
 
 function Header() {
     const navigate = useNavigate();
-    const [avatarURL, setAvatarURL] = useState(null);
-    const { user, isLoggedIn, user_id } = useContext(UserContext);
-
-    useEffect(() => {
-        if (user) {
-            setAvatarURL(user.photoURL);
-        }
-    }, [user]);
+    const { user } = useContext(UserContext);
 
     const loginButton = (
         <button
@@ -30,8 +23,9 @@ function Header() {
             <img
                 id="avatar"
                 src={
-                    avatarURL ||
-                    "https://www.svgrepo.com/show/343494/profile-user-account.svg"
+                    user
+                        ? user.photoURL
+                        : "https://www.svgrepo.com/show/343494/profile-user-account.svg"
                 }
                 alt="Account Settings Icon"
             />
@@ -48,7 +42,7 @@ function Header() {
             >
                 EventLoop
             </h1>
-            <HeaderNav>{isLoggedIn ? avatar : loginButton}</HeaderNav>
+            <HeaderNav>{user ? avatar : loginButton}</HeaderNav>
         </header>
     );
 }
