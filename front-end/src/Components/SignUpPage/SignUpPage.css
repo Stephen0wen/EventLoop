@@ -26,7 +26,7 @@
 #signup-form input {
     margin: 0;
     height: 2rem;
-    width: 14rem;
+    width: 16rem;
     font-size: 1.4rem;
     padding: 0 0.5rem;
     border: 1px solid var(--primary-colour);
@@ -38,6 +38,7 @@
     color: var(--on-danger-colour);
     height: 1rem;
     font-size: 0.8rem;
+    width: 17rem;
 }
 
 #signup-form button {

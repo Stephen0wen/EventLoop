@@ -15,6 +15,7 @@ export default function ReauthenticationPopup({
     const { setError } = useContext(ErrorContext);
     const { token, user } = useContext(UserContext);
     const [password, setPassword] = useState("");
+    const [warning, setWarning] = useState("");
     const nagivate = useNavigate();
 
     const googleReauth = () => {
@@ -64,11 +65,17 @@ export default function ReauthenticationPopup({
                 nagivate("/");
             })
             .catch((error) => {
-                setError(error);
+                if (error.code === "auth/invalid-credential") {
+                    setWarning("Incorrect Password");
+                    setPassword("");
+                } else {
+                    setError(error);
+                }
             });
     };
 
     const updatePassword = ({ target: { value } }) => {
+        setWarning("");
         setPassword(value);
     };
 
@@ -117,6 +124,7 @@ export default function ReauthenticationPopup({
                                 value={password}
                             />
                         </label>
+                        <p className="warning">{warning}</p>
                     </form>
                     <div id="reauth-button-container">
                         <button
