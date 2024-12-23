@@ -32,6 +32,17 @@ function SignUpPage() {
 
     const updatePassword = ({ target: { value } }) => {
         setPassword(value);
+        const newWarnings = warnings;
+        const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+        if (value.length < 8) {
+            newWarnings.password = "Must contain at least 8 characters";
+        } else if (!passwordPattern.test(value)) {
+            newWarnings.password =
+                "Must contain at least one uppercase letter, one lowercase letter and one number.";
+        } else {
+            newWarnings.password = "";
+        }
+        setWarnings(newWarnings);
     };
 
     const updatePassword2 = ({ target: { value } }) => {
@@ -58,7 +69,13 @@ function SignUpPage() {
     };
 
     const handleSubmit = () => {
-        if (!warnings.email && !warnings.password && !warnings.password2) {
+        if (
+            email &&
+            password &&
+            !warnings.email &&
+            !warnings.password &&
+            !warnings.password2
+        ) {
             firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
