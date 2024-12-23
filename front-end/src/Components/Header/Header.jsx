@@ -7,6 +7,22 @@ import HeaderNav from "../HeaderNav/HeaderNav";
 function Header() {
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
+    const [photoURL, setPhotoURL] = useState("");
+
+    useEffect(() => {
+        setPhotoURL(
+            "https://www.svgrepo.com/show/343494/profile-user-account.svg"
+        );
+        if (user && user.photoURL) {
+            setPhotoURL(user.photoURL);
+        }
+    }, [user]);
+
+    const avatar = (
+        <Link to={"/account"}>
+            <img id="avatar" src={photoURL} alt="Account Settings Icon" />
+        </Link>
+    );
 
     const loginButton = (
         <button
@@ -16,20 +32,6 @@ function Header() {
         >
             Log In
         </button>
-    );
-
-    const avatar = (
-        <Link to={"/account"}>
-            <img
-                id="avatar"
-                src={
-                    user
-                        ? user.photoURL
-                        : "https://www.svgrepo.com/show/343494/profile-user-account.svg"
-                }
-                alt="Account Settings Icon"
-            />
-        </Link>
     );
 
     return (
