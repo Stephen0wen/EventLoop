@@ -43,3 +43,11 @@
     border-radius: 0.2rem;
     background-color: var(--background-colour);
 }
+
+#reauth-popup .warning {
+    color: var(--on-danger-colour);
+    height: 1rem;
+    font-size: 0.8rem;
+    width: 17rem;
+    padding: 0;
+}
