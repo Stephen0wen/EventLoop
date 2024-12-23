@@ -35,7 +35,7 @@
 }
 
 #login-form .warning {
-    color: var(--on-danger-colour);
+    color: var(--warning-colour);
     height: 1rem;
     width: 17rem;
     font-size: 0.8rem;
