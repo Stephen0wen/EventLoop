@@ -24,6 +24,11 @@ function LoginPage() {
         setPassword(event.target.value);
     };
 
+    const blockTestUser = (email) => {
+        const testEmailPattern = /@test.com$/;
+        return testEmailPattern.test(email);
+    };
+
     const googleSignIn = () => {
         firebase
             .auth()
@@ -37,15 +42,22 @@ function LoginPage() {
     };
 
     const handleSubmit = () => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-                navigate("/");
-            })
-            .catch((error) => {
-                handleError(error);
+        if (blockTestUser(email)) {
+            setWarnings({
+                email: "Test accounts are disabled...",
+                password: "",
             });
+        } else {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    navigate("/");
+                })
+                .catch((error) => {
+                    handleError(error);
+                });
+        }
     };
 
     const handleError = (error) => {

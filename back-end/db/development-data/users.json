@@ -1,32 +1,32 @@
 [
     {
-        "user_firebase_id": "MMvSE9c2xnVHNeS0aISsvvupbr23",
-        "user_email": "staff@test.com",
+        "user_firebase_id": "3M1huJvrsAW6qWvrdhYZGKL9ec72",
+        "user_email": "staff@dev.com",
         "user_is_staff": true
     },
     {
-        "user_firebase_id": "HTHuLsubUPZPPcZBH8TQDo8xpny1",
-        "user_email": "staff2@test.com",
+        "user_firebase_id": "nmvf1vwhsPQI8i9gPll87FLW1fF2",
+        "user_email": "staff2@dev.com",
         "user_is_staff": true
     },
     {
-        "user_firebase_id": "xj4XDZXP6KVYDEqaAMFsjzeFsdb2",
-        "user_email": "staff3@test.com",
+        "user_firebase_id": "15Xgu5CjaJPVIuHYZW7WgtcSGSp2",
+        "user_email": "staff3@dev.com",
         "user_is_staff": true
     },
     {
-        "user_firebase_id": "uLtxL0Q9IsSxYz9rERInd35Vs5N2",
-        "user_email": "public@test.com",
+        "user_firebase_id": "tgZYvzBMijcYut0Sd9Mylak5xwN2",
+        "user_email": "public@dev.com",
         "user_is_staff": false
     },
     {
-        "user_firebase_id": "szrrPehNwZQINdQ7wa0bfcSswqE3",
-        "user_email": "public2@test.com",
+        "user_firebase_id": "ZzElkp1ApWeUScVGDwi5kXlSpqv1",
+        "user_email": "public2@dev.com",
         "user_is_staff": false
     },
     {
-        "user_firebase_id": "5MKBQp7WmgNnYFaxTdpueJVRBdC2",
-        "user_email": "public3@test.com",
+        "user_firebase_id": "fafPsHbNSxVhY6B1QVVfHufxUAH2",
+        "user_email": "public3@dev.com",
         "user_is_staff": false
     }
 ]
