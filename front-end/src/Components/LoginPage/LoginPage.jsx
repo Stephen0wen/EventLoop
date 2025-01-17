@@ -26,10 +26,7 @@ function LoginPage() {
 
     const blockTestUser = (email) => {
         const testEmailPattern = /@test.com$/;
-        const isTestUser = testEmailPattern.test(email);
-        if (isTestUser) {
-            return Promise.reject({ code: "test_user" });
-        }
+        return testEmailPattern.test(email);
     };
 
     const googleSignIn = () => {
@@ -45,16 +42,22 @@ function LoginPage() {
     };
 
     const handleSubmit = () => {
-        blockTestUser(email)
-            .then(() => {
-                firebase.auth().signInWithEmailAndPassword(email, password);
-            })
-            .then(() => {
-                navigate("/");
-            })
-            .catch((error) => {
-                handleError(error);
+        if (blockTestUser(email)) {
+            setWarnings({
+                email: "Test accounts are disabled...",
+                password: "",
             });
+        } else {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    navigate("/");
+                })
+                .catch((error) => {
+                    handleError(error);
+                });
+        }
     };
 
     const handleError = (error) => {
@@ -66,11 +69,6 @@ function LoginPage() {
             setWarnings({
                 email: "",
                 password: "Incorrect email or password",
-            });
-        } else if (error.code === "test_user") {
-            setWarnings({
-                email: "Test accounts are disabled...",
-                password: "",
             });
         } else {
             setError(error);
