@@ -8,7 +8,6 @@ export const UserProvider = ({ children }) => {
     const [user_is_staff, setUser_is_staff] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [token, setToken] = useState(null);
-    const [user_calendar_allowed, setUser_calendar_allowed] = useState(false);
 
     return (
         <UserContext.Provider
@@ -23,8 +22,6 @@ export const UserProvider = ({ children }) => {
                 setIsLoggedIn,
                 token,
                 setToken,
-                user_calendar_allowed,
-                setUser_calendar_allowed,
             }}
         >
             {children}
