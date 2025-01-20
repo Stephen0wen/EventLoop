@@ -25,7 +25,7 @@ exports.fetchUser = (firebase_id) => {
     return db
         .query(
             `
-    SELECT user_id, user_is_staff, user_refresh_token 
+    SELECT user_id, user_is_staff
     FROM users
     WHERE user_firebase_id = $1    
         `,
@@ -35,9 +35,8 @@ exports.fetchUser = (firebase_id) => {
             if (!rows.length) {
                 return false;
             }
-            const { user_id, user_is_staff, user_refresh_token } = rows[0];
-            const user_calendar_allowed = user_refresh_token ? true : false;
-            return { user_id, user_is_staff, user_calendar_allowed };
+            const { user_id, user_is_staff } = rows[0];
+            return { user_id, user_is_staff };
         });
 };
 
@@ -49,7 +48,7 @@ exports.insertUser = (request) => {
     INSERT INTO users
         (user_firebase_id, user_email, user_is_staff)
     VALUES ($1, $2, $3)
-    RETURNING user_id, user_is_staff, user_refresh_token
+    RETURNING user_id, user_is_staff
         `,
                 [uid, email, false]
             );
@@ -58,22 +57,6 @@ exports.insertUser = (request) => {
             const { user_id, user_is_staff, user_refresh_token } = rows[0];
             const user_calendar_allowed = user_refresh_token ? true : false;
             return { user_id, user_is_staff, user_calendar_allowed };
-        });
-};
-
-exports.updateTokens = (refresh_token, user_id) => {
-    return db
-        .query(
-            `
-    UPDATE users
-    SET user_refresh_token = $1
-    WHERE user_id = $2
-    RETURNING *    
-        `,
-            [refresh_token, user_id]
-        )
-        .then(({ rows }) => {
-            return rows[0];
         });
 };
 

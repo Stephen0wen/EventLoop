@@ -127,15 +127,3 @@ export function enableCalendar(token, user_id, code) {
             return user_calendar_allowed;
         });
 }
-
-export function addToCalendar(token, user_id, event_id) {
-    return axios
-        .post(
-            `${baseURL}/api/user/${user_id}/events/${event_id}/calendar`,
-            {},
-            { headers: { auth: token } }
-        )
-        .then(({ data: { calendar_event } }) => {
-            return calendar_event;
-        });
-}
