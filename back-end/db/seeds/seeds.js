@@ -16,8 +16,7 @@ const seed = ({ userData, eventData, attendanceData }) => {
         user_id SERIAL PRIMARY KEY,
         user_firebase_id VARCHAR NOT NULL,
         user_email VARCHAR NOT NULL,
-        user_is_staff BOOL NOT NULL,
-        user_refresh_token VARCHAR
+        user_is_staff BOOL NOT NULL
       );`);
         })
         .then(() => {
@@ -48,10 +47,10 @@ const seed = ({ userData, eventData, attendanceData }) => {
         .then(() => {
             const insertUsersQueryStr = format(
                 `INSERT INTO users (
-              user_firebase_id,
-              user_email,
-              user_is_staff)
-            VALUES %L`,
+          user_firebase_id,
+          user_email,
+          user_is_staff)
+        VALUES %L`,
                 userData.map(
                     ({ user_firebase_id, user_email, user_is_staff }) => [
                         user_firebase_id,

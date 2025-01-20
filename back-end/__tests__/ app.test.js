@@ -113,7 +113,6 @@ describe("/api/user", () => {
             .then(({ body: { user } }) => {
                 expect(user.user_id).toBe(3);
                 expect(user.user_is_staff).toBe(true);
-                expect(user.user_calendar_allowed).toBe(false);
             });
     });
     test("GET:201 Should create and return a new user object when passed a token which does not already have a corresponding user_id", () => {
@@ -235,7 +234,7 @@ describe("/api/user/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+    test("GET:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(5)
             .then((idToken) => {
                 return request(app)
@@ -329,7 +328,7 @@ describe("/api/user/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+    test("GET:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(5)
             .then((idToken) => {
                 return request(app)
@@ -422,7 +421,7 @@ describe("/api/user/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("POST:403 Should return an authentication if the user_id does not match the token", () => {
+    test("POST:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(5)
             .then((idToken) => {
                 return request(app)
@@ -463,7 +462,7 @@ describe("/api/user/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("DELETE:403 Should return an authentication if the user_id does not match the token", () => {
+    test("DELETE:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(5)
             .then((idToken) => {
                 return request(app)
@@ -546,7 +545,7 @@ describe("/api/staff/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("GET:403 Should return an authentication if the user_id does not match the token", () => {
+    test("GET:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(2)
             .then((idToken) => {
                 return request(app)
@@ -558,7 +557,7 @@ describe("/api/staff/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("GET:403 Should return an authentication if user_is_staff is false", () => {
+    test("GET:403 Should return an authentication error if user_is_staff is false", () => {
         return getToken(4)
             .then((idToken) => {
                 return request(app)
@@ -702,7 +701,7 @@ describe("/api/staff/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("POST:403 Should return an authentication if the user_id does not match the token", () => {
+    test("POST:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(2)
             .then((idToken) => {
                 return request(app)
@@ -730,7 +729,7 @@ describe("/api/staff/:user_id/events", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("POST:403 Should return an authentication if user_is_staff is false", () => {
+    test("POST:403 Should return an authentication error if user_is_staff is false", () => {
         return getToken(4)
             .then((idToken) => {
                 return request(app)
@@ -963,7 +962,7 @@ describe("/api/staff/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("PATCH:403 Should return an authentication if the user_id does not match the token", () => {
+    test("PATCH:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(2)
             .then((idToken) => {
                 return request(app)
@@ -992,7 +991,7 @@ describe("/api/staff/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("PATCH:403 Should return an authentication if user_is_staff is false", () => {
+    test("PATCH:403 Should return an authentication error if user_is_staff is false", () => {
         return getToken(4)
             .then((idToken) => {
                 return request(app)
@@ -1075,7 +1074,7 @@ describe("/api/staff/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("DELETE:403 Should return an authentication if the user_id does not match the token", () => {
+    test("DELETE:403 Should return an authentication error if the user_id does not match the token", () => {
         return getToken(2)
             .then((idToken) => {
                 return request(app)
@@ -1087,7 +1086,7 @@ describe("/api/staff/:user_id/events/:event_id", () => {
                 expect(msg).toBe("Authentication Failed");
             });
     });
-    test("DELETE:403 Should return an authentication if user_is_staff is false", () => {
+    test("DELETE:403 Should return an authentication error if user_is_staff is false", () => {
         return getToken(4)
             .then((idToken) => {
                 return request(app)
