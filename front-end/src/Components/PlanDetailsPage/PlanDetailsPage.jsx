@@ -8,15 +8,24 @@ import EventDetails from "../EventDetails/EventDetails";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../Contexts/ErrorContext";
+import { getEventURL } from "../../utils";
 
 function PlanDetailsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [event, setEvent] = useState({});
     const [hideCancelPlanPopup, setHideCancelPlanPopup] = useState(true);
+    const [eventURL, setEventURL] = useState(
+        "https://calendar.google.com/calendar/u/0/r/eventedit"
+    );
     const { event_id } = useParams();
     const { token, user_id } = useContext(UserContext);
     const { setError } = useContext(ErrorContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const URL = getEventURL(event);
+        setEventURL(URL);
+    }, [event]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -81,7 +90,13 @@ function PlanDetailsPage() {
                     Back
                 </button>
                 {cancel_plan_button}
-                <button>Add to Calendar</button>
+                <button
+                    onClick={() => {
+                        window.open(eventURL, "_blank");
+                    }}
+                >
+                    Add to Calendar
+                </button>
             </section>
         </main>
     );
