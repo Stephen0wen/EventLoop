@@ -29,5 +29,7 @@ export function getEventURL(event) {
 
     URL += `&details=${encodeURIComponent(event.event_description_long)}`;
 
+    URL += `&location=${encodeURIComponent(event.event_location)}`;
+
     return URL;
 }
