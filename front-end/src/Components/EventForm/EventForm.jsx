@@ -42,9 +42,21 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
     };
 
     const updateField = (setter, field) => (event) => {
-        const value = event.target.value;
+        const { value } = event.target;
         setter(value);
         validateField(field, value, true);
+        validateForm();
+        updateOutput();
+    };
+
+    const updateDateField = (setter, field) => (event) => {
+        const { value } = event.target;
+        let dateTime = new Date(value);
+        if (isNaN(dateTime)) {
+            dateTime = new Date(Date.now());
+        }
+        setter(dateTime);
+        validateField(field, dateTime, true);
         validateForm();
         updateOutput();
     };
@@ -60,8 +72,7 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
         }
 
         if (field === "start") {
-            const startDate = new Date(value);
-            if (Date.parse(startDate) + 3600000 < Date.now()) {
+            if (Date.parse(value) + 3600000 < Date.now()) {
                 errors[field] = "Must be at least one hour in the future.";
             } else {
                 delete errors[field];
@@ -137,8 +148,8 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="start"
                     type="datetime-local"
                     placeholder={new Date(start).toJSON().substring(0, 16)}
-                    onChange={updateField(setStart, "start")}
-                    onBlur={updateField(setStart, "start")}
+                    onChange={updateDateField(setStart, "start")}
+                    onBlur={updateDateField(setStart, "start")}
                     value={new Date(start).toJSON().substring(0, 16)}
                 />
                 {validationErrors.start ? (
@@ -151,8 +162,8 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="end"
                     type="datetime-local"
                     placeholder={new Date(end).toJSON().substring(0, 16)}
-                    onChange={updateField(setEnd, "end")}
-                    onBlur={updateField(setEnd, "end")}
+                    onChange={updateDateField(setEnd, "end")}
+                    onBlur={updateDateField(setEnd, "end")}
                     value={new Date(end).toJSON().substring(0, 16)}
                 />
                 {validationErrors.end ? (
