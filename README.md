@@ -10,19 +10,41 @@ Link to video demonstration: `https://youtu.be/FzPumttsKbw`
 
 ---
 
-## Back End
+### Test User Credentials
+
+There are two tiers of users with different priviliges. Regular users can view, sign up for, and add events to their google calendars, while staff users can also create, edit and delete events.
+
+Below are some credentials that can be used for testing the application. Please note that it is not possible to delete these accounts via the front end, so if you want to test this functionality, you will need to create another account first.
+
+```
+Public Accounts:
+
+public@dev.com
+public2@dev.com
+public3@dev.com
+```
+
+```
+Staff Accounts:
+
+staff@dev.com
+staff2@dev.com
+staff3@dev.com
+```
+
+The passwords for all these accounts are `12345678`
+
+---
+
+---
+
+# Back End
 
 This is a RESTful API which serves the necessary data for the EventLoop platform in JSON format.
 
 Link to hosted version: `https://eventloop.onrender.com`
 
-Make a GET request to the /api endpoint to see a list of endpoints with example responses
-
----
-
-### Auth Header
-
-For endpoints with paths starting with `/api/user` or `/api/staff` a JWT from firebase on an `"auth"` header. In order to obtain these tokens for testing purposes, the `/back-end/utils/getToken.js` file can be used, but please note that a `.env.firebase.json` file containing the firebase api key and configuration must be created in the `/back-end` directory for this to work.
+Make a GET request to the /api endpoint to see a list of endpoints with example responses. Please note, endpoints with paths starting with `/api/user` or `/api/staff` require a JWT from firebase on an `"auth"` header.
 
 ---
 
@@ -44,7 +66,7 @@ npm install
 It is then necessary to create .env files containing the database names (in the same directory). Below are some commands you can run to create these for you:
 
 ```
-echo "PGDATABASE=enet_dev" >> .env.development
+echo "PGDATABASE=event_dev" >> .env.development
 echo "PGDATABASE=event_test" >> .env.test
 ```
 
@@ -70,20 +92,6 @@ For protected endpoints to function, a `.env.firebase.json` file must be created
     "client_x509_cert_url": "",
     "universe_domain": "",
     "api_key": ""
-}
-```
-
-For the google calander functionality to work, a `.env.goole.json` file must be created in the `/back-end` directory. This should contain the OAuth2.0 client object which can be obtained from the google cloud console. The file should The file should contain an object with all the following keys (and be populated with values):
-
-```
-{
-    "client_id": "",
-    "project_id": "",
-    "auth_uri": "",
-    "token_uri": "",
-    "auth_provider_x509_cert_url": "",
-    "client_secret": "",
-    "javascript_origins": [""]
 }
 ```
 
@@ -124,6 +132,7 @@ The development database can be seeded by running the seed script using the foll
 ```
 npm run seed
 ```
+
 ---
 
 ### Seeding Production Database
@@ -154,7 +163,9 @@ Requests can then be made to the server by the front-end application or using in
 
 ---
 
-## Front End
+---
+
+# Front End
 
 ### Local Setup Instructions
 
@@ -189,17 +200,7 @@ By default, the application will make API requests to the hosted version of the 
 const baseURL = "http://localhost:9090"
 ```
 
-By default, the back-end is expecting requests to be made from the hosted version of the front-end. In order for the google calendar integration to function, you must change the expected request origin to your locally hosted front-end by changing lines 11-14 of the `exchangeToken` file in the `/back-end/auth` directory to the following:
-
-```
-const oauth2Client = new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-     GOOGLE_CLIENT_SECRET,
-    "http://localhost:5173"
-    );
-```
-
-Once these steps have been completed, in two separate terminal windows, you can then run the front-end application and start listening with the back-end as detailed in previous sections.
+Once this has been completed, in two separate terminal windows, you can then run the front-end application and start listening with the back-end as detailed in previous sections.
 
 ---
 
