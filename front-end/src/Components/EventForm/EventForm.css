@@ -47,18 +47,21 @@
     width: 100%;
     padding: 0.2rem;
     box-sizing: border-box;
+    letter-spacing: 0;
+    font-size: 1.5rem;
+    font-family: inherit;
 }
 
 #short-description {
-    height: 2.5rem;
+    height: 6rem;
 }
 
 #long-description {
-    height: 5rem;
+    height: 12rem;
 }
 
 #edit-event-form .warning {
     color: var(--warning-colour);
     height: 1.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
