@@ -57,6 +57,76 @@ describe("/api/events", () => {
                 });
             });
     });
+    test("GET:200 Should accept a sort_by query which sorts the array by the given field in ascending order", () => {
+        return request(app)
+            .get("/api/events")
+            .query({ sort_by: "event_title" })
+            .expect(200)
+            .then(({ body: { events } }) => {
+                expect(events.length).toBe(4);
+                expect(events).toBeSortedBy("event_title");
+                events.forEach((event) => {
+                    expect(Object.keys(event).length).toBe(12);
+                    expect(typeof event.event_id).toBe("number");
+                    expect(typeof event.event_created_by).toBe("number");
+                    expect(typeof event.event_title).toBe("string");
+                    expect(typeof event.event_start).toBe("string");
+                    expect(typeof event.event_end).toBe("string");
+                    expect(typeof event.event_location).toBe("string");
+                    expect(typeof event.event_thumbnail).toBe("string");
+                    expect(typeof event.event_thumbnail_alt).toBe("string");
+                    expect(typeof event.event_image).toBe("string");
+                    expect(typeof event.event_image_alt).toBe("string");
+                    expect(typeof event.event_description_short).toBe("string");
+                    expect(typeof event.event_description_long).toBe("string");
+                });
+            });
+    });
+    test("GET:200 Should accept an order query which sets the order of a sort query", () => {
+        return request(app)
+            .get("/api/events")
+            .query({ sort_by: "event_start", order: "desc" })
+            .expect(200)
+            .then(({ body: { events } }) => {
+                expect(events.length).toBe(4);
+                expect(events).toBeSortedBy("event_start", {
+                    descending: true,
+                });
+                events.forEach((event) => {
+                    expect(Object.keys(event).length).toBe(12);
+                    expect(typeof event.event_id).toBe("number");
+                    expect(typeof event.event_created_by).toBe("number");
+                    expect(typeof event.event_title).toBe("string");
+                    expect(typeof event.event_start).toBe("string");
+                    expect(typeof event.event_end).toBe("string");
+                    expect(typeof event.event_location).toBe("string");
+                    expect(typeof event.event_thumbnail).toBe("string");
+                    expect(typeof event.event_thumbnail_alt).toBe("string");
+                    expect(typeof event.event_image).toBe("string");
+                    expect(typeof event.event_image_alt).toBe("string");
+                    expect(typeof event.event_description_short).toBe("string");
+                    expect(typeof event.event_description_long).toBe("string");
+                });
+            });
+    });
+    test("GET:404 Should return an error if the sort_by query does not exist", () => {
+        return request(app)
+            .get("/api/events")
+            .query({ sort_by: "fake_column" })
+            .expect(404)
+            .then((error) => {
+                expect(error.body.msg).toBe("Query Parameter Not Found");
+            });
+    });
+    test("GET:404 Should return an error if the order query does not exist", () => {
+        return request(app)
+            .get("/api/events")
+            .query({ sort_by: "title", order: "not_an_order" })
+            .expect(404)
+            .then((error) => {
+                expect(error.body.msg).toBe("Query Parameter Not Found");
+            });
+    });
 });
 
 describe("/api/events/:event_id", () => {
