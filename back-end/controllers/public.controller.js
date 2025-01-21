@@ -7,9 +7,12 @@ exports.getEndpoints = (req, res, next) => {
 };
 
 exports.getEvents = (req, res, next) => {
-    fetchEvents().then((events) => {
-        res.status(200).send({ events });
-    });
+    const { sort_by, order } = req.query;
+    fetchEvents(sort_by, order)
+        .then((events) => {
+            res.status(200).send({ events });
+        })
+        .catch(next);
 };
 
 exports.getEvent = (req, res, next) => {
