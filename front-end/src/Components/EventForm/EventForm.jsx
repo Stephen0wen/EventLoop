@@ -1,9 +1,10 @@
 import "./EventForm.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
     const navigate = useNavigate();
+    const [isValidForm, setIsValidForm] = useState(false);
     const [title, setTitle] = useState(event.event_title);
     const [start, setStart] = useState(event.event_start);
     const [end, setEnd] = useState(event.event_end);
@@ -19,6 +20,11 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
         event.event_description_long
     );
     const [validationErrors, setValidationErrors] = useState({});
+
+    useEffect(() => {
+        updateOutput();
+        validateForm();
+    }, []);
 
     const updateOutput = () => {
         setNewEvent({
@@ -36,16 +42,53 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
     };
 
     const updateField = (setter, field) => (event) => {
-        const value = event.target.value;
+        const { value } = event.target;
         setter(value);
-        validateField(field, value);
+        validateField(field, value, true);
+        validateForm();
         updateOutput();
     };
 
-    const validateField = (field, value) => {
+    const updateDateField = (setter, field) => (event) => {
+        const { value } = event.target;
+        let dateTime = new Date(value);
+        if (isNaN(dateTime)) {
+            dateTime = new Date(Date.now());
+        }
+        setter(dateTime);
+        validateField(field, dateTime, true);
+        validateForm();
+        updateOutput();
+    };
+
+    const validateField = (field, value, displayChanges) => {
         const errors = { ...validationErrors };
 
         // Validation rules
+        if (!value) {
+            errors[field] = "Cannot be left blank.";
+        } else {
+            delete errors[field];
+        }
+
+        if (field === "start") {
+            if (Date.parse(value) + 3600000 < Date.now()) {
+                errors[field] = "Must be at least one hour in the future.";
+            } else {
+                delete errors[field];
+            }
+        }
+
+        if (field === "end") {
+            const startDate = new Date(start);
+            const endDate = new Date(value);
+            if (Date.parse(endDate) <= Date.parse(startDate)) {
+                errors[field] = "Must be after the start of the event.";
+            } else {
+                delete errors[field];
+            }
+        }
+
         if (field === "thumbnailURL" || field === "imageURL") {
             const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/;
             if (!urlPattern.test(value)) {
@@ -55,7 +98,32 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
             }
         }
 
-        setValidationErrors(errors);
+        if (displayChanges) {
+            setValidationErrors(errors);
+        }
+
+        return Object.keys(errors).length ? false : true;
+    };
+
+    const validateForm = () => {
+        const fields = [
+            title,
+            start,
+            end,
+            location,
+            thumbnailURL,
+            thumbnailAlt,
+            imageURL,
+            imageAlt,
+            shortDescription,
+            longDescription,
+        ];
+
+        const isValid = fields.every((field, index) => {
+            return validateField(Object.keys(fields)[index], field, false);
+        });
+
+        setIsValidForm(isValid);
     };
 
     return (
@@ -67,28 +135,40 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="title"
                     placeholder={event.event_title}
                     onChange={updateField(setTitle, "title")}
+                    onBlur={updateField(setTitle, "title")}
                     value={title}
                 />
+                {validationErrors.title ? (
+                    <p className="warning">{validationErrors.title}</p>
+                ) : null}
             </label>
             <label>
                 <p>Event Start:</p>
                 <input
                     id="start"
                     type="datetime-local"
-                    placeholder={event.event_start}
-                    onChange={updateField(setStart, "start")}
-                    value={start.substring(0, 23)}
+                    placeholder={new Date(start).toJSON().substring(0, 16)}
+                    onChange={updateDateField(setStart, "start")}
+                    onBlur={updateDateField(setStart, "start")}
+                    value={new Date(start).toJSON().substring(0, 16)}
                 />
+                {validationErrors.start ? (
+                    <p className="warning">{validationErrors.start}</p>
+                ) : null}
             </label>
             <label>
                 <p>Event End:</p>
                 <input
                     id="end"
                     type="datetime-local"
-                    placeholder={event.event_end}
-                    onChange={updateField(setEnd, "end")}
-                    value={end.substring(0, 23)}
+                    placeholder={new Date(end).toJSON().substring(0, 16)}
+                    onChange={updateDateField(setEnd, "end")}
+                    onBlur={updateDateField(setEnd, "end")}
+                    value={new Date(end).toJSON().substring(0, 16)}
                 />
+                {validationErrors.end ? (
+                    <p className="warning">{validationErrors.end}</p>
+                ) : null}
             </label>
             <label>
                 <p>Location:</p>
@@ -96,8 +176,12 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="location"
                     placeholder={event.event_location}
                     onChange={updateField(setLocation, "location")}
+                    onBlur={updateField(setLocation, "location")}
                     value={location}
                 />
+                {validationErrors.location ? (
+                    <p className="warning">{validationErrors.location}</p>
+                ) : null}
             </label>
             <label>
                 <p>Thumbnail URL:</p>
@@ -105,6 +189,7 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="thumbnail-url"
                     placeholder={event.event_thumbnail}
                     onChange={updateField(setThumbnailURL, "thumbnailURL")}
+                    onBlur={updateField(setThumbnailURL, "thumbnailURL")}
                     value={thumbnailURL}
                 />
                 {validationErrors.thumbnailURL ? (
@@ -117,8 +202,12 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="thumbnail-alt"
                     placeholder={event.event_thumbnail_alt}
                     onChange={updateField(setThumbnailAlt, "thumbnailAlt")}
+                    onBlur={updateField(setThumbnailAlt, "thumbnailAlt")}
                     value={thumbnailAlt}
                 />
+                {validationErrors.thumbnailAlt ? (
+                    <p className="warning">{validationErrors.thumbnailAlt}</p>
+                ) : null}
             </label>
             <label>
                 <p>Image URL:</p>
@@ -126,6 +215,7 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="image-url"
                     placeholder={event.event_image}
                     onChange={updateField(setImageURL, "imageURL")}
+                    onBlur={updateField(setImageURL, "imageURL")}
                     value={imageURL}
                 />
                 {validationErrors.imageURL ? (
@@ -138,6 +228,7 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="image-alt"
                     placeholder={event.event_image_alt}
                     onChange={updateField(setImageAlt, "imageAlt")}
+                    onBlur={updateField(setImageAlt, "imageAlt")}
                     value={imageAlt}
                 />
             </label>
@@ -147,6 +238,10 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                     id="short-description"
                     placeholder={event.event_description_short}
                     onChange={updateField(
+                        setShortDescription,
+                        "shortDescription"
+                    )}
+                    onBlur={updateField(
                         setShortDescription,
                         "shortDescription"
                     )}
@@ -162,6 +257,7 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                         setLongDescription,
                         "longDescription"
                     )}
+                    onBlur={updateField(setLongDescription, "longDescription")}
                     value={longDescription}
                 />
             </label>
@@ -176,6 +272,8 @@ function EventForm({ event, setNewEvent, submitFunc, formTitle, buttonText }) {
                 </button>
                 <button
                     type="button"
+                    className={isValidForm ? "" : "disabled"}
+                    disabled={!isValidForm}
                     onClick={() => {
                         updateOutput();
                         setTimeout(() => {
