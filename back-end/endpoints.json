@@ -7,7 +7,7 @@
     {
         "GET /api/events": {
             "description": "Serves an array of all events objects",
-            "queries": [],
+            "queries": ["sort_by", "order"],
             "exampleResponse": {
                 "events": [
                     {
@@ -97,6 +97,13 @@
             "description": "Serves the user_id associated with the JWT provided",
             "queries": [],
             "exampleResponse": { "user_id": 5 }
+        }
+    },
+    {
+        "DELETE /api/users": {
+            "description": "Deletes the user associated with the JWT and all related data. This will not work for users with staff plivileges",
+            "queries": [],
+            "exampleResponse": {}
         }
     },
     {
