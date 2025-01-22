@@ -2,6 +2,7 @@ const db = require("../db/connection");
 
 exports.fetchEvents = (sort_by, order = "ASC") => {
     const validSortBys = [
+        "event_id",
         "event_created_by",
         "event_title",
         "event_start",
