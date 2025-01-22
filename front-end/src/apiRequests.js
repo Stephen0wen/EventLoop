@@ -4,10 +4,12 @@ const baseURL = "https://eventloop.onrender.com";
 
 // const baseURL = "http://localhost:9090";
 
-export function getEvents() {
-    return axios.get(`${baseURL}/api/events`).then(({ data: { events } }) => {
-        return events;
-    });
+export function getEvents(queries) {
+    return axios
+        .get(`${baseURL}/api/events`, queries)
+        .then(({ data: { events } }) => {
+            return events;
+        });
 }
 
 export function getEvent(event_id) {

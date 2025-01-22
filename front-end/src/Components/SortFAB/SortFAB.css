@@ -1,0 +1,72 @@
+.fab {
+    box-shadow: 0 0 2rem 0.5rem var(--background-colour);
+    position: fixed;
+    right: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 7rem;
+    height: 3rem;
+    padding: 1rem;
+    animation: fade-in 0.5s ease;
+}
+
+.fab-bottom-nav {
+    bottom: 6rem;
+}
+
+.fab-top-nav {
+    bottom: 2rem;
+}
+
+.fab img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#sort-menu {
+    box-shadow: 0 0 2rem 0.5rem var(--background-colour);
+    position: fixed;
+    right: 2rem;
+    background-color: var(--secondary-colour);
+    color: var(--on-secondary-colour);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--primary-colour);
+    animation: fade-in 0.5s ease;
+}
+
+#sort-menu fieldset {
+    border: none;
+    margin-bottom: 1rem;
+}
+
+#sort-menu label {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    height: 1.5rem;
+    font-size: 1.1rem;
+}
+
+#sort-menu input {
+    accent-color: var(--primary-colour);
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
