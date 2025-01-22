@@ -66,8 +66,8 @@ function App() {
         return (
             <>
                 <Header />
-                <ErrorDisplay />
                 <FooterNav />
+                <ErrorDisplay />
             </>
         );
     }
